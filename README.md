@@ -41,13 +41,23 @@
 - Báo cáo lợi nhuận
 - Xuất báo cáo Excel
 
-## 🛠️ Công Nghệ Sử Dụng
+## �‍💻 Team Phát Triển
+
+| Thành viên | Vai trò | Đóng góp |
+|------------|---------|----------|
+| *(Tên thành viên 1)* | Leader / Backend Developer | Thiết kế hệ thống, phát triển API |
+| *(Tên thành viên 2)* | Frontend Developer | Thiết kế giao diện, trải nghiệm người dùng |
+| *(Tên thành viên 3)* | Database Administrator | Thiết kế CSDL, tối ưu truy vấn |
+| *(Tên thành viên 4)* | Tester / QA | Kiểm thử, đảm bảo chất lượng |
+
+## �🛠️ Công Nghệ Sử Dụng
 
 | Thành phần | Công nghệ |
 |------------|-----------|
 | Frontend | HTML, CSS, JavaScript |
-| Backend | *(Đang phát triển)* |
-| Database | *(Đang phát triển)* |
+| Backend | Node.js, Express.js |
+| Database | MySQL |
+| Tools | Git, VS Code, Postman |
 
 ## 🚀 Cài Đặt & Chạy
 
