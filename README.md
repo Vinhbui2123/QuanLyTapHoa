@@ -15,14 +15,14 @@
 
 Khi hoàn thành project này, hệ thống sẽ đạt được:
 
-| #   | Mục tiêu                   | Mô tả                                                                            |
-| --- | -------------------------- | -------------------------------------------------------------------------------- |
-| 1   | **Số hóa quản lý**         | Thay thế sổ sách giấy bằng hệ thống điện tử, giảm sai sót và tiết kiệm thời gian |
-| 2   | **Quản lý kho thông minh** | Theo dõi tồn kho real-time, cảnh báo tự động khi hết hàng/sắp hết hàng           |
-| 3   | **Tối ưu doanh thu**       | Phân tích dữ liệu bán hàng, xác định sản phẩm bán chạy để nhập hàng hợp lý       |
-| 4   | **Quản lý công nợ**        | Theo dõi khách hàng nợ, hạn thanh toán rõ ràng                                   |
-| 5   | **Báo cáo tức thì**        | Xuất báo cáo doanh thu, lợi nhuận, tồn kho nhanh chóng theo ngày/tháng/năm       |
-| 6   | **Dễ sử dụng**             | Giao diện đơn giản, phù hợp với người dùng không chuyên về công nghệ             |
+| # | Mục tiêu                          | Mô tả                                                                                          |
+| - | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
+| 1 | **Số hóa quản lý**        | Thay thế sổ sách giấy bằng hệ thống điện tử, giảm sai sót và tiết kiệm thời gian |
+| 2 | **Quản lý kho thông minh** | Theo dõi tồn kho real-time, cảnh báo tự động khi hết hàng/sắp hết hàng               |
+| 3 | **Tối ưu doanh thu**        | Phân tích dữ liệu bán hàng, xác định sản phẩm bán chạy để nhập hàng hợp lý    |
+| 4 | **Quản lý công nợ**       | Theo dõi khách hàng nợ, hạn thanh toán rõ ràng                                           |
+| 5 | **Báo cáo tức thì**       | Xuất báo cáo doanh thu, lợi nhuận, tồn kho nhanh chóng theo ngày/tháng/năm             |
+| 6 | **Dễ sử dụng**             | Giao diện đơn giản, phù hợp với người dùng không chuyên về công nghệ              |
 
 ## ✨ Tính Năng Chính
 
@@ -62,13 +62,11 @@ Khi hoàn thành project này, hệ thống sẽ đạt được:
 
 ## �🛠️ Công Nghệ Sử Dụng
 
-| Thành phần | Công nghệ |
-|------------|-----------|
-| Frontend |HTML , CSS|
-| Backend | Node.js, Express.js |
-| Database | MySQL |
-| Tools | Git, VS Code, Postman |
+| Thành phần | Công nghệ           |
+| ------------ | --------------------- |
+| Frontend     | Reactjs               |
+| Backend      | Node.js, Express.js   |
+| Database     | MySQL                 |
+| Tools        | Git, VS Code, Postman |
 
-
-⭐ Nếu dự án hữu ích, hãy cho một **star** nhé!
    
