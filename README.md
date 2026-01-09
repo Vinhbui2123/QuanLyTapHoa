@@ -58,7 +58,7 @@ Khi hoàn thành project này, hệ thống sẽ đạt được:
 
 | Thành phần | Công nghệ |
 |------------|-----------|
-| Frontend |Reactjs |
+| Frontend |HTML , CSS|
 | Backend | Node.js, Express.js |
 | Database | MySQL |
 | Tools | Git, VS Code, Postman |
