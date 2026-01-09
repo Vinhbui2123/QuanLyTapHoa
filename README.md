@@ -10,6 +10,19 @@
 - Quản lý thông tin khách hàng
 - Tạo báo cáo kinh doanh
 
+## 🎯 Mục Tiêu Chính
+
+Khi hoàn thành project này, hệ thống sẽ đạt được:
+
+| # | Mục tiêu | Mô tả |
+|---|----------|-------|
+| 1 | **Số hóa quản lý** | Thay thế sổ sách giấy bằng hệ thống điện tử, giảm sai sót và tiết kiệm thời gian |
+| 2 | **Quản lý kho thông minh** | Theo dõi tồn kho real-time, cảnh báo tự động khi hết hàng/sắp hết hàng |
+| 3 | **Tối ưu doanh thu** | Phân tích dữ liệu bán hàng, xác định sản phẩm bán chạy để nhập hàng hợp lý |
+| 4 | **Quản lý công nợ** | Theo dõi khách hàng nợ, hạn thanh toán rõ ràng |
+| 5 | **Báo cáo tức thì** | Xuất báo cáo doanh thu, lợi nhuận, tồn kho nhanh chóng theo ngày/tháng/năm |
+| 6 | **Dễ sử dụng** | Giao diện đơn giản, phù hợp với người dùng không chuyên về công nghệ |
+
 ## ✨ Tính Năng Chính
 
 ### 📦 Quản Lý Sản Phẩm
@@ -41,84 +54,14 @@
 - Báo cáo lợi nhuận
 - Xuất báo cáo Excel
 
-## �‍💻 Team Phát Triển
-
-| Thành viên | Vai trò | Đóng góp |
-|------------|---------|----------|
-| *(Tên thành viên 1)* | Leader / Backend Developer | Thiết kế hệ thống, phát triển API |
-| *(Tên thành viên 2)* | Frontend Developer | Thiết kế giao diện, trải nghiệm người dùng |
-| *(Tên thành viên 3)* | Database Administrator | Thiết kế CSDL, tối ưu truy vấn |
-| *(Tên thành viên 4)* | Tester / QA | Kiểm thử, đảm bảo chất lượng |
-
 ## �🛠️ Công Nghệ Sử Dụng
 
 | Thành phần | Công nghệ |
 |------------|-----------|
-| Frontend | HTML, CSS, JavaScript |
+| Frontend |Reactjs |
 | Backend | Node.js, Express.js |
 | Database | MySQL |
 | Tools | Git, VS Code, Postman |
 
-## 🚀 Cài Đặt & Chạy
-
-### Yêu Cầu Hệ Thống
-- Node.js >= 16.x (nếu sử dụng)
-- Trình duyệt web hiện đại
-
-### Cài Đặt
-
-```bash
-# Clone repository
-git clone https://github.com/Vinhbui2123/QuanLyTapHoa.git
-
-# Di chuyển vào thư mục project
-cd QuanLyTapHoa
-
-# Cài đặt dependencies (nếu có)
-npm install
-
-# Chạy ứng dụng
-npm run dev
-```
-
-## 📁 Cấu Trúc Thư Mục
-
-```
-QuanLyTapHoa/
-├── src/                    # Mã nguồn chính
-│   ├── components/         # Các component UI
-│   ├── services/           # Logic nghiệp vụ
-│   ├── utils/              # Hàm tiện ích
-│   └── styles/             # File CSS
-├── public/                 # Tài nguyên tĩnh
-├── docs/                   # Tài liệu
-└── README.md               # File này
-```
-
-## 📸 Demo
-
-*(Thêm ảnh chụp màn hình ứng dụng tại đây)*
-
-## 🤝 Đóng Góp
-
-Mọi đóng góp đều được chào đón! Nếu bạn muốn đóng góp:
-
-1. Fork repository
-2. Tạo branch mới (`git checkout -b feature/TinhNangMoi`)
-3. Commit thay đổi (`git commit -m 'Thêm tính năng mới'`)
-4. Push lên branch (`git push origin feature/TinhNangMoi`)
-5. Tạo Pull Request
-
-## 📝 License
-
-Dự án được phát hành dưới giấy phép [MIT License](LICENSE).
-
-## 📞 Liên Hệ
-
-- **Tác giả:** Vinhbui2123
-- **Email:** *(Thêm email liên hệ)*
-- **GitHub:** [github.com/Vinhbui2123](https://github.com/Vinhbui2123)
-
----
 
 ⭐ Nếu dự án hữu ích, hãy cho một **star** nhé!
