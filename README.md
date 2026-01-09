@@ -62,12 +62,13 @@ Khi hoàn thành project này, hệ thống sẽ đạt được:
 
 ## �🛠️ Công Nghệ Sử Dụng
 
-| Thành phần | Công nghệ             |
-| ---------- | --------------------- |
-| Frontend   | Reactjs               |
-| Backend    | Node.js, Express.js   |
-| Database   | MySQL                 |
-| Tools      | Git, VS Code, Postman |
+| Thành phần | Công nghệ |
+|------------|-----------|
+| Frontend |HTML , CSS|
+| Backend | Node.js, Express.js |
+| Database | MySQL |
+| Tools | Git, VS Code, Postman |
+
 
 ⭐ Nếu dự án hữu ích, hãy cho một **star** nhé!
    
