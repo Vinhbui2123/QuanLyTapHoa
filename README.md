@@ -2,7 +2,7 @@
 
 > Phần mềm quản lý cửa hàng tạp hóa - Giải pháp toàn diện cho việc quản lý bán hàng, kho và khách hàng.
 
-## 📖 Giới Thiệu
+## 🎯 Mục Tiêu Chính
 
 **Quản Lý Tạp Hóa** là một hệ thống quản lý cửa hàng tạp hóa được thiết kế để giúp các chủ cửa hàng nhỏ lẻ dễ dàng:
 
@@ -10,20 +10,7 @@
 - Theo dõi doanh thu bán hàng
 - Quản lý thông tin khách hàng
 - Tạo báo cáo kinh doanh
-
-## 🎯 Mục Tiêu Chính
-
-Khi hoàn thành project này, hệ thống sẽ đạt được:
-
-| # | Mục tiêu                          | Mô tả                                                                                          |
-| - | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
-| 1 | **Số hóa quản lý**        | Thay thế sổ sách giấy bằng hệ thống điện tử, giảm sai sót và tiết kiệm thời gian |
-| 2 | **Quản lý kho thông minh** | Theo dõi tồn kho real-time, cảnh báo tự động khi hết hàng/sắp hết hàng               |
-| 3 | **Tối ưu doanh thu**        | Phân tích dữ liệu bán hàng, xác định sản phẩm bán chạy để nhập hàng hợp lý    |
-| 4 | **Quản lý công nợ**       | Theo dõi khách hàng nợ, hạn thanh toán rõ ràng                                           |
-| 5 | **Báo cáo tức thì**       | Xuất báo cáo doanh thu, lợi nhuận, tồn kho nhanh chóng theo ngày/tháng/năm             |
-| 6 | **Dễ sử dụng**             | Giao diện đơn giản, phù hợp với người dùng không chuyên về công nghệ              |
-
+  
 ## ✨ Tính Năng Chính
 
 ### 📦 Quản Lý Sản Phẩm
@@ -59,13 +46,3 @@ Khi hoàn thành project này, hệ thống sẽ đạt được:
 - Thống kê sản phẩm bán chạy
 - Báo cáo lợi nhuận
 - Xuất báo cáo Excel
-
-## �🛠️ Công Nghệ Sử Dụng
-
-| Thành phần | Công nghệ           |
-| ------------ | --------------------- |
-| Frontend     | HTML,CSS              |
-| Backend      | Node.js, Express.js   |
-| Database     | MySQL                 |
-
-   
