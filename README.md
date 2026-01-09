@@ -67,6 +67,5 @@ Khi hoàn thành project này, hệ thống sẽ đạt được:
 | Frontend     | HTML,CSS              |
 | Backend      | Node.js, Express.js   |
 | Database     | MySQL                 |
-| Tools        | Git, VS Code, Postman |
 
    
