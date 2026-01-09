@@ -23,7 +23,6 @@
 ### 🛒 Quản Lý Bán Hàng
 
 - Tạo đơn hàng nhanh chóng
-- Tính tiền tự động
 - Hỗ trợ nhiều phương thức thanh toán
 - In hóa đơn
 
@@ -31,18 +30,14 @@
 
 - Nhập kho, xuất kho
 - Kiểm kê hàng tồn
-- Theo dõi lịch sử nhập/xuất
 - Báo cáo tồn kho
 
 ### 👥 Quản Lý Khách Hàng
 
 - Lưu trữ thông tin khách hàng
 - Theo dõi lịch sử mua hàng
-- Quản lý công nợ
 
 ### 📈 Báo Cáo & Thống Kê
 
 - Báo cáo doanh thu theo ngày/tháng/năm
-- Thống kê sản phẩm bán chạy
-- Báo cáo lợi nhuận
 - Xuất báo cáo Excel
