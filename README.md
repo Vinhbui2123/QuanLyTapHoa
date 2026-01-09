@@ -1,5 +1,3 @@
-# Huệ
-
 # 🏪 Hệ Thống Quản Lý Tạp Hóa
 
 > Phần mềm quản lý cửa hàng tạp hóa - Giải pháp toàn diện cho việc quản lý bán hàng, kho và khách hàng.
@@ -71,4 +69,4 @@ Khi hoàn thành project này, hệ thống sẽ đạt được:
 | Database     | MySQL                 |
 | Tools        | Git, VS Code, Postman |
 
-⭐ Nếu dự án hữu ích, hãy cho một **star** nhé!
+   
