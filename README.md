@@ -54,7 +54,7 @@
 
 | Thành phần | Công nghệ |
 |------------|-----------|
-| Frontend | HTML, CSS, JavaScript |
+| Frontend |Reactjs |
 | Backend | Node.js, Express.js |
 | Database | MySQL |
 | Tools | Git, VS Code, Postman |
