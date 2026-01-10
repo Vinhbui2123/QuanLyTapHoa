@@ -124,6 +124,7 @@ Quản Lý Tạp Hóa là một hệ thống quản lý cửa hàng tạp hóa �
 ### 4. **Yêu cầu tích hợp (Integration Requirements)**
 
     -Tích hợp ZaloPay, VietQR, MoMo nếu muốn thanh toán QR.
+
 ## I-Quy trình quản lý khách hàng
 
 ### 1. Tiếp nhận khách hàng
@@ -144,7 +145,6 @@ Thông tin cơ bản:
 * Thói quen mua (mặt hàng thường mua)
 
   Ngoài ra có thể ghi:
-
 * Sổ khách hàng
 * File Excel
 * Phần mềm quản lý bán hàng
@@ -189,7 +189,6 @@ Thông tin cơ bản:
 * Mức độ hài lòng
 * Khả năng trở thành khách trung thành
 
-
 ## II- Quy trình quản lý thống kê
 
 ### 1. Thống kê bán hàng hằng ngày
@@ -199,7 +198,7 @@ Thông tin cơ bản:
 * Sản phẩm bán chạy
 * Sản phẩm bán chậm
 
-   Ghi vào sổ hoặc phần mềm cuối ngày
+  Ghi vào sổ hoặc phần mềm cuối ngày
 
 ### 2. Thống kê tồn kho
 
@@ -283,7 +282,7 @@ Hệ thống phải tuân thủ và tự động hóa các quy trình nghiệp v
 6. **Quản lý Hủy hàng & Kiểm kê (Waste & Audit):**
    * Hỗ trợ quy trình lập và duyệt "Phiếu hủy hàng" cho sản phẩm hư hỏng/hết hạn.
    * Hệ thống tự động điều chỉnh số lượng tồn kho và ghi nhận lịch sử (Log) chính xác sau khi phiếu hủy hoặc phiếu kiểm kê được duyệt.
--- Ngày 9/1/2026 - Nhiệm vụ : Viết mô tả quy trình ( quản lý sản phẩm )
+     -- Ngày 9/1/2026 - Nhiệm vụ : Viết mô tả quy trình ( quản lý sản phẩm )
 
 ## QUY TRÌNH QUẢN LÝ SẢN PHẨM
 
@@ -352,8 +351,6 @@ Hệ thống phải tuân thủ và tự động hóa các quy trình nghiệp v
    * Đánh dấu sản phẩm bằng màu sắc/trạng thái
    * Ngăn bán nếu sản phẩm đã hết hàng (nếu cấu hình)
 
-
-
 ## QUY TRÌNH QUẢN LÝ BÁN HÀNG
 
 ### I. Tạo đơn hàng
@@ -392,6 +389,7 @@ Hệ thống phải tuân thủ và tự động hóa các quy trình nghiệp v
 3. Hóa đơn được lưu để:
    * Tra cứu lịch sử bán hàng
    * Báo cáo doanh thu
+
 ## 1.2.3. Hoạt động Quản lý Kho Hàng (Nhập – Xuất – Tồn – Hủy)
 
 ### • Quản lý Nhập hàng
@@ -466,3 +464,21 @@ Quản lý thông tin các **đầu mối bỏ sỉ** (đại lý nước ngọt
 * Người liên hệ / Người giao hàng
 * Danh sách các mặt hàng thường cung cấp
 * Công nợ hiện tại (nếu có)
+
+## Phân tích thiết kế hệ thống theo UML
+
+### 1. Các biểu đồ UseCase
+
+#### 1.1 Xác định các Tác nhân
+
+
+#### 1.2 Xác định các USECASE
+
+
+#### 1.3 Biều đồ USECASE tổng quát
+
+
+#### 1.4 USECASE đăng nhập
+
+
+#### 1.5 Gói quản trị hệ thống
