@@ -255,7 +255,7 @@ Hệ thống được thiết kế để đáp ứng các tiêu chuẩn về ch�
   * Hệ thống hoạt động ổn định trên môi trường mạng nội bộ (LAN/Wifi).
   * Đảm bảo kết nối liền mạch với các thiết bị ngoại vi (máy in, két tiền, cân điện tử).
 
-### Phân quyền Người dùng 
+### Phân quyền Người dùng
 
 Hệ thống áp dụng cơ chế phân quyền theo vai trò (RBAC) chặt chẽ:
 
@@ -265,7 +265,7 @@ Hệ thống áp dụng cơ chế phân quyền theo vai trò (RBAC) chặt ch�
 4. **Nhân viên Thu ngân (Cashier):** Quyền hạn bị giới hạn trong giao diện bán hàng (POS) để thực hiện thanh toán và in hóa đơn.
 5. **Nhân viên Quầy cân (Fresh Food Staff):** Chỉ sử dụng giao diện tích hợp với cân điện tử để in tem nhãn cho hàng tươi sống.
 
-### Yêu cầu Nghiệp vụ Chi tiết 
+### Yêu cầu Nghiệp vụ Chi tiết
 
 Hệ thống phải tuân thủ và tự động hóa các quy trình nghiệp vụ cốt lõi sau:
 
@@ -471,14 +471,24 @@ Quản lý thông tin các **đầu mối bỏ sỉ** (đại lý nước ngọt
 
 #### 1.1 Xác định các Tác nhân
 
-
 #### 1.2 Xác định các USECASE
-
 
 #### 1.3 Biều đồ USECASE tổng quát
 
-
 #### 1.4 USECASE đăng nhập
 
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                                                                                                                           |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên use case           | Đăng nhập                                                                                                                                                                                                                                                                                                                                        |
+| Tác nhân chính       | Người quản trị, người bán hàng                                                                                                                                                                                                                                                                                                              |
+| Mức                    | 1                                                                                                                                                                                                                                                                                                                                                   |
+| Điều Kiện            | Người bán hàng phải có một tài khoản hợp lệ được tạo bởi Người quản trị                                                                                                                                                                                                                                                         |
+| Đảm bảo tối thiểu  | Hệ thống từ chối truy cập nếu xác thực không thành công và bảo vệ thông tin đăng nhập trong quá trình xác thực                                                                                                                                                                                                                |
+| Đảm bảo thành công | Người bán hàng xác thực thành công, phiên làm việc được tạo và hệ thống sẽ điều hướng ngguoiwf bán hàng đến giao diện<br />làm việc phù hợp với vai trò của họ                                                                                                                                                  |
+| Kích hoạt             | Người bán hàng mở ứng dụng hoặc truy cập vào một chức năng yêu cầu xác thực                                                                                                                                                                                                                                                        |
+| Sự kiện chính        | - Hệ thống hiện thị màn hình đăng nhập yêu cầu username và password<br />-Người dùng nhập thông tin tài khoản<br />-Người dùng nhấn nút đăng nhập<br />-Hệ thống kiểm tra thông tin đăng nhập<br />-Hệ thống xác định vai trò của người dùng<br />-Hệ thống hiển thị giao diện chính tương ứng |
+| Ngoại lệ              | -Sai username hoặc password :<br />1. Hệ thống báo lỗi "tên đăng nhập hoặc mật khẩu không chính xác".<br />2. Hệ thống sẽ quay lại phần nhập thông tin tài khoản.<br />-Tài khoản bị vô hiệu hóa/khóa: Hệ thống thông báo "tài khoản bi khóa"..                                                              |
+
+![1768200702770](image/pttk/1768200702770.png)
 
 #### 1.5 Gói quản trị hệ thống
