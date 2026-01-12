@@ -145,7 +145,6 @@ Thông tin cơ bản:
 - Thói quen mua (mặt hàng thường mua)
 
   Ngoài ra có thể ghi:
-
 - Sổ khách hàng
 - File Excel
 - Phần mềm quản lý bán hàng
@@ -471,6 +470,7 @@ Quản lý thông tin các **đầu mối bỏ sỉ** (đại lý nước ngọt
 ### 1. Các biểu đồ UseCase
 
 #### 1.1 Xác định các Tác nhân
+
 Dựa trên mô tả quy trình hoạt động, các đối tượng tương tác với hệ thống được xác định là các tác nhân sau:
 
 - **Người Quản trị (Admin):** Là người chịu trách nhiệm về mặt kỹ thuật của hệ thống.  Có toàn quyền hệ thống, đồng thời chịu trách nhiệm quản lý tài khoản người dùng và phân quyền.
@@ -501,8 +501,24 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 
 #### 1.2 Xác định các USECASE
 
+| Nhóm chức năng (UC tổng thể)           | Use Case con                            | Mô tả                                                                                                                                                                                   | Tác nhân chính                                                 |
+| :------------------------------------------ | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+|                                             | Đăng nhập                            | Xác thực người dùng (username/password) trước<br />khi cho phép truy cập hệ thống.                                                                                             | Người Quản trị, Người<br />Quản lý, Nhân viên Thu ngân |
+| **1.Quản trị Hệ thống**           | Quản lý phân quyền người dùng    | **(** Thêm,sửa, xóa tài khoản) và gán quyền (vai trò)<br />cho người dùng                                                                                               | Người Quản trị                                                |
+| **2. Quản lý Bán hàng**           | Thanh toán Hóa đơn                  | Ghi nhận các mặt hàng (quét mã vạch hàng khô và tính tổng tiền,<br />xử lý thanh toán, in hóa đơn.<br /> (Tự động trừ số lượng kho theo FIFO khi hoàn tất) | Nhân viên Thu ngân                                             |
+| **3.Quản lý Kho hàng**            | Nhập hàng vào kho                    | Lập phiếu nhập kho. Bắt buộc ghi nhận thông tin<br />Mã lô Hàng, Ngày sản xuất, và Hạn sử dụng (HSD) <br />cho hàng thực phẩm                                         | Người Quản trị                                                |
+|                                             | Xuất hàng ra quầy                    | Lập phiếu xuất hàng từ kho lưu trữ ra quầy kệ.<br />Hệ thống tự động đề xuất xuất từ Lô có HSD cũ nhất (FIFO).                                                  | Người Quản trị                                                |
+| **4. Quản lý Dữ liệu nền tảng** | Quản lý Danh mục (Ngành hàng)      | Thêm, sửa, xóa các danh mục/ngành hàng                                                                                                                                             | Người Quản trị                                                |
+|                                             | Quản lý Hàng hóa (Sản phẩm)       | Thêm, sửa, xóa thông tin hàng hóa<br />(Mã, Tên, Đơn giá, Đơn vị tính…). Bắt buộc gán hàng<br /> hóa vào một Danh mục (Ngành hàng).                           | Người Quản trị                                                |
+|                                             | Quản lý Nhà cung cấp                | Thêm, sửa, xóa, vô hiệu hóa thông tin nhà cung cấp<br />(Tên, Địa chỉ, SĐT, Mặt hàng cung cấp...).                                                                      | Người Quản trị                                                |
+|                                             | Quản lý Khách hàng                  | Thêm, sửa, xóa thông tin khách hàng , phân cấp                                                                                                                                    | Người Quản trị                                                |
+| **5.Thống kê & Báo cáo**         | Xem Báo cáo Doanh thu                 | Thống kê doanh thu, số lượng hàng bán theo<br />tháng, quý.                                                                                                                     | Người Quản trị                                                |
+|                                             | Xem Báo cáo Hàng sắp hết hạn      | Cảnh báo các Lô hàng sẽ hết hạn trong N ngày tới                                                                                                                                | Người Quản trị                                                |
+|                                             | Xem Báo cáo Hàng hủy (Thất thoát) | Thống kê chi phí, số lượng hàng đã bị hủy                                                                                                                                      | Người Quản trị                                                |
+
 #### 1.3 Biều đồ USECASE tổng quát
 
+<img src="./img/UC_QuanLyTapHoa.png">
 #### 1.4 USECASE đăng nhập
 
 | Tiêu đề              | Nội dung                                                                                                                                                                                                                                                                                                                                           |
