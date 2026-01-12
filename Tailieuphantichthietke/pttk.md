@@ -471,6 +471,19 @@ Quản lý thông tin các **đầu mối bỏ sỉ** (đại lý nước ngọt
 ### 1. Các biểu đồ UseCase
 
 #### 1.1 Xác định các Tác nhân
+Dựa trên mô tả quy trình hoạt động, các đối tượng tương tác với hệ thống được xác định là các tác nhân sau:
+
+- **Người Quản trị (Admin):** Là người chịu trách nhiệm về mặt kỹ thuật của hệ thống.  Có toàn quyền hệ thống, đồng thời chịu trách nhiệm quản lý tài khoản người dùng và phân quyền.
+- **Chủ cửa hàng:** Là người có quyền cao nhất trong các hoạt động nghiệp vụ. Chịu trách nhiệm quản lý tổng thể, duyệt các phiếu quan trọng (phiếu hủy), quản lý thông tin nền tảng (hàng hóa, danh mục (ngành hàng), nhà cung cấp, nhân viên) và xem các báo cáo thống kê.
+- **Nhân viên :** Là người làm việc tại cửa hàng, sử dụng hệ thống cân điện tử, máy quét mã vạch, máy in để thực hiện bán hàng
+
+· Các tác nhân bên ngoài:
+
+- **Khách hàng** : Tác nhân bên ngoài, không đăng nhập vào hệ thống. Là người khởi tạo quy trình bán hàng bằng cách lựa chọn hàng hóa và thanh toán.
+- **Nhà cung cấp** **:** Tác nhân bên ngoài. Là đối tượng cung cấp hàng hóa cho cửa hàng.
+- **Cân điện tử:** Tác nhân phần cứng bên ngoài, tương tác trực tiếp với hệ thống và Nhân viên. Nó nhận lệnh chọn mã hàng, tự động ghi nhận trọng lượng, truy vấn đơn giá từ hệ thống, tính thành tiền và in ra tem nhãn mã vạch chứa giá tiền để Nhân viên có thể quét.
+- **Máy quét mã vạch:**  Là thiết bị phần cứng ngoại vi, công cụ tương tác chính của Nhân viên  trong nghiệp vụ bán hàng. Nó có chức năng đọc và giải mã thông tin từ mã vạch (barcode) được in trên sản phẩm hoặc tem nhãn và chuyển đổi thành dữ liệu số để gửi vào hệ thống phần mềm.
+- **Máy in**: Là thiết bị phần cứng ngoại vi, có chức năng nhận dữ liệu từ hệ thống và in ra hóa đơn chi tiết trong nghiệp vụ bán hàng.
 
 #### 1.2 Xác định các USECASE
 
@@ -496,6 +509,20 @@ Quản lý thông tin các **đầu mối bỏ sỉ** (đại lý nước ngọt
 <img src="./img/UC_QuanLyTapHoa.png">
 
 #### 1.4 USECASE đăng nhập
+
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                                                                                                                           |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên use case           | Đăng nhập                                                                                                                                                                                                                                                                                                                                        |
+| Tác nhân chính       | Người quản trị, người bán hàng                                                                                                                                                                                                                                                                                                              |
+| Mức                    | 1                                                                                                                                                                                                                                                                                                                                                   |
+| Điều Kiện            | Người bán hàng phải có một tài khoản hợp lệ được tạo bởi Người quản trị                                                                                                                                                                                                                                                         |
+| Đảm bảo tối thiểu  | Hệ thống từ chối truy cập nếu xác thực không thành công và bảo vệ thông tin đăng nhập trong quá trình xác thực                                                                                                                                                                                                                |
+| Đảm bảo thành công | Người bán hàng xác thực thành công, phiên làm việc được tạo và hệ thống sẽ điều hướng ngguoiwf bán hàng đến giao diện<br />làm việc phù hợp với vai trò của họ                                                                                                                                                  |
+| Kích hoạt             | Người bán hàng mở ứng dụng hoặc truy cập vào một chức năng yêu cầu xác thực                                                                                                                                                                                                                                                        |
+| Sự kiện chính        | - Hệ thống hiện thị màn hình đăng nhập yêu cầu username và password<br />-Người dùng nhập thông tin tài khoản<br />-Người dùng nhấn nút đăng nhập<br />-Hệ thống kiểm tra thông tin đăng nhập<br />-Hệ thống xác định vai trò của người dùng<br />-Hệ thống hiển thị giao diện chính tương ứng |
+| Ngoại lệ              | -Sai username hoặc password :<br />1. Hệ thống báo lỗi "tên đăng nhập hoặc mật khẩu không chính xác".<br />2. Hệ thống sẽ quay lại phần nhập thông tin tài khoản.<br />-Tài khoản bị vô hiệu hóa/khóa: Hệ thống thông báo "tài khoản bi khóa"..                                                              |
+
+<img src= "img/1768200702770.png">
 
 #### 1.5 Gói quản trị hệ thống
 
