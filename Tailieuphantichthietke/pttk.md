@@ -145,7 +145,6 @@ Thông tin cơ bản:
 - Thói quen mua (mặt hàng thường mua)
 
   Ngoài ra có thể ghi:
-
 - Sổ khách hàng
 - File Excel
 - Phần mềm quản lý bán hàng
@@ -476,8 +475,10 @@ Quản lý thông tin các **đầu mối bỏ sỉ** (đại lý nước ngọt
 
 #### 1.3 Biều đồ USECASE tổng quát
 
+
 <img src="./img/UC_QuanLyTapHoa.png">
 
-#### 1.4 USECASE đăng nhập
+#### 
+1.4 USECASE đăng nhập
 
 #### 1.5 Gói quản trị hệ thống
