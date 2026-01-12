@@ -244,7 +244,7 @@ Nội dung báo cáo gồm:
 
 Hệ thống được thiết kế để đáp ứng các tiêu chuẩn về chức năng, hiệu năng và quy trình nghiệp vụ đặc thù của ngành bán lẻ tạp hóa như sau:
 
-### Yêu cầu Phi chức năng (Non-functional Requirements)
+### Yêu cầu Phi chức năng
 
 - **An toàn và Bảo mật thông tin:**
   - Hệ thống đảm bảo cơ chế mã hóa dữ liệu quan trọng.
@@ -256,7 +256,7 @@ Hệ thống được thiết kế để đáp ứng các tiêu chuẩn về ch�
   - Hệ thống hoạt động ổn định trên môi trường mạng nội bộ (LAN/Wifi).
   - Đảm bảo kết nối liền mạch với các thiết bị ngoại vi (máy in, két tiền, cân điện tử).
 
-### Phân quyền Người dùng (User Roles)
+### Phân quyền Người dùng
 
 Hệ thống áp dụng cơ chế phân quyền theo vai trò (RBAC) chặt chẽ:
 
@@ -266,23 +266,23 @@ Hệ thống áp dụng cơ chế phân quyền theo vai trò (RBAC) chặt ch�
 4. **Nhân viên Thu ngân (Cashier):** Quyền hạn bị giới hạn trong giao diện bán hàng (POS) để thực hiện thanh toán và in hóa đơn.
 5. **Nhân viên Quầy cân (Fresh Food Staff):** Chỉ sử dụng giao diện tích hợp với cân điện tử để in tem nhãn cho hàng tươi sống.
 
-### Yêu cầu Nghiệp vụ Chi tiết (Business Logic)
+### Yêu cầu Nghiệp vụ Chi tiết
 
 Hệ thống phải tuân thủ và tự động hóa các quy trình nghiệp vụ cốt lõi sau:
 
-1. **Quản lý Lô và Hạn sử dụng (Batch & Expiry Management):**
-   - Hệ thống **bắt buộc** người dùng (Thủ kho) phải nhập đầy đủ thông tin _Hạn sử dụng (Expiry Date)_ và _Mã lô (Batch ID)_ khi tạo phiếu nhập kho. Đây là điều kiện tiên quyết để lưu dữ liệu nhập kho.
-2. **Tích hợp Cân điện tử (Hardware Integration):**
-   - Hệ thống có khả năng kết nối với cân điện tử in tem nhãn qua mạng LAN/Wifi để đồng bộ danh mục hàng hóa xuống cân.
-3. **Xử lý Mã vạch thông minh (Barcode Parsing):**
-   - Tại quầy thu ngân, hệ thống tích hợp thuật toán tự động nhận diện và bóc tách dữ liệu từ mã vạch do cân in ra (loại mã vạch chứa thông tin khối lượng/giá tiền) để thêm vào giỏ hàng mà không cần nhập thủ công.
-4. **Nguyên tắc Xuất kho FIFO (First-In, First-Out):**
-   - Hệ thống tự động hóa quy trình trừ tồn kho theo nguyên tắc **"Nhập trước - Xuất trước"** . Khi bán hàng, hệ thống ưu tiên trừ số lượng của các lô hàng có hạn sử dụng gần nhất hoặc thời gian nhập sớm nhất.
-5. **Cảnh báo Hàng cận date (Expiry Alerts):**
-   - Cung cấp Dashboard hoặc hệ thống thông báo (Notification) tự động cảnh báo danh sách hàng hóa sắp hết hạn sử dụng để quản lý có phương án xử lý kịp thời.
-6. **Quản lý Hủy hàng & Kiểm kê (Waste & Audit):**
-   - Hỗ trợ quy trình lập và duyệt "Phiếu hủy hàng" cho sản phẩm hư hỏng/hết hạn.
-   - Hệ thống tự động điều chỉnh số lượng tồn kho và ghi nhận lịch sử (Log) chính xác sau khi phiếu hủy hoặc phiếu kiểm kê được duyệt.
+1. **Quản lý Lô và Hạn sử dụng :**
+   * Hệ thống **bắt buộc** người dùng (Thủ kho) phải nhập đầy đủ thông tin *Hạn sử dụng* và *Mã lô *khi tạo phiếu nhập kho. Đây là điều kiện tiên quyết để lưu dữ liệu nhập kho.
+2. **Tích hợp Cân điện tử :**
+   * Hệ thống có khả năng kết nối với cân điện tử in tem nhãn qua mạng LAN/Wifi để đồng bộ danh mục hàng hóa xuống cân.
+3. **Xử lý Mã vạch thông minh :**
+   * Tại quầy thu ngân, hệ thống tích hợp thuật toán tự động nhận diện và bóc tách dữ liệu từ mã vạch do cân in ra (loại mã vạch chứa thông tin khối lượng/giá tiền) để thêm vào giỏ hàng mà không cần nhập thủ công.
+4. **Nguyên tắc Xuất kho FIFO :**
+   * Hệ thống tự động hóa quy trình trừ tồn kho theo nguyên tắc  **"Nhập trước - Xuất trước"** . Khi bán hàng, hệ thống ưu tiên trừ số lượng của các lô hàng có hạn sử dụng gần nhất hoặc thời gian nhập sớm nhất.
+5. **Cảnh báo Hàng cận date :**
+   * Cung cấp Dashboard hoặc hệ thống thông báo (Notification) tự động cảnh báo danh sách hàng hóa sắp hết hạn sử dụng để quản lý có phương án xử lý kịp thời.
+6. **Quản lý Hủy hàng & Kiểm kê :**
+   * Hỗ trợ quy trình lập và duyệt "Phiếu hủy hàng" cho sản phẩm hư hỏng/hết hạn.
+   * Hệ thống tự động điều chỉnh số lượng tồn kho và ghi nhận lịch sử (Log) chính xác sau khi phiếu hủy hoặc phiếu kiểm kê được duyệt.
      -- Ngày 9/1/2026 - Nhiệm vụ : Viết mô tả quy trình ( quản lý sản phẩm )
 
 ## QUY TRÌNH QUẢN LÝ SẢN PHẨM
@@ -485,28 +485,23 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 - **Máy quét mã vạch:**  Là thiết bị phần cứng ngoại vi, công cụ tương tác chính của Nhân viên  trong nghiệp vụ bán hàng. Nó có chức năng đọc và giải mã thông tin từ mã vạch (barcode) được in trên sản phẩm hoặc tem nhãn và chuyển đổi thành dữ liệu số để gửi vào hệ thống phần mềm.
 - **Máy in**: Là thiết bị phần cứng ngoại vi, có chức năng nhận dữ liệu từ hệ thống và in ra hóa đơn chi tiết trong nghiệp vụ bán hàng.
 
+Dựa trên mô tả quy trình hoạt động, các đối tượng tương tác với hệ thống được xác định là các tác nhân sau:
+
+- **Người Quản trị (Admin):** Là người chịu trách nhiệm về mặt kỹ thuật của hệ thống.  Có toàn quyền hệ thống, đồng thời chịu trách nhiệm quản lý tài khoản người dùng và phân quyền.
+- **Chủ cửa hàng:** Là người có quyền cao nhất trong các hoạt động nghiệp vụ. Chịu trách nhiệm quản lý tổng thể, duyệt các phiếu quan trọng (phiếu hủy), quản lý thông tin nền tảng (hàng hóa, danh mục (ngành hàng), nhà cung cấp, nhân viên) và xem các báo cáo thống kê.
+- **Nhân viên :** Là người làm việc tại cửa hàng, sử dụng hệ thống cân điện tử, máy quét mã vạch, máy in để thực hiện bán hàng
+
+· Các tác nhân bên ngoài:
+
+- **Khách hàng** : Tác nhân bên ngoài, không đăng nhập vào hệ thống. Là người khởi tạo quy trình bán hàng bằng cách lựa chọn hàng hóa và thanh toán.
+- **Nhà cung cấp** **:** Tác nhân bên ngoài. Là đối tượng cung cấp hàng hóa cho cửa hàng.
+- **Cân điện tử:** Tác nhân phần cứng bên ngoài, tương tác trực tiếp với hệ thống và Nhân viên. Nó nhận lệnh chọn mã hàng, tự động ghi nhận trọng lượng, truy vấn đơn giá từ hệ thống, tính thành tiền và in ra tem nhãn mã vạch chứa giá tiền để Nhân viên có thể quét.
+- **Máy quét mã vạch:**  Là thiết bị phần cứng ngoại vi, công cụ tương tác chính của Nhân viên  trong nghiệp vụ bán hàng. Nó có chức năng đọc và giải mã thông tin từ mã vạch (barcode) được in trên sản phẩm hoặc tem nhãn và chuyển đổi thành dữ liệu số để gửi vào hệ thống phần mềm.
+- **Máy in**: Là thiết bị phần cứng ngoại vi, có chức năng nhận dữ liệu từ hệ thống và in ra hóa đơn chi tiết trong nghiệp vụ bán hàng.
+
 #### 1.2 Xác định các USECASE
 
-
-| Nhóm chức năng (UC tổng thể)           | Use Case con                            | Mô tả                                                                                                                                                                                   | Tác nhân chính                                                 |
-| :------------------------------------------ | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-|                                             | Đăng nhập                            | Xác thực người dùng (username/password) trước<br />khi cho phép truy cập hệ thống.                                                                                             | Người Quản trị, Người<br />Quản lý, Nhân viên Thu ngân |
-| **1.Quản trị Hệ thống**           | Quản lý phân quyền người dùng    | **(** Thêm,sửa, xóa tài khoản) và gán quyền (vai trò)<br />cho người dùng                                                                                               | Người Quản trị                                                |
-| **2. Quản lý Bán hàng**           | Thanh toán Hóa đơn                  | Ghi nhận các mặt hàng (quét mã vạch hàng khô và tính tổng tiền,<br />xử lý thanh toán, in hóa đơn.<br /> (Tự động trừ số lượng kho theo FIFO khi hoàn tất) | Nhân viên Thu ngân                                             |
-| **3.Quản lý Kho hàng**            | Nhập hàng vào kho                    | Lập phiếu nhập kho. Bắt buộc ghi nhận thông tin<br />Mã lô Hàng, Ngày sản xuất, và Hạn sử dụng (HSD) <br />cho hàng thực phẩm                                         | Người Quản trị                                                |
-|                                             | Xuất hàng ra quầy                    | Lập phiếu xuất hàng từ kho lưu trữ ra quầy kệ.<br />Hệ thống tự động đề xuất xuất từ Lô có HSD cũ nhất (FIFO).                                                  | Người Quản trị                                                |
-| **4. Quản lý Dữ liệu nền tảng** | Quản lý Danh mục (Ngành hàng)      | Thêm, sửa, xóa các danh mục/ngành hàng                                                                                                                                             | Người Quản trị                                                |
-|                                             | Quản lý Hàng hóa (Sản phẩm)       | Thêm, sửa, xóa thông tin hàng hóa<br />(Mã, Tên, Đơn giá, Đơn vị tính…). Bắt buộc gán hàng<br /> hóa vào một Danh mục (Ngành hàng).                           | Người Quản trị                                                |
-|                                             | Quản lý Nhà cung cấp                | Thêm, sửa, xóa, vô hiệu hóa thông tin nhà cung cấp<br />(Tên, Địa chỉ, SĐT, Mặt hàng cung cấp...).                                                                      | Người Quản trị                                                |
-|                                             | Quản lý Khách hàng                  | Thêm, sửa, xóa thông tin khách hàng , phân cấp                                                                                                                                    | Người Quản trị                                                |
-| **5.Thống kê & Báo cáo**         | Xem Báo cáo Doanh thu                 | Thống kê doanh thu, số lượng hàng bán theo<br />tháng, quý.                                                                                                                     | Người Quản trị                                                |
-|                                             | Xem Báo cáo Hàng sắp hết hạn      | Cảnh báo các Lô hàng sẽ hết hạn trong N ngày tới                                                                                                                                | Người Quản trị                                                |
-|                                             | Xem Báo cáo Hàng hủy (Thất thoát) | Thống kê chi phí, số lượng hàng đã bị hủy                                                                                                                                      | Người Quản trị                                                |
-|                                             |                                         |                                                                                                                                                                                           |                                                                   |
-
 #### 1.3 Biều đồ USECASE tổng quát
-
-<img src="./img/UC_QuanLyTapHoa.png">
 
 #### 1.4 USECASE đăng nhập
 
