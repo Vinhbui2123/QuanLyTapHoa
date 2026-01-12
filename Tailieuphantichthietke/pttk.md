@@ -476,7 +476,7 @@ Quản lý thông tin các **đầu mối bỏ sỉ** (đại lý nước ngọt
 
 #### 1.3 Biều đồ USECASE tổng quát
 
-<img src="./img/UC_HeThongQuanLyTapHoa.png">
+<img src="./img/UC_QuanLyTapHoa.png">
 
 #### 1.4 USECASE đăng nhập
 
