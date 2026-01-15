@@ -558,3 +558,7 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 #### 1.8 Gói quản lý khách hàng
 
 #### 1.9 Gói báo cáo thống kê
+
+### 2.Các biểu đồ tuần tự
+
+#### 2.1 Biều đồ tuần tự đăng nhập
