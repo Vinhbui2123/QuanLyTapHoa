@@ -603,3 +603,94 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 ### 2.Các biểu đồ tuần tự
 
 #### 2.1 Biều đồ tuần tự đăng nhập
+
+![1768548108533](image/pttk/1768548108533.png)
+
+    Biểu đồ tuần tự chức năng đăng nhập
+
+
+**Mô tả luồng hoạt động:**
+Biểu đồ được bao bọc bởi một khung lặp (loop) với điều kiện [Người
+dùng chưa được xác thực], cho phép người dùng thử đăng nhập lại nếu thất bại.
+
+1. **Khởi tạo:** Người dùng tương tác với Màn
+   hình Đăng nhập, nhập Username, Password và nhấn Đăng nhập.
+2. **Yêu cầu xác thực:** Màn hình Đăng nhập chuyển
+   thông tin đến Bộ xử lý Xác thực.
+3. **Truy vấn dữ liệu:** Bộ xử lý Xác thực gửi
+   yêu cầu truy vấn đến CSDL Người dùng.
+4. **Kết quả:** CSDL Người dùng trả về thông tin
+   tài khoản và trạng thái cho Bộ xử lý Xác thực.
+5. **Xử lý kịch bản (alt):** Tại đây, hệ thống sử
+   dụng khung alt để rẽ nhánh dựa trên kết quả trả về:
+
+* **-[Thông tin hợp lệ và Đang hoạt động]:** Bộxử lý Xác thực thực hiện xác định vai trò của người dùng (Self-Message), sau đótrả về kết quả thành công. Màn hình Đăng nhập điều hướng người dùng đến Giao diệnchính tương ứng.
+* **-[Sai thông tin đăng nhập]:** Bộ xử lý Xácthực trả về lỗi. Hệ thống hiển thị thông báo "Sai tên đăng nhập hoặc mậtkhẩu không chính xác"
+* .**[Tài khoản bị khóa]:** Bộ xử lý Xác thực trảvề lỗi. Hệ thống hiển thị thông báo "Tài khoản đã bị khóa...
+
+![1768548526578](image/pttk/1768548526578.png)
+
+    Biểu đồ tuần tư: Thêm tài khoản
+
+
+**Mô tả luồng hoạt
+động:**
+
+1. **Nhập thông tin:** Người Quản trị nhập thông
+   tin tài khoản mới, gán quyền và nhấn Lưu trên Màn hình QL Người dùng.
+2. **Yêu cầu tạo:** Boundary gửi yêu cầu tạo tài
+   khoản đến Control.
+3. **Kiểm
+   tra trùng lặp:** Control truy vấn Entity để kiểm tra xem Username đã tồn tại
+   chưa. Entity trả về kết quả kiểm
+   tra.
+4. **Xử lý kết quả (alt):**
+
+* **[Username không trùng]:** Control gửi lệnh tạo tài khoản mới đến Entity. Sau khi tạo thành công,
+  hệ thống trả về thông báo thành công cho Người Quản trị.
+* **[Username đã tồn tại]:** Control trả về lỗi. Boundary hiển thị thông báo yêu cầu nhập Username
+  khác.
+
+
+![1768548669223](image/pttk/1768548669223.png)
+
+    Biểu đồ tuần tự: Sửa tài khoản
+
+
+
+**Mô tả luồng hoạt
+động:**
+
+1. **Chọn tài khoản:** Người Quản trị chọn một
+   tài khoản và nhấn Sửa.
+2. **Lấydữ liệu:** Boundary yêu cầu Control lấy thông tin chi tiết của tài khoản. Control truy vấn Entity và trả dữ liệu
+   về cho Boundary để hiển thị.
+3. **Thay đổi và Lưu:** Người Quản trị thực hiện các thay đổi
+   và nhấn Lưu.
+4. **Cập nhật:** Boundary gửi yêu cầu cập nhật đến
+   Control. Control thực hiện cập nhật dữ liệu trong Entity.
+5. **Thông báo:** Hệ thống trả về thông báo cập nhật
+   thành công cho Người Quản trị.
+
+
+![1768548764158](image/pttk/1768548764158.png)
+
+    Biểu đồ tuần tự: Xóa tài khoản
+
+
+**Mô tả luồng hoạt
+động:**
+
+1. **Yêu cầu Xóa:** Người Quản trị chọn tài khoản
+   và nhấn Xóa.
+2. **Xác nhận:** Boundary hiển thị hộp thoại yêu
+   cầu xác nhận. Người Quản trị xác nhận.
+3. **Xử lý yêu cầu:** Boundary gửi yêu cầu xóa đến
+   Control.
+4. **Kiểm tra nghiệp vụ (alt):** Control thực hiện
+   kiểm tra các điều kiện trước khi xóa:
+
+* **[Xóa tài khoản đang đăng nhập]:** Control tự
+  kiểm tra (Self-Message) nếu ID cần xóa trùng với ID hiện tại. Nếu đúng, hệ thống từ chối yêu cầu
+* .**[Đã phát sinh giao dịch]:** Control kiểm tra ràng buộc dữ liệu với Entity. Nếu có ràng buộc, hệ thốngtừ chối xóa và khuyến nghị Vô hiệu hóa tài khoản.
+* **[Hợp lệ để xóa]:** Control gửi lệnh xóa đến Entity.Sau khi xóa thành công, hệ thống trả về thông báo cho Người Quản trị.
