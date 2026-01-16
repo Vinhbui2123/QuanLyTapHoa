@@ -570,6 +570,24 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 
 #### 1.7 Gói quản lý kho hàng
 
+![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Goiquanlykhohang.jpg?version%3D1768543854739)
+
+ a. Usecase nhập hàng vào kho
+
+![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Nh%E1%BA%ADp%20h%C3%A0ng%20v%C3%A0o%20kho.jpg?version%3D1768546688686)
+
+| Tiêu đề                   | Nội dung                                                                                                                                                                                               |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase                 | Nhập hàng vào kho                                                                                                                                                                                    |
+| Tác nhân chính            | Chủ tạp hóa                                                                                                                                                                                          |
+| Mức                         | 2                                                                                                                                                                                                       |
+| Người chịu trách nghiệm | Chủ tạp hóa, máy quét mã vạch                                                                                                                                                                    |
+| Tiền điều kiện           | 1. Chủ tạp hóa đã thực hiện đăng nhập<br />2. Hàng hóa vật lí từ NCC đã về đến kho và đã được kiểm tra<br />3. Thông tin hàng hóa và NCC đã tồn tại trong hệ thống |
+| Đảm bảo tối thiểu       | Phiếu nhập kho không được tạo. Tồn kho trong hệ thống không tha                                                                                                                              |
+| Đảm bảo thành công      | 1. Một phiếu nhập kho mới được tạo và lưu trữ<br />2. Tồn kho được cập nhật, ghi nhận chi tiết theo từng lô hàng và HSD tương ứng                                             |
+| Kích hoạt                  | Hàng hóa từ NCC về đến kho và đã được kiểm tra. Chủ tạp hóa thực hiện chức năng lập phiếu nhập kho                                                                               |
+| Chuỗi sự kiện chính      | Tác nhân( Chủ tạp hóa)<br />1. Chọn chức năng "Lập phiếu nhập kho"                                                                                                                           |
+
 #### 1.8 Gói quản lý khách hàng
 
 <img src="img/UC_GoiQuanLiKhachHang.png">
@@ -680,9 +698,6 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 | **Kích hoạt**                  | Người quản trị chọn chức năng**“Báo cáo tổng hợp”**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | **Chuỗi sự kiện chính**      | 1. Hệ thống hiển thị**giao diện chọn thời gian báo cáo** .<br />2. Người quản lý chọn:<br />      + Khoảng ngày (từ ngày – đến ngày)<br />      + Hoặc theo tháng / quý<br />3. Nhấn nút  **“Xem báo cáo”** <br />4. Hệ thống :<br />      + Tổng hợp doanh thu<br />      + Tổng hợp chi phí nhập hàng<br />      + Tính lãi – lỗ<br />      + Thống kê số lượng sản phẩm bán<br />      + Thống kê tồn kho<br />5. Hệ thống hiển thị:<br />       + Tổng doanh thu<br />       + Tổng chi phí<br />       + Lãi / lỗ<br />       + Top sản phẩm bán chạy<br />     |
 | **Ngoại lệ**                   | **2a. Thời gian nhập không hợp lệ**<br />     + Ngày bắt đầu > ngày kết thúc<br />     + Hệ thống thông báo lỗi<br />     + Yêu cầu nhập lại<br />**4a. Không có dữ liệu**<br />      + Không có giao dịch bán<br />      + Không có phiếu nhập<br />      + Hệ thống hiển thị : " Không có dữ liệu"                                                                                                                                                                                                                                                                                                                            |
-
-
-
 
 ### 2.Các biểu đồ tuần tự
 
