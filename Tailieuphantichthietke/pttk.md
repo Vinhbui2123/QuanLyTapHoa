@@ -713,4 +713,4 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 
 ### 3.Sơ đồ lớp tổng quát
 
-<img src="img/CL_Tongquat.jpg" >
+<img src="img/CL_Tquat.jpg" >
