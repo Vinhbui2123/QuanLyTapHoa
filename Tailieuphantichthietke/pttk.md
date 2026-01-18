@@ -703,6 +703,14 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 
 #### 2.1 Biều đồ tuần tự đăng nhập
 
+#### 2.2 Biểu đồ tuần tự kho hàng
+
+#### 2.3 Biểu đồ tuần tự khách hàng
+
+#### 2.4 Biểu đồ tuần tự bán hàng
+
+#### 2.5 Biểu đồ tuần tự thống kê
+
 ### 3.Sơ đồ lớp tổng quát
 
 <img src="img/CL_Tongquat.jpg" >
