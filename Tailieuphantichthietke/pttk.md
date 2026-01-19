@@ -653,19 +653,19 @@ a. Usecase nhập hàng vào kho
 
 ##### 1.9.2 Báo cáo lãi-lỗ
 
-| Tiêu đề                             | Nội dung                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Tên USE CASE**                | Báo cáo lãi-lỗ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **Tác nhân chính**            | Người quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **Mô tả**                      | Cho phép người quản trị xem**tình hình lãi – lỗ** của cửa hàng trong một khoảng thời gian nhất định dựa<br /> trên doanh thu và chi phí nhập hàng.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| **Mức**                         | 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| **Người chịu trách nhiệm:** | Người quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **Tiền điều kiện:**          | 1. Chủ quán đã**đăng nhập thành công** .<br />2. Hệ thống đã có **dữ liệu bán hàng** và **chi phí nhập hàng** .                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **Đảm bảo tối thiểu**       | Hiển thị thông báo nếu không có dữ liệu trong khoảng thời gian được chọn.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| **Đảm bảo thành công**      | Hiển thị**chính xác** **số tiền lãi hoặc lỗ** dưới dạng bảng và/hoặc biểu đồ.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Kích hoạt                            | Người quản trị chọn chức năng**“Báo cáo lãi – lỗ"**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| **Chuỗi sự kiện chính**      | 1. Hệ thống hiển thị**giao diện chọn thời gian** báo cáo.<br />2. Người quản trị chọn:<br />     +Từ ngày – đến ngày<br />     + Hoặc tháng / quý<br />3. Nhấn nút **“Xem báo cáo”** .<br />4. Hệ thống:<br />     + Tổng hợp **doanh thu bán hàng**<br />     + Tổng hợp **chi phí nhập hàng**<br />5. Hệ thống **tự động tính toán** :<br />      +Lãi = Doanh thu – Chi phí<br />6. Hiển thị:<br />      + Tổng doanh thu<br />      + Tổng chi phí<br />      + Số tiền lãi / lỗ<br /><br />      |
-| **Ngoại lệ:**                  | **2a. Nhập thời gian không hợp lệ**  <br />         + Ví dụ: Ngày bắt đầu > ngày kết thúc<br />         + Hệ thống hiển thị thông báo lỗi<br />         + Yêu cầu người dùng nhập lại <br />**4a.Thiếu dữ liệu**   <br />         + Không có hóa đơn bán hàng<br />         + Không có phiếu nhập<br />         + Hệ thống thông báo: “Không có dữ liệu để thống kê”                                                                                                                                          |
+| Tiêu đề                             | Nội dung                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Tên USE CASE**                | Báo cáo lãi-lỗ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Tác nhân chính**            | Người quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Mô tả**                      | Cho phép người quản trị xem**tình hình lãi – lỗ** của cửa hàng trong một khoảng thời gian nhất định dựa<br /> trên doanh thu và chi phí nhập hàng.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Mức**                         | 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Người chịu trách nhiệm:** | Người quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Tiền điều kiện:**          | 1. Chủ quán đã**đăng nhập thành công** .<br />2. Hệ thống đã có **dữ liệu bán hàng** và  **chi phí nhập hàng** .                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **Đảm bảo tối thiểu**       | Hiển thị thông báo nếu không có dữ liệu trong khoảng thời gian được chọn.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Đảm bảo thành công**      | Hiển thị**chính xác** **số tiền lãi hoặc lỗ** dưới dạng bảng và/hoặc biểu đồ.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Kích hoạt**                  | Người quản trị chọn chức năng**“Báo cáo lãi – lỗ"**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Chuỗi sự kiện chính**      | 1. Hệ thống hiển thị**giao diện chọn thời gian** báo cáo.<br />2. Người quản trị chọn:<br />     + Từ ngày – đến ngày<br />     + Hoặc tháng / quý<br />3. Nhấn nút  **“Xem báo cáo”** .<br />4. Hệ thống:<br />     + Tổng hợp **doanh thu bán hàng**<br />     + Tổng hợp **chi phí nhập hàng**<br />5. Hệ thống  **tự động tính toán** :<br />      + Lãi = Doanh thu – Chi phí<br />6. Hiển thị:<br />      + Tổng doanh thu<br />      + Tổng chi phí<br />      + Số tiền lãi / lỗ<br /><br />      |
+| **Ngoại lệ:**                  | **2a. Nhập thời gian không hợp lệ**  <br />         + Ví dụ: Ngày bắt đầu > ngày kết thúc<br />         + Hệ thống hiển thị thông báo lỗi<br />         + Yêu cầu người dùng nhập lại <br />**4a.Thiếu dữ liệu**   <br />         + Không có hóa đơn bán hàng<br />         + Không có phiếu nhập<br />         + Hệ thống thông báo: “Không có dữ liệu để thống kê”                                                                                                                                              |
 
 ##### 1.9.3 Báo cáo hàng tồn kho
 
@@ -815,6 +815,72 @@ Sau khi xử lý xong, tiếp tục bước 5 (Cập nhật liên tục).
 5. Hệ thống thông báo "Đã hủy giao dịch thành công"
 
 #### 2.5 Biểu đồ tuần tự thống kê
+
+###### **2.5.1 Báo cáo doanh thu**
+
+<img src="img/TT_doanhthu.png">
+
+**Mô tả luồng hoạt động**
+
+**1.Nhập tiêu chí:** Người Quản lý chọn tiêu chí lọc (thời gian) và nhấn Xem Báo cáo.
+
+2.**Kiểm tra hợp lệ (alt):** Việc kiểm tra tính hợp lệ của ngày tháng được thực hiện ngay tại
+Boundary.
+
++ **[Thời gian không hợp lệ]:** Boundary phát hiện lỗi (ví dụ: Ngày bắt đầu       Ngày kết thúc) và yêu
+  cầu Người Quản lý nhập lại.
++ **[Hợp lệ]:** Boundary gửi yêu cầu đến Control. Control thực
+  hiện truy vấn và tổng hợp dữ liệu từ CSDL Hóa đơn. Kết quả được trả về và hiển
+  thị cho Người Quản lý.
+
+###### 2.5.2 Báo cáo lãi- lỗ
+
+**1.** Người Quản trị nhập **khoảng thời gian** cần xem báo cáo (Từ ngày – Đến ngày) và nhấn  **Xem báo cáo** 
+
+**2.** **Kiểm tra hợp lệ** (alt):
+
+- **[Thời gian không hợp lệ]**
+
++Boundary kiểm tra dữ liệu nhập (ví dụ:
+
++ Ngày bắt đầu > ngày kết thúc
++ Bỏ trống dữ liệu
++ Định dạng sai
+
++Boundary hiển thị thông báo lỗi
+
++Yêu cầu Người Quản lý nhập lại
+
+- **[Hợp lệ]**
+
+  +Boundary gửi yêu cầu đến **Control**
+
+  +Control truy vấn dữ liệu **thu – chi** từ **Entity (CSDL)**
+
+  +Sau đó Control thực hiện xử lý:
+
+  -Tính **tổng doanh thu**
+
+  -Tính **tổng chi phí**
+
+  -Tính **lãi/lỗ = Doanh thu – Chi phí** *(Self-Message)*
+
+    +Kết quả đã xử lý được trả về Boundary
+
+    +Boundary hiển thị**báo cáo lãi – lỗ** cho Người Quản lý
+
+###### 2.5.3 Báo cáo Hàng sắp hết hạn
+
+**Mô tả luồng hoạt động:**
+
+1. **Ngày:** Người Quản lý nhập số ngày cảnh báo (N) và nhấn Xem Báo cáo
+2. **Kiểm tra hợp lệ (alt):**
+   + **[Số ngày không hợp lệ]:** Boundary kiểm tra N (ví dụ: số âm) và yêu cầu nhập lại.
+   + **[Hợp2.5. lệ]:** Boundary gửi yêu cầu đến Control. Control truy vấn dữ liệu tồn kho từ Entity. Sau đó, Control thực hiện tính toán (so sánh HSD với Ngày hiện tại + N) và lọc danh sách (Self-Message).Danh sách đã lọc được trả về và hiển thị.
+
+###### 2.5.4 Báo cáo tổng hợp
+
+
 
 ### 3.Sơ đồ lớp tổng quát
 
