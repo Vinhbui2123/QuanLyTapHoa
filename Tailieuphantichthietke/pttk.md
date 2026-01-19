@@ -749,9 +749,7 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 
 Sau khi xử lý xong, tiếp tục bước 5 (Cập nhật liên tục).
 
-### Ngoại lệ: Khách hàng hủy hóa đơn
-
-**Thời điểm xảy ra:** Tại bất kỳ thời điểm nào trước khi NVTN nhấn "Hoàn tất" (bước 7).
+### Ngoại lệ: Khách hàng hủy hóa đơn**Thời điểm xảy ra:** Tại bất kỳ thời điểm nào trước khi NVTN nhấn "Hoàn tất" (bước 7).
 
 **Điều kiện:** Khách hàng đổi ý không mua nữa hoặc NVTN cần hủy giao dịch vì lý do khác.
 
