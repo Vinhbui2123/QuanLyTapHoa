@@ -557,12 +557,13 @@ a. Usecase nhập hàng vào kho
 | Tác nhân chính            | Chủ tạp hóa                                                                                                                                                                                          |
 | Mức                         | 2                                                                                                                                                                                                       |
 | Người chịu trách nghiệm | Chủ tạp hóa, máy quét mã vạch                                                                                                                                                                    |
-| Tiền điều kiện           | 1. Chủ tạp hóa đã thực hiện đăng nhập<br />2. Hàng hóa vật lí từ NCC đã về đến kho và đã được kiểm tra<br />3. Thông tin hàng hóa và NCC đã tồn tại trong hệ thống |
+| Tiền điều kiện           | 1. Chủ tạp hóa đã thực hiện đăng nhập`<br />`2. Hàng hóa vật lí từ NCC đã về đến kho và đã được kiểm tra`<br />`3. Thông tin hàng hóa và NCC đã tồn tại trong hệ thống |
 | Đảm bảo tối thiểu       | Phiếu nhập kho không được tạo. Tồn kho trong hệ thống không tha                                                                                                                              |
-| Đảm bảo thành công      | 1. Một phiếu nhập kho mới được tạo và lưu trữ<br />2. Tồn kho được cập nhật, ghi nhận chi tiết theo từng lô hàng và HSD tương ứng                                             |
+| Đảm bảo thành công      | 1. Một phiếu nhập kho mới được tạo và lưu trữ`<br />`2. Tồn kho được cập nhật, ghi nhận chi tiết theo từng lô hàng và HSD tương ứng                                             |
 | Kích hoạt                  | Hàng hóa từ NCC về đến kho và đã được kiểm tra. Chủ tạp hóa thực hiện chức năng lập phiếu nhập kho                                                                               |
-| Chuỗi sự kiện chính      | Tác nhân( Chủ tạp hóa)<br />1. Chọn chức năng "Lập phiếu nhập kho"                                                                                                                           |
-=======
+| Chuỗi sự kiện chính      | Tác nhân( Chủ tạp hóa)`<br />`1. Chọn chức năng "Lập phiếu nhập kho"                                                                                                                           |
+====================================================================================================================================================================================================================================
+
 ![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Nh%E1%BA%ADp%20h%C3%A0ng%20v%C3%A0o%20kho.jpg?version%3D1768546688686)
 
 | Tiêu đề                   | Nội dung                                                                                                                                                                                                                                                                                                                                                                              |
@@ -579,6 +580,12 @@ a. Usecase nhập hàng vào kho
 | Ngoại lệ                   |                                                                                                                                                                                                                                                                                                                                                                                        |
 
 >>>>>>> 368df6b4ecdc3e82fa0c93bacd2c370e6c8cc759
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
 
 #### 1.8 Gói quản lý khách hàng
 
@@ -733,8 +740,7 @@ a) Thêm danh mục
 
 <img src="img/SE_LuuTruKhachHang.png">
 
-
-**Mô tả luồng hoạt động:** 
+**Mô tả luồng hoạt động:**
 
  Biểu đồ được bao bọc bởi một khung lặp (loop) với điều kiện [Người dùng chưa được xác thực], cho phép người dùng   thử đăng nhập lại nếu thất bại.
 
@@ -744,18 +750,17 @@ a) Thêm danh mục
 4. **Kết quả:** CSDL Người dùng trả về thông tin tài khoản và trạng thái cho Bộ xử lý Xác thực.
 5. **Xử lý kịch bản (alt):** Tại đây, hệ thống sử dụng khung alt để rẽ nhánh dựa trên kết quả trả về:
 
-    a.**[Thông tin hợp lệ và Đang hoạt động]:** Bộ xử lý Xác thực thực hiện xác định vai trò của người dùng (Self 			Message), sau đó trả về kết quả thành công. Màn hình Đăng nhập điều hướng người dùng đến Giao diện chính tương 	ứng.
+   a.**[Thông tin hợp lệ và Đang hoạt động]:** Bộ xử lý Xác thực thực hiện xác định vai trò của người dùng (Self 			Message), sau đó trả về kết quả thành công. Màn hình Đăng nhập điều hướng người dùng đến Giao diện chính tương 	ứng.
 
-    b.**[Sai thông tin đăng nhập]:** Bộ xử lý Xác thực trả về lỗi. Hệ thống hiển thị thông báo "Sai tên đăng nhập hoặc 	mật khẩu không chính xác".
+   b.**[Sai thông tin đăng nhập]:** Bộ xử lý Xác thực trả về lỗi. Hệ thống hiển thị thông báo "Sai tên đăng nhập hoặc 	mật khẩu không chính xác".
 
-    c.**[Tài khoản bị khóa]:** Bộ xử lý Xác thực trả về lỗi. Hệ thống hiển thị thông báo "Tài khoản đã bị khóa...
+   c.**[Tài khoản bị khóa]:** Bộ xử lý Xác thực trả về lỗi. Hệ thống hiển thị thông báo "Tài khoản đã bị khóa...
 
 #### 2.2 Biểu đồ tuần tự kho hàng
 
 **a. Biểu đồ tuần tự "Nhập kho":**
 
-<img src = "img/SequenceDiagram_Nhậpkho.jpg">
-
+<img src="img/SequenceDiagram_Nhậpkho.jpg">
 
 **Mô tả luồng hoạt động:**
 
@@ -792,8 +797,7 @@ a) Thêm danh mục
 
 <img src="img/SequenceDiagram_Xuatkho.jpg">
 
-
-**Mô tả luồng hoạt động:** 
+**Mô tả luồng hoạt động:**
 
 **a. Luồng sự kiện chính (Xuất hàng thành công)**
 
