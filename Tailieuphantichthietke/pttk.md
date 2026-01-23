@@ -551,36 +551,6 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 
 a. Usecase nhập hàng vào kho
 
-<<<<<<< HEAD
-![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Nh%E1%BA%ADp%20h%C3%A0ng%20v%C3%A0o%20kho.jpg?version%3D1768546688686)
-
-| Tiêu đề                   | Nội dung                                                                                                                                                                                               |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tên UseCase                 | Nhập hàng vào kho                                                                                                                                                                                    |
-| Tác nhân chính            | Chủ tạp hóa                                                                                                                                                                                          |
-| Mức                         | 2                                                                                                                                                                                                       |
-| Người chịu trách nghiệm | Chủ tạp hóa, máy quét mã vạch                                                                                                                                                                    |
-| Tiền điều kiện           | 1. Chủ tạp hóa đã thực hiện đăng nhập<br />2. Hàng hóa vật lí từ NCC đã về đến kho và đã được kiểm tra<br />3. Thông tin hàng hóa và NCC đã tồn tại trong hệ thống |
-| Đảm bảo tối thiểu       | Phiếu nhập kho không được tạo. Tồn kho trong hệ thống không tha                                                                                                                              |
-| Đảm bảo thành công      | 1. Một phiếu nhập kho mới được tạo và lưu trữ<br />2. Tồn kho được cập nhật, ghi nhận chi tiết theo từng lô hàng và HSD tương ứng                                             |
-| Kích hoạt                  | Hàng hóa từ NCC về đến kho và đã được kiểm tra. Chủ tạp hóa thực hiện chức năng lập phiếu nhập kho                                                                               |
-| Chuỗi sự kiện chính      | Tác nhân( Chủ tạp hóa)<br />1. Chọn chức năng "Lập phiếu nhập kho"                                                                                                                           |
-
-=======
-<<<<<<< HEAD
-| Tiêu đề | Nội dung |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tên UseCase | Nhập hàng vào kho |
-| Tác nhân chính | Chủ tạp hóa |
-| Mức | 2 |
-| Người chịu trách nghiệm | Chủ tạp hóa, máy quét mã vạch |
-| Tiền điều kiện | 1. Chủ tạp hóa đã thực hiện đăng nhập `<br />`2. Hàng hóa vật lí từ NCC đã về đến kho và đã được kiểm tra `<br />`3. Thông tin hàng hóa và NCC đã tồn tại trong hệ thống |
-| Đảm bảo tối thiểu | Phiếu nhập kho không được tạo. Tồn kho trong hệ thống không tha |
-| Đảm bảo thành công | 1. Một phiếu nhập kho mới được tạo và lưu trữ `<br />`2. Tồn kho được cập nhật, ghi nhận chi tiết theo từng lô hàng và HSD tương ứng |
-| Kích hoạt | Hàng hóa từ NCC về đến kho và đã được kiểm tra. Chủ tạp hóa thực hiện chức năng lập phiếu nhập kho |
-| Chuỗi sự kiện chính | Tác nhân( Chủ tạp hóa)`<br />`1. Chọn chức năng "Lập phiếu nhập kho" |
-=====================================================================================================
-
 ![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Nh%E1%BA%ADp%20h%C3%A0ng%20v%C3%A0o%20kho.jpg?version%3D1768546688686)
 
 | Tiêu đề                   | Nội dung                                                                                                                                                                                                                                                                                                                                                                              |
@@ -595,21 +565,6 @@ a. Usecase nhập hàng vào kho
 | Kích hoạt                  | Hàng hóa từ NCC về đến kho và đã được kiểm tra. Chủ tạp hóa thực hiện chức năng lập phiếu nhập kho                                                                                                                                                                                                                                                              |
 | Chuỗi sự kiện chính      | Tác nhân( Chủ tạp hóa)<br />1. Chọn chức năng "Lập phiếu nhập kho"<br />2. Chọn NCC<br />3. Thêm mặt hàng, nhập số lượng<br />4. Hệ thống yêu cầu nhập: Mã lô, NSX, HSD<br />5. Chủ cửa hàng nhập đầy đủ thông tin.<br />6. Nhấn hoàn tất phiếu nhập<br />7. Hệ thống cập nhật tồn kho chi tiết<br />8. Hệ thống lưu phiếu nhập kho |
 | Ngoại lệ                   |                                                                                                                                                                                                                                                                                                                                                                                        |
-
->>>>>>> 368df6b4ecdc3e82fa0c93bacd2c370e6c8cc759
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
->>>>>>> 83bd23fba21f8c142afa6dd8dd729e021084bd6f
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
 
 #### 1.8 Gói quản lý khách hàng
 
@@ -1013,7 +968,7 @@ Boundary.
 
 ###### 2.5.2 Báo cáo lãi- lỗ
 
-<img src="img/TT-lailo.png">
+<img src="img/">
 
 **1.** Người Quản trị nhập **khoảng thời gian** cần xem báo cáo (Từ ngày – Đến ngày) và nhấn **Xem báo cáo**
 
