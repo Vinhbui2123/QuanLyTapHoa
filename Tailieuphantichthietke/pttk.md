@@ -835,7 +835,7 @@ Boundary.
 
 ###### 2.5.2 Báo cáo lãi- lỗ
 
-**1.** Người Quản trị nhập **khoảng thời gian** cần xem báo cáo (Từ ngày – Đến ngày) và nhấn  **Xem báo cáo** 
+**1.** Người Quản trị nhập **khoảng thời gian** cần xem báo cáo (Từ ngày – Đến ngày) và nhấn  **Xem báo cáo**
 
 **2.** **Kiểm tra hợp lệ** (alt):
 
@@ -865,9 +865,9 @@ Boundary.
 
   -Tính **lãi/lỗ = Doanh thu – Chi phí** *(Self-Message)*
 
-    +Kết quả đã xử lý được trả về Boundary
+  +Kết quả đã xử lý được trả về Boundary
 
-    +Boundary hiển thị**báo cáo lãi – lỗ** cho Người Quản lý
+  +Boundary hiển thị**báo cáo lãi – lỗ** cho Người Quản lý
 
 ###### 2.5.3 Báo cáo Hàng sắp hết hạn
 
@@ -879,8 +879,6 @@ Boundary.
    + **[Hợp2.5. lệ]:** Boundary gửi yêu cầu đến Control. Control truy vấn dữ liệu tồn kho từ Entity. Sau đó, Control thực hiện tính toán (so sánh HSD với Ngày hiện tại + N) và lọc danh sách (Self-Message).Danh sách đã lọc được trả về và hiển thị.
 
 ###### 2.5.4 Báo cáo tổng hợp
-
-
 
 ### 3.Sơ đồ lớp tổng quát
 
