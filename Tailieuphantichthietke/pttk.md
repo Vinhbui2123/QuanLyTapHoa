@@ -17,52 +17,33 @@ Quản Lý Tạp Hóa là một hệ thống quản lý cửa hàng tạp hóa �
 **1.1. Quản lý sản phẩm**
 
     -Thêm sản phẩm mới.
-
     -Sửa thông tin sản phẩm (tên, giá, số lượng, danh mục…).
-
     -Xóa hoặc tạm ẩn sản phẩm khỏi danh sách bán.
-
     -Tìm kiếm và lọc sản phẩm theo tên, mã, danh mục.
 
 **1.2. Quản lý kho hàng**
 
     -Nhập kho (cập nhật số lượng).
-
     -Xuất kho tự động khi bán hàng.
-
     -Cảnh báo hàng tồn kho thấp.
-
     -Ghi nhận lịch sử nhập – xuất kho.
-
     -Quản lý hạn sử dụng
 
-**1.3. Quản lý hóa đơn**
-
-- Lưu trữ hóa đơn theo ngày/tháng/năm.
-- Tra cứu hóa đơn theo mã, thời gian, nhân viên bán.
-- Xuất hóa đơn ra PDF hoặc Excel.
-- Lịch sử chỉnh sửa hoặc trả hàng liên quan đến hóa đơn.
-
-**1.4. Quản lý khách hàng**
+**1.3. Quản lý khách hàng**
 
     -Lưu thông tin khách hàng thân thiết.
 
-**1.5. Quản lý nhà cung cấp**
+**1.4. Quản lý nhà cung cấp**
 
     -Thêm và lưu thông tin nhà cung cấp.
-
     -Theo dõi các lần nhập hàng từ nhà cung cấp.
-
     -Ghi lịch sử nợ / thanh toán với nhà cung cấp.
 
-**1.6. Báo cáo – Thống kê**
+**1.5. Báo cáo – Thống kê**
 
     -Báo cáo doanh thu theo ngày, tuần, tháng.
-
     -Báo cáo lãi – lỗ.
-
     -Báo cáo hàng tồn kho.
-
     -Biểu đồ sản phẩm bán chạy / bán chậm.
 
 ### 2. **Yêu cầu phi chức năng (Non-functional Requirements)**
@@ -75,7 +56,7 @@ Quản Lý Tạp Hóa là một hệ thống quản lý cửa hàng tạp hóa �
 
     -Phân quyền truy cập rõ ràng.
 
-    -Mã hóa mật khẩu.
+    -Mã hóa mật khẩu
 
     -Lưu lịch sử thay đổi dữ liệu.
 
@@ -114,16 +95,13 @@ Quản Lý Tạp Hóa là một hệ thống quản lý cửa hàng tạp hóa �
 **3.2. Bảng hóa đơn (Invoices)**
 
     -Mã hóa đơn
-
     -Ngày giờ
-
     -Tổng tiền
-
     -Hình thức thanh toán
 
 ### 4. **Yêu cầu tích hợp (Integration Requirements)**
 
-    -Tích hợp ZaloPay, VietQR, MoMo nếu muốn thanh toán QR.
+    -Tích hợp thanh toán QR.
 
 ## I-Quy trình quản lý khách hàng
 
@@ -570,11 +548,7 @@ Dựa trên mô tả quy trình hoạt động, các đối tượng tương tá
 
 #### 1.7 Gói quản lý kho hàng
 
-![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Goiquanlykhohang.jpg?version%3D1768543854739)
-
 a. Usecase nhập hàng vào kho
-
-![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Nh%E1%BA%ADp%20h%C3%A0ng%20v%C3%A0o%20kho.jpg?version%3D1768546688686)
 
 | Tiêu đề                   | Nội dung                                                                                                                                                                                               |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -698,6 +672,42 @@ a. Usecase nhập hàng vào kho
 | **Kích hoạt**                  | Người quản trị chọn chức năng**“Báo cáo tổng hợp”**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | **Chuỗi sự kiện chính**      | 1. Hệ thống hiển thị**giao diện chọn thời gian báo cáo** .<br />2. Người quản lý chọn:<br />      + Khoảng ngày (từ ngày – đến ngày)<br />      + Hoặc theo tháng / quý<br />3. Nhấn nút **“Xem báo cáo”** <br />4. Hệ thống :<br />      + Tổng hợp doanh thu<br />      + Tổng hợp chi phí nhập hàng<br />      + Tính lãi – lỗ<br />      + Thống kê số lượng sản phẩm bán<br />      + Thống kê tồn kho<br />5. Hệ thống hiển thị:<br />       + Tổng doanh thu<br />       + Tổng chi phí<br />       + Lãi / lỗ<br />       + Top sản phẩm bán chạy<br />     |
 | **Ngoại lệ**                   | **2a. Thời gian nhập không hợp lệ**<br />     + Ngày bắt đầu > ngày kết thúc<br />     + Hệ thống thông báo lỗi<br />     + Yêu cầu nhập lại<br />**4a. Không có dữ liệu**<br />      + Không có giao dịch bán<br />      + Không có phiếu nhập<br />      + Hệ thống hiển thị : " Không có dữ liệu"                                                                                                                                                                                                                                                                                                                           |
+
+#### 1.10. Quản lý nhà cung cấp
+
+<img src="img/UC_QuanlyNCC.jpg">
+
+| Tiêu đề                  | Nội dung                                                                                                                                                                                                                                                                                                                                                                                                         |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tên UseCase**      | Thêm xóa sửa nhà cung cấp                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Tác nhân chính** | Người quản trị                                                                                                                                                                                                                                                                                                                                                                                                |
+| Mô tả                     | Thêm,xóa,sửa nhà cung cấp                                                                                                                                                                                                                                                                                                                                                                                    |
+| Mức                        | 1                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Tiền điều kiện          | Người quản trí đã đăng nhập vào hệ thống thành công                                                                                                                                                                                                                                                                                                                                                 |
+| Đảm bảo tối thiểu      | Dữ liệu không bị thay đổi nếu thao tác bị hủy giữa chừng                                                                                                                                                                                                                                                                                                                                              |
+| Đảm bảo thành công     | Thông tin nhà cung cấp được lưu chính xác vào cơ sở dữ liệu                                                                                                                                                                                                                                                                                                                                         |
+| Kích hoạt                 | Người quản trí truy cập vào màn hình "Quản lý nhà cung cấp" và chọn<br />các thao tác                                                                                                                                                                                                                                                                                                             |
+| Chuỗi sự kiện chính     | 1.Người quản trí:<br />Truy cập màn hình "Quản lý nhà cung cấp"<br />2.Hệ thống:<br />Hiển thị danh sách nhà cung cấp hiện có<br />3.Người quản trí:<br />Nhấn nút "Thêm mới"<br />4.Hệ thống : hiển thị form ncc<br />5.Người quản trị: Nhập đầy đủ thông tin vào các trường<br />                            Lưu<br />6.Hệ thống : Lưu database |
+| Ngoại lệ                  | 3. Lỗi thêm xóa sửa nhà cung cấp<br />3.1 Hệ thống hiển thị thông báo lỗi cụ thể bên cạnh trường nhập sai:<br />3.2 Hệ thống giữ nguyên dữ liệu đã nhập<br />3.3 Người quản trị: sửa lại thông tin quay về bước 2                                                                                                                                                        |
+
+#### 1.11. Quản lý sản danh mục
+
+<img src="img/UC_Danhmuc.jpg">
+
+a) Thêm danh mục
+
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                                                                                                     |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Thêm danh mục                                                                                                                                                                                                                                                                                                               |
+| Tác nhân chính       | Người quản lý                                                                                                                                                                                                                                                                                                             |
+| Mô tả                 | Cho phép thêm danh mục mới                                                                                                                                                                                                                                                                                                |
+| Mức                    | 3                                                                                                                                                                                                                                                                                                                             |
+| Tiền điều kiện      | Người quản lý đăng nhập thành công                                                                                                                                                                                                                                                                                   |
+| Đảm bảo tối thiểu  | Nếu Người Quản lý hủy thao tác, danh mục mới sẽ<br />không được lưu vào CSDL.                                                                                                                                                                                                                                 |
+| Đảm bảo thành công | Danh mục mới với các thông tin (Mã, Tên, Mô tả)<br />được lưu thành công vào CSDL                                                                                                                                                                                                                             |
+| Kích hoạt             | Người Quản lý nhấn nút "Thêm mới" trên<br />giao diện quản lý danh mục.                                                                                                                                                                                                                                          |
+| Chuỗi sự kiện chính | Hệ thống hiển thị Form thêm mới,yêu cầu nhập: Tên danh mục, Mô tả.<br />Người Quản lý nhập đầy đủ thông tin và nhấn "Lưu".<br />Hệ thống kiểm tra tính hợp lệ của dữ liệu.<br />Hệ thống lưu thông tin danh mục mới vào CSDL.<br />Hệ thống thông báo thêm mới thành công. |
+| Ngoại lệ              | Tên danh mục đã tồn tại:<br />  Hệ thống thông báo lỗi "Tên danh mục đã tồn tại"<br />  Hệ thống yêu cầu Người Quản lý nhập lại Tên khác.<br />  Quản lý nhập lại tên                                                                                                               |
 
 ### 2.Các biểu đồ tuần tự
 
@@ -913,6 +923,10 @@ Boundary.
 6.Sau khi tính toán xong, **Bộ điều khiển** gửi kết quả báo cáo tổng hợp về lại  **Màn hình Báo cáo Tổng hợp** .
 
 7.**Màn hình** hiển thị báo cáo chi tiết cho **Người Quản Trị** xem.
+
+#### 2.6 Quản lý danh mục
+
+#### 2.7 Quản lý nhà cung cấp
 
 ### 3.Sơ đồ lớp tổng quát
 
