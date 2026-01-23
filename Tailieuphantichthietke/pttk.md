@@ -576,17 +576,19 @@ a. Usecase nhập hàng vào kho
 
 ![](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/nam/QuanLyTapHoa/Tailieuphantichthietke/img/Nh%E1%BA%ADp%20h%C3%A0ng%20v%C3%A0o%20kho.jpg?version%3D1768546688686)
 
-| Tiêu đề                   | Nội dung                                                                                                                                                                                               |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tên UseCase                 | Nhập hàng vào kho                                                                                                                                                                                    |
-| Tác nhân chính            | Chủ tạp hóa                                                                                                                                                                                          |
-| Mức                         | 2                                                                                                                                                                                                       |
-| Người chịu trách nghiệm | Chủ tạp hóa, máy quét mã vạch                                                                                                                                                                    |
-| Tiền điều kiện           | 1. Chủ tạp hóa đã thực hiện đăng nhập<br />2. Hàng hóa vật lí từ NCC đã về đến kho và đã được kiểm tra<br />3. Thông tin hàng hóa và NCC đã tồn tại trong hệ thống |
-| Đảm bảo tối thiểu       | Phiếu nhập kho không được tạo. Tồn kho trong hệ thống không tha                                                                                                                              |
-| Đảm bảo thành công      | 1. Một phiếu nhập kho mới được tạo và lưu trữ<br />2. Tồn kho được cập nhật, ghi nhận chi tiết theo từng lô hàng và HSD tương ứng                                             |
-| Kích hoạt                  | Hàng hóa từ NCC về đến kho và đã được kiểm tra. Chủ tạp hóa thực hiện chức năng lập phiếu nhập kho                                                                               |
-| Chuỗi sự kiện chính      | Tác nhân( Chủ tạp hóa)<br />1. Chọn chức năng "Lập phiếu nhập kho"                                                                                                                           |
+| Tiêu đề                   | Nội dung                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase                 | Nhập hàng vào kho                                                                                                                                                                                                                                                                                                                                                                   |
+| Tác nhân chính            | Chủ tạp hóa                                                                                                                                                                                                                                                                                                                                                                         |
+| Mức                         | 2                                                                                                                                                                                                                                                                                                                                                                                      |
+| Người chịu trách nghiệm | Chủ tạp hóa, máy quét mã vạch                                                                                                                                                                                                                                                                                                                                                   |
+| Tiền điều kiện           | 1. Chủ tạp hóa đã thực hiện đăng nhập<br />2. Hàng hóa vật lí từ NCC đã về đến kho và đã được kiểm tra<br />3. Thông tin hàng hóa và NCC đã tồn tại trong hệ thống                                                                                                                                                                                |
+| Đảm bảo tối thiểu       | Phiếu nhập kho không được tạo. Tồn kho trong hệ thống không tha                                                                                                                                                                                                                                                                                                             |
+| Đảm bảo thành công      | 1. Một phiếu nhập kho mới được tạo và lưu trữ<br />2. Tồn kho được cập nhật, ghi nhận chi tiết theo từng lô hàng và HSD tương ứng                                                                                                                                                                                                                            |
+| Kích hoạt                  | Hàng hóa từ NCC về đến kho và đã được kiểm tra. Chủ tạp hóa thực hiện chức năng lập phiếu nhập kho                                                                                                                                                                                                                                                              |
+| Chuỗi sự kiện chính      | Tác nhân( Chủ tạp hóa)<br />1. Chọn chức năng "Lập phiếu nhập kho"<br />2. Chọn NCC<br />3. Thêm mặt hàng, nhập số lượng<br />4. Hệ thống yêu cầu nhập: Mã lô, NSX, HSD<br />5. Chủ cửa hàng nhập đầy đủ thông tin.<br />6. Nhấn hoàn tất phiếu nhập<br />7. Hệ thống cập nhật tồn kho chi tiết<br />8. Hệ thống lưu phiếu nhập kho |
+| Ngoại lệ                   |                                                                                                                                                                                                                                                                                                                                                                                        |
+
 
 #### 1.8 Gói quản lý khách hàng
 
@@ -705,7 +707,86 @@ a. Usecase nhập hàng vào kho
 
 <img src="img/SE_LuuTruKhachHang.png">
 
+
+**Mô tả luồng hoạt động:** 
+
+ Biểu đồ được bao bọc bởi một khung lặp (loop) với điều kiện [Người dùng chưa được xác thực], cho phép người dùng   thử đăng nhập lại nếu thất bại.
+
+1. **Khởi tạo:** Người dùng tương tác với Màn hình Đăng nhập, nhập Username, Password và nhấn Đăng nhập.
+2. **Yêu cầu xác thực:** Màn hình Đăng nhập chuyển thông tin đến Bộ xử lý Xác thực.
+3. **Truy vấn dữ liệu:** Bộ xử lý Xác thực gửi yêu cầu truy vấn đến CSDL Người dùng.
+4. **Kết quả:** CSDL Người dùng trả về thông tin tài khoản và trạng thái cho Bộ xử lý Xác thực.
+5. **Xử lý kịch bản (alt):** Tại đây, hệ thống sử dụng khung alt để rẽ nhánh dựa trên kết quả trả về:
+
+    a.**[Thông tin hợp lệ và Đang hoạt động]:** Bộ xử lý Xác thực thực hiện xác định vai trò của người dùng (Self 			Message), sau đó trả về kết quả thành công. Màn hình Đăng nhập điều hướng người dùng đến Giao diện chính tương 	ứng.
+
+    b.**[Sai thông tin đăng nhập]:** Bộ xử lý Xác thực trả về lỗi. Hệ thống hiển thị thông báo "Sai tên đăng nhập hoặc 	mật khẩu không chính xác".
+
+    c.**[Tài khoản bị khóa]:** Bộ xử lý Xác thực trả về lỗi. Hệ thống hiển thị thông báo "Tài khoản đã bị khóa...
+
 #### 2.2 Biểu đồ tuần tự kho hàng
+
+**a. Biểu đồ tuần tự "Nhập kho":**
+
+![1769151850757](image/pttk/1769151850757.jpg)
+
+
+**Mô tả luồng hoạt động:**
+
+**a. Luồng sự kiện chính (Nhập hàng thành công)**
+
+1. **Kích hoạt:** Chủ cửa hàng chọn chức năng "Nhập hàng vào kho" trên hệ thống.
+2. **Hệ thống phản hồi:** Hệ thống tạo một Phiếu nhập kho mới và hiển thị giao diện để bắt đầu thêm sản phẩm.
+3. **Người dùng nhập liệu:** Chủ cửa hàng lần lượt thêm từng mặt hàng vào phiếu, điền đầy đủ các thông tin bắt buộc: Mã hàng, Số lượng, Mã lô, Ngày sản xuất và Hạn sử dụng (HSD).
+4. **Xử lý &Xác thực:** Với mỗi mặt hàng được thêm, hệ thống kiểm tra tính hợp lệ của dữ liệu, đảm bảo rằng mã hàng tồn tại, HSD chưa hết hạn và các trường bắt buộc đã được điền.
+5. **Hoàn tất phiếu nhập:** Sau khi thêm tất cả các mặt hàng, Chủ cửa hàng nhấn "Hoàn tất phiếu nhập".
+6. **Cập nhật dữ liệu:** Hệ thống thực hiện các bước sau:
+
+·Lưu Phiếu nhập kho vào CSDL.
+
+·Tạo các đối tượng Lô hàng mới tương ứng với từng dòng sản phẩm trong phiếu nhập.
+
+·Cập nhật (cộng thêm) số lượng tồn kho cho từng mặt hàng trong hệ thống Quản lý Kho.
+
+7. **Kết thúc:** Hệ thống hiển thị thông báo "Nhập kho thành công" .
+
+**b. Các luồng rẽ nhánh**
+
+● **Ngoại lệ:Thông tin hàng hóa không hợp lệ**
+
+■Tại bước 4, nếu nhập thông tin không hợp lệ, hệ thống sẽ báo lỗi và không cho phép thêm mặt hàng đó vào phiếu:
+
+○Nếu  **Mã hàng không tồn tại** , hệ thống báo lỗi "Không tìm thấy hàng hóa".
+
+○Nếu **Hàng đã hết hạn** (HSD nhỏ hơn ngày hiện tại), hệ thống báo lỗi "Không được phép nhập hàng đã hết hạn".
+
+○Nếu **bỏ trống HSD** đối với mặt hàng bắt buộc quản lý HSD, hệ thống báo lỗi "Vui lòng nhập Hạn sử dụng".
+
+**b. Biểu đồ tuần tự " Xuất Kho":**
+
+![1769152081359](image/pttk/1769152081359.jpg)
+
+
+**Mô tả luồng hoạt động:** 
+
+**a. Luồng sự kiện chính (Xuất hàng thành công)**
+
+1. **Kích hoạt:**  nhập yêu cầu xuất hàng bằng cách điền Mã hàng và Số lượng cần xuất ra quầy.
+2. **Kiểm tra tồn kho:** Hệ thống kiểm tra tổng số lượng tồn kho của mặt hàng đó trong kho chính.
+3. **Xử lý FIFO:** Nếu tồn kho đủ, hệ thống tự động truy vấn để tìm ra các lô hàng cần được xuất theo nguyên tắc FIFO (ưu tiên các lô có Hạn sử dụng gần nhất).
+4. **Hệ thống đề xuất:** Hệ thống hiển thị một danh sách đề xuất các lô hàng cụ thể (kèm HSD và số lượng) sẽ được xuất.
+5. **Người dùng xác nhận:** Chủ cửa hàng kiểm tra đề xuất của hệ thống (đồng thời chuẩn bị hàng hóa vật lý theo đúng lô) và nhấn "Xác nhận".
+6. **Cập nhật dữ liệu:** Hệ thống tạo một Phiếu xuất kho, lưu vào CSDL và thực hiện cập nhật tồn kho: giảm số lượng ở kho chính và tăng số lượng ở kho quầy.
+7. **Hoàn tất:** Hệ thống thông báo "Xuất kho ra quầy thành công".
+
+**b. Luồng rẽ nhánh**
+
+●**Ngoại lệ: Tồn kho không đủ**
+
+■Tại bước 2, nếu hệ thống kiểm tra thấy tổng số lượng tồn kho trong kho chính nhỏ hơn số lượng muốn xuất, luồng xử lý sẽ rẽ nhánh.
+
+■Hệ thống sẽ hiển thị một thông báo lỗi rõ ràng, ví dụ: "Tồn kho không đủ. Chỉ còn 70 sản
+phẩm", và sẽ không cho phép thực hiện tiếp yêu cầu xuất kho.
 
 #### 2.3 Biểu đồ tuần tự khách hàng
 
