@@ -840,6 +840,39 @@ Biểu đồ được bao bọc bởi một khung lặp (loop) với điều ki�
 ■Hệ thống sẽ hiển thị một thông báo lỗi rõ ràng, ví dụ: "Tồn kho không đủ. Chỉ còn 70 sản
 phẩm", và sẽ không cho phép thực hiện tiếp yêu cầu xuất kho.
 
+c) Báo cáo tồn kho
+
+<img src="img/TT_tonkhokhohang.png">
+
+c.1) Luồng hoạt động chính:
+
+1.Người quản lý nhập và gửi câu lệnh tìm kiếm "Xem tồn kho"
+2.Màn hình Nội bộ gửi yêu cầu kiểm tra đến Bộ điều khiển
+3.Bộ điều khiển kiểm tra lệ hợp lệ từ CSDL Kho
+4.Sau khi hợp lệ, hệ thống yêu cầu báo cáo như sau:
+5.Hệ thống hiển thị danh sách và trả về thông báo kết quả
+
+c.2) Luồng ngoại lệ:
+
+1.Thông báo hộp lệ không hợp lệ
+2.Hệ thống yêu cầu nhập lại hoặc dừng thao tác
+
+d) Ghi nhận lịch sử
+
+<img src="img/TT_ghinhanlichsu.png">
+
+d.1) Luồng hoạt động chính:
+
+1.Người quản lý nhập thông tin nhân viên và nhấn "Lưu"
+2.Màn hình gửi yêu cầu đến Bộ điều khiển để kiểm tra dữ liệu hợp lệ
+3.Bộ điều khiển kiểm tra tập lệ dữ liệu tồn tại
+4.Sau khi kiểm tra OK, hệ thống cho phép xem dữ liệu lịch sử bao gồm:
+5.Hệ thống trả về kết quả và thông báo ghi nhận thành công
+d.2) Luồng ngoại lệ:
+
+1.Nếu ghi nhật thất bại → Hiển thị thông báo lỗi cho người quản lý
+
+
 #### 2.3 Biểu đồ tuần tự khách hàng
 
 **a. Biểu đồ tuần tự " Lưu trữ khách hàng ":**
