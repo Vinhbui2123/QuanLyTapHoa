@@ -754,7 +754,7 @@ a) Thêm danh mục
 
 **a. Biểu đồ tuần tự "Nhập kho":**
 
-![1769151850757](image/pttk/1769151850757.jpg)
+<img src = "img/SequenceDiagram_Nhậpkho.jpg">
 
 
 **Mô tả luồng hoạt động:**
@@ -790,7 +790,7 @@ a) Thêm danh mục
 
 **b. Biểu đồ tuần tự " Xuất Kho":**
 
-![1769152081359](image/pttk/1769152081359.jpg)
+<img src="img/SequenceDiagram_Xuatkho.jpg">
 
 
 **Mô tả luồng hoạt động:** 
