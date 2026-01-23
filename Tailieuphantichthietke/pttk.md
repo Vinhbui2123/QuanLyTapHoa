@@ -1005,7 +1005,7 @@ Boundary.
 
 ###### 2.5.2 Báo cáo lãi- lỗ
 
-<img src="img/TT-lailo.png">
+<img src="img/">
 
 **1.** Người Quản trị nhập **khoảng thời gian** cần xem báo cáo (Từ ngày – Đến ngày) và nhấn **Xem báo cáo**
 
@@ -1105,6 +1105,8 @@ Boundary.
 ### 3.Sơ đồ lớp tổng quát
 
 <img src="img/CL_Tquat.jpg" >
+<<<<<<< HEAD
+=======
 
 ## **4. Tổng kết:**
 
@@ -1123,3 +1125,4 @@ Báo cáo đã thành công trong việc chuyển hoá các cầu nghiệp vụ 
 ### 4.2 Đánh gia ưu điểm và nhược điểm:
 
 ### 4.3 Hướng phát triển trong tương lai:
+>>>>>>> e2c5beff520af134c84a9db9fe530b04568093b4
