@@ -722,20 +722,52 @@ x	`<img src="img/UC_QuanLySanPham.png">`
 
 #### 1.10. Quản lý nhà cung cấp
 
-<img src="img/UC_QuanlyNCC.jpg">
+<img src="img/UC_QuanlyNCC1.jpg">
 
-| Tiêu đề                  | Nội dung                                                                                                                                                                                                                                                                                                                                                                                                         |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Tên UseCase**      | Thêm xóa sửa nhà cung cấp                                                                                                                                                                                                                                                                                                                                                                                    |
-| **Tác nhân chính** | Người quản trị                                                                                                                                                                                                                                                                                                                                                                                                |
-| Mô tả                     | Thêm,xóa,sửa nhà cung cấp                                                                                                                                                                                                                                                                                                                                                                                    |
-| Mức                        | 1                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Tiền điều kiện          | Người quản trí đã đăng nhập vào hệ thống thành công                                                                                                                                                                                                                                                                                                                                                 |
-| Đảm bảo tối thiểu      | Dữ liệu không bị thay đổi nếu thao tác bị hủy giữa chừng                                                                                                                                                                                                                                                                                                                                              |
-| Đảm bảo thành công     | Thông tin nhà cung cấp được lưu chính xác vào cơ sở dữ liệu                                                                                                                                                                                                                                                                                                                                         |
-| Kích hoạt                 | Người quản trí truy cập vào màn hình "Quản lý nhà cung cấp" và chọn<br />các thao tác                                                                                                                                                                                                                                                                                                             |
-| Chuỗi sự kiện chính     | 1.Người quản trí:<br />Truy cập màn hình "Quản lý nhà cung cấp"<br />2.Hệ thống:<br />Hiển thị danh sách nhà cung cấp hiện có<br />3.Người quản trí:<br />Nhấn nút "Thêm mới"<br />4.Hệ thống : hiển thị form ncc<br />5.Người quản trị: Nhập đầy đủ thông tin vào các trường<br />                            Lưu<br />6.Hệ thống : Lưu database |
-| Ngoại lệ                  | 3. Lỗi thêm xóa sửa nhà cung cấp<br />3.1 Hệ thống hiển thị thông báo lỗi cụ thể bên cạnh trường nhập sai:<br />3.2 Hệ thống giữ nguyên dữ liệu đã nhập<br />3.3 Người quản trị: sửa lại thông tin quay về bước 2                                                                                                                                                        |
+a) Thêm nhà cung cấp
+
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Thêm xóa sửa nhà cung cấp                                                                                                                                                                                                                                                                                                                                                                                    |
+| Tác nhân chính       | Người quản trị                                                                                                                                                                                                                                                                                                                                                                                                |
+| Mô tả                 | Thêm,xóa,sửa nhà cung cấp                                                                                                                                                                                                                                                                                                                                                                                    |
+| Mức                    | 3                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Tiền điều kiện      | Người quản trí đã đăng nhập vào hệ thống thành công                                                                                                                                                                                                                                                                                                                                                 |
+| Đảm bảo tối thiểu  | Dữ liệu không bị thay đổi nếu thao tác bị hủy giữa chừng                                                                                                                                                                                                                                                                                                                                              |
+| Đảm bảo thành công | Thông tin nhà cung cấp được lưu chính xác vào cơ sở dữ liệu                                                                                                                                                                                                                                                                                                                                         |
+| Kích hoạt             | Người quản trí truy cập vào màn hình "Quản lý nhà cung cấp" và chọn<br />các thao tác                                                                                                                                                                                                                                                                                                             |
+| Chuỗi sự kiện chính | 1.Người quản trí:<br />Truy cập màn hình "Quản lý nhà cung cấp"<br />2.Hệ thống:<br />Hiển thị danh sách nhà cung cấp hiện có<br />3.Người quản trí:<br />Nhấn nút "Thêm mới"<br />4.Hệ thống : hiển thị form ncc<br />5.Người quản trị: Nhập đầy đủ thông tin vào các trường<br />                            Lưu<br />6.Hệ thống : Lưu database |
+| Ngoại lệ              | 3. Tên nhà cung đã tồn<br />3.1 Hệ thống thông báo lỗi "Tên nhà cung cấp đã tồn tại"<br />3.2 Hệ thống yêu cầu nhập lại thông tin.<br />3.3  Quản lý nhập lại.                                                                                                                                                                                                                    |
+
+b)Xóa nhà cung cấp
+
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                   |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Xoá Nhà cung cấp                                                                                                                                                                                                                         |
+| Tác nhân chính       | Người Quản lTrị                                                                                                                                                                                                                         |
+| Mô tả                 | Cho phép Người Quản Trị xóa vĩnh viễn thông tin<br /> của một nhà cung cấp khỏi hệ thống                                                                                                                                   |
+| Mức                    | 3                                                                                                                                                                                                                                           |
+| Tiền điều kiện      | Người Quản Trị đã đăng nhập thành công.<br />Người Quản Trị đã chọn một nhà cung cấp từ<br />danh sách để xóa.                                                                                                  |
+| Đảm bảo tối thiểu  | Nếu Người Quản lý hủy, hoặc hệ thống từ<br />chối do ràng buộc,nhà cung cấp sẽ không bị xóa.                                                                                                                             |
+| Đảm bảo thành công | Thông tin nhà cung cấp được xóa khỏi Cơ sở dữ liệu (CSDL).                                                                                                                                                                      |
+| Kích hoạt             | Người Quản lý chọn một nhà cung cấp và nhấn nút "Xóa".                                                                                                                                                                          |
+| Chuỗi sự kiện chính | Hệ thống hiển thị một thông báo xác nhận.<br />Người Quản lý nhấn "Xác nhận".<br />Hệ thống kiểm tra ràng buộc<br />Nếu không vi phạm<br />Hệ thống thông báo xóa thành công và cập nhật lại danh sách. |
+| Ngoại lệ              | Nhà cung cấp đã phát sinh giao dịch:<br />Hệ thống chặn hành động xóa và hiển thị thông báo lỗi                                                                                                                          |
+
+c) Sửa nhà cung cấp
+
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                                         |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Sửa Nhà cung cấp                                                                                                                                                                                                                                               |
+| Tác nhân chính       | Người Quản trị                                                                                                                                                                                                                                                |
+| Mô tả                 | Cho phép Người Quản trị cập nhật thông tin của<br />nhà cung cấp khi có thay đổi                                                                                                                                                                    |
+| Mức                    | 3                                                                                                                                                                                                                                                                 |
+| Tiền điều kiện      | Người Quản trị đã đăng nhập thành công.<br />Người Quản trị đã chọn một nhà cung cấp từ <br />danh sách để sửa.                                                                                                                        |
+| Đảm bảo tối thiểu  | Nếu Người Quản trị hủy, các thay đổi sẽ không được lưu.                                                                                                                                                                                           |
+| Đảm bảo thành công | Thông tin mới của nhà cung cấp<br />được cập nhật thành công vào CSDL.                                                                                                                                                                               |
+| Kích hoạt             | Người Quản trị chọn một nhà cung cấp và nhấn nút "Sửa"                                                                                                                                                                                               |
+| Chuỗi sự kiện chính | Hệ thống hiển thị Form chứa thông tin cũ của nhà cung cấp.<br />Người Quản trị chỉnh sửa thông tin<br />Người Quản trị nhấn "Lưu".<br />Hệ thống cập nhật thông tin vào CSDL.<br />Hệ thống thông báo cập nhật thành công. |
+| Ngoại lệ              | Tên nhà cung đã tồn<br />  Hệ thống thông báo lỗi "Tên nhà cung cấp đã tồn tại"<br />  Hệ thống yêu cầu nhập lại thông tin.<br />                                                                                                   |
 
 #### 1.11. Quản lý sản danh mục
 
@@ -755,6 +787,36 @@ a) Thêm danh mục
 | Kích hoạt             | Người Quản lý nhấn nút "Thêm mới" trên<br />giao diện quản lý danh mục.                                                                                                                                                                                                                                          |
 | Chuỗi sự kiện chính | Hệ thống hiển thị Form thêm mới,yêu cầu nhập: Tên danh mục, Mô tả.<br />Người Quản lý nhập đầy đủ thông tin và nhấn "Lưu".<br />Hệ thống kiểm tra tính hợp lệ của dữ liệu.<br />Hệ thống lưu thông tin danh mục mới vào CSDL.<br />Hệ thống thông báo thêm mới thành công. |
 | Ngoại lệ              | Tên danh mục đã tồn tại:<br />  Hệ thống thông báo lỗi "Tên danh mục đã tồn tại"<br />  Hệ thống yêu cầu Người Quản lý nhập lại Tên khác.<br />  Quản lý nhập lại tên                                                                                                               |
+
+b) Sửa danh mục
+
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                                                                                |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Sửa Danh mục                                                                                                                                                                                                                                                                                           |
+| Tác nhân chính       | Người Quản trị                                                                                                                                                                                                                                                                                       |
+| Mô tả                 | Cho phép Người Quản lý cập nhật thông tin của một danh<br /> mục đã có trong hệ thống.                                                                                                                                                                                                |
+| Mức                    | 3                                                                                                                                                                                                                                                                                                        |
+| Tiền điều kiện      | Người Quản trị đã đăng nhập thành công.<br />Người Quản trị đã chọn một danh mục từ danh sách để sửa                                                                                                                                                                        |
+| Đảm bảo tối thiểu  | Nếu Người Quản trị hủy, các thay đổi sẽ không được lưu.                                                                                                                                                                                                                                 |
+| Đảm bảo thành công | Thông tin mới của danh mục được cập nhật CSDL                                                                                                                                                                                                                                                   |
+| Kích hoạt             | Người Quản trị chọn một danh mục và nhấn nút "Sửa"                                                                                                                                                                                                                                          |
+| Chuỗi sự kiện chính | Hệ thống hiển thị Form chứa thông tin cũ của danh mục<br />Người Quản trị chỉnh sửa thông tin<br />Người Quản trị nhấn "Lưu".<br />Hệ thống kiểm tra tính hợp lệ.<br />Hệ thống cập nhật thông tin vào CSDL<br />Hệ thống thông báo cập nhật thành công |
+| Ngoại lệ              | Tên danh mục đã tồn tại:<br />  Hệ thống thông báo lỗi<br />  Hệ thống yêu cầu<br />  Quản lý nhập lại tên                                                                                                                                                                     |
+
+c) Xóa danh mục
+
+| Tiêu đề              | Nội dung                                                                                                                                                                                                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Xóa Danh mục                                                                                                                                                                                                                                                     |
+| Tác nhân chính       | Người Quản trị                                                                                                                                                                                                                                                  |
+| Mô tả                 | Cho phép Người Quản lý xóa một danh mục đã có khỏi hệ thống.                                                                                                                                                                                         |
+| Mức                    | 3                                                                                                                                                                                                                                                                   |
+| Tiền điều kiện      | Người Quản lý đã đăng nhập thành công.<br />Người Quản lý đã chọn một danh mục từ danh sách để xóa.                                                                                                                                       |
+| Đảm bảo tối thiểu  | Nếu Người Quản lý hủy, danh mục không bị xóa.                                                                                                                                                                                                             |
+| Đảm bảo thành công | Danh mục được xóa thành công khỏi CSDL                                                                                                                                                                                                                      |
+| Kích hoạt             | Người Quản lý chọn một danh mục và nhấn nút "Xóa".                                                                                                                                                                                                      |
+| Chuỗi sự kiện chính | Hệ thống hiển thị thông báo yêu cầu xác nhận.<br />Người Quản trị nhấn "Xác nhận".<br />Hệ thống kiểm tra ràng buộc<br />Nếu không vi phạm xóa khỏi CSDL.<br />Hệ thống thông báo xóa thành công và cập nhật lại danh sách. |
+| Ngoại lệ              | Danh mục đang được sử dụng cho ít nhất 1 hàng hoá nào đó:<br />  Hệ thống thông báo lỗi "Không thể xóa. Danh mục đang được <br />  sử dụng cho hàng hóa" và không thực hiện xóa.                                            |
 
 ### 2.Các biểu đồ tuần tự
 
@@ -871,7 +933,6 @@ d.1) Luồng hoạt động chính:
 d.2) Luồng ngoại lệ:
 
 1.Nếu ghi nhật thất bại → Hiển thị thông báo lỗi cho người quản lý
-
 
 #### 2.3 Biểu đồ tuần tự khách hàng
 
@@ -1096,7 +1157,129 @@ Boundary.
 
 #### 2.6 Quản lý danh mục
 
+a)Thêm danh mục
+
+<img src="img/SQ_Themdanhmuc.jpg" >
+
+**Mô tả luồng hoạt động:**
+
+1. **Luồng sự kiện chính (Thêm thành công)**
+
+- **Kích hoạt:** Người Quản lý nhấn nút "Thêm mới" trên giao diện quản lý danh mục.
+- **Hệ thống phản hồi:** Giao diện gửi yêu cầu và Hệ thống hiển thị một form trống, yêu cầu Người Quản lý nhập các thông tin như Tên danh mục và Mô tả.
+- **Người dùng nhập liệu:** Người Quản lý điền đầy đủ thông tin vào form và nhấn nút "Lưu".
+- **Xử lý & Xác thực:** Giao diện gửi dữ liệu đến Hệ thống. Hệ thống tiến hành kiểm tra tính hợp lệ:
+
+  - Hệ thống truy vấn Cơ sở dữ liệu (CSDL) để đảm bảo "Tên danh mục" chưa tồn tại.
+- **Lưu dữ liệu:** Khi dữ liệu được xác nhận là hợp lệ, Hệ thống gửi lệnh lưu thông tin danh mục mới vào CSDL.
+- **Hoàn tất:** CSDL xác nhận lưu thành công. Hệ thống gửi thông báo "Thêm mới thành công" về cho giao diện để hiển thị cho Người Quản lý và cập nhật lại giao diện.
+
+**Luồng rẽ nhánh (Ngoại lệ: Tên danh mục đã tồn tại)**
+
+- Tại bước 4, nếu Hệ thống phát hiện Tên danh mục đã tồn tại trong CSDL. Hệ thống sẽ hiển thị thông báo lỗi và yêu cầu nhập lại.
+
+b)Sửa danh mục
+
+<img src="img/SQ_suadanhmuc.jpg" >
+
+**Mô tả luồng hoạt động:**
+
+**Luồng sự kiện chính (Sửa thành công)**
+
+- **Kích hoạt:** Người Quản lý chọn một danh mục từ danh sách và nhấn nút "Sửa".
+- **Hệ thống phản hồi:** Giao diện gửi yêu cầu và Hệ thống hiển thị một form chứa thông tin chi tiết của danh mục được chọn.
+- **Người dùng chỉnh sửa:** Người Quản lý thay đổi các thông tin cần thiết và nhấn nút "Lưu".
+- **Xử lý & Xác thực:** Giao diện gửi dữ liệu đã chỉnh sửa đến Hệ thống. Hệ thống tiến hành kiểm tra tính hợp lệ:
+
+  - Hệ thống truy vấn CSDL để đảm bảo "Tên danh mục" không trùng với một danh mục khác (ngoại trừ chính nó).
+- **Lưu dữ liệu:** Khi dữ liệu được xác nhận là hợp lệ, Hệ thống gửi lệnh cập nhật thông tin danh mục vào CSDL.
+- **Hoàn tất:** CSDL xác nhận lưu thành công. Hệ thống gửi thông báo "Cập nhật thành công" về cho giao diện để hiển thị cho Người Quản lý và cập nhật lại danh sách danh mục.
+
+**Luồng rẽ nhánh (Ngoại lệ: Tên danh mục đã tồn tại)**
+
+- Tại bước 4, nếu Hệ thống phát hiện "Tên danh mục" đã tồn tại trong CSDL (và không phải là chính nó). Hệ thống sẽ hiển thị thông báo lỗi và yêu cầu nhập lại.
+
+c)Xóa danh mục
+
+<img src="img/SQ_xoadanhmuc.jpg" >
+
+**Mô tả luồng hoạt động:**
+
+**Luồng sự kiện chính (Xóa thành công)**
+
+- **Kích hoạt:** Người Quản lý chọn một danh mục từ danh sách và nhấn nút "Xóa".
+- **Xác nhận:** Hệ thống hiển thị hộp thoại xác nhận "Bạn có chắc chắn muốn xóa danh mục này?".
+- **Người dùng xác nhận:** Người Quản lý nhấn "Đồng ý".
+- **Xử lý & Xác thực:** Hệ thống kiểm tra xem danh mục có đang được sử dụng bởi bất kỳ sản phẩm nào không.
+- **Lưu dữ liệu:** Nếu danh mục không được sử dụng, Hệ thống gửi lệnh xóa danh mục khỏi CSDL.
+- **Hoàn tất:** CSDL xác nhận xóa thành công. Hệ thống gửi thông báo "Xóa thành công" về cho giao diện để hiển thị cho Người Quản lý và cập nhật lại danh sách danh mục.
+
+**Luồng rẽ nhánh (Ngoại lệ: Danh mục đang được sử dụng)**
+
+- Tại bước 4, nếu Hệ thống phát hiện danh mục đang được sử dụng bởi ít nhất một sản phẩm, Hệ thống sẽ hiển thị thông báo lỗi "Không thể xóa danh mục này vì đang có sản phẩm thuộc danh mục này" và không thực hiện xóa.
+
 #### 2.7 Quản lý nhà cung cấp
+
+a)Thêm nhà cung cấp
+
+<img src="img/SQ_ThemNCC.jpg" >
+
+**Mô tả luồng hoạt động:**
+
+**Luồng sự kiện chính (Thêm thành công)**
+
+- **Kích hoạt:** Người Quản lý nhấn nút "Thêm mới" trên giao diện quản lý nhà cung cấp.
+- **Hệ thống phản hồi:** Giao diện gửi yêu cầu và Hệ thống hiển thị một form trống, yêu cầu Người Quản lý nhập các thông tin như Tên nhà cung cấp, Địa chỉ, Số điện thoại, Email.
+- **Người dùng nhập liệu:** Người Quản lý điền đầy đủ thông tin vào form và nhấn nút "Lưu".
+- **Xử lý & Xác thực:** Giao diện gửi dữ liệu đến Hệ thống. Hệ thống tiến hành kiểm tra tính hợp lệ:
+
+  - Hệ thống truy vấn CSDL để đảm bảo "Tên nhà cung cấp" chưa tồn tại.
+- **Lưu dữ liệu:** Khi dữ liệu được xác nhận là hợp lệ, Hệ thống gửi lệnh lưu thông tin nhà cung cấp mới vào CSDL.
+- **Hoàn tất:** CSDL xác nhận lưu thành công. Hệ thống gửi thông báo "Thêm mới thành công" về cho giao diện để hiển thị cho Người Quản lý và cập nhật lại giao diện.
+
+**Luồng rẽ nhánh (Ngoại lệ: Tên nhà cung cấp đã tồn tại)**
+
+- Tại bước 4, nếu Hệ thống phát hiện Tên nhà cung cấp đã tồn tại trong CSDL. Hệ thống sẽ hiển thị thông báo lỗi và yêu cầu nhập lại.
+
+b)Sửa nhà cung cấp
+
+<img src="img/SQ_CapnhatNCC.jpg" >
+
+**Mô tả luồng hoạt động:**
+
+**Luồng sự kiện chính (Cập nhật thành công)**
+
+- **Kích hoạt:** Người Quản lý chọn một nhà cung cấp từ danh sách và nhấn nút "Sửa".
+- **Hệ thống phản hồi:** Giao diện gửi yêu cầu và Hệ thống hiển thị một form chứa thông tin chi tiết của nhà cung cấp được chọn.
+- **Người dùng chỉnh sửa:** Người Quản lý thay đổi các thông tin cần thiết và nhấn nút "Lưu".
+- **Xử lý & Xác thực:** Giao diện gửi dữ liệu đã chỉnh sửa đến Hệ thống. Hệ thống tiến hành kiểm tra tính hợp lệ:
+
+  - Hệ thống truy vấn CSDL để đảm bảo "Tên nhà cung cấp" không trùng với một nhà cung cấp khác (ngoại trừ chính nó).
+- **Lưu dữ liệu:** Khi dữ liệu được xác nhận là hợp lệ, Hệ thống gửi lệnh cập nhật thông tin nhà cung cấp vào CSDL.
+- **Hoàn tất:** CSDL xác nhận lưu thành công. Hệ thống gửi thông báo "Cập nhật thành công" về cho giao diện để hiển thị cho Người Quản lý và cập nhật lại danh sách nhà cung cấp.
+
+**Luồng rẽ nhánh (Ngoại lệ: Tên nhà cung cấp đã tồn tại)**
+
+- Tại bước 4, nếu Hệ thống phát hiện "Tên nhà cung cấp" đã tồn tại trong CSDL (và không phải là chính nó). Hệ thống sẽ hiển thị thông báo lỗi và yêu cầu nhập lại.
+
+c)Xóa nhà cung cấp
+
+<img src="img/SQ_XoaNCC.jpg" >
+
+**Mô tả luồng hoạt động:**
+
+**Luồng sự kiện chính (Xóa thành công)**
+
+- **Kích hoạt:** Người Quản lý chọn một nhà cung cấp từ danh sách và nhấn nút "Xóa".
+- **Xác nhận:** Hệ thống hiển thị hộp thoại xác nhận "Bạn có chắc chắn muốn xóa nhà cung cấp này?".
+- **Người dùng xác nhận:** Người Quản lý nhấn "Đồng ý".
+- **Xử lý & Xác thực:** Hệ thống kiểm tra xem nhà cung cấp có đang được sử dụng bởi bất kỳ sản phẩm nào không.
+- **Lưu dữ liệu:** Nếu nhà cung cấp không được sử dụng, Hệ thống gửi lệnh xóa nhà cung cấp khỏi CSDL.
+- **Hoàn tất:** CSDL xác nhận xóa thành công. Hệ thống gửi thông báo "Xóa thành công" về cho giao diện để hiển thị cho Người Quản lý và cập nhật lại danh sách nhà cung cấp.
+
+**Luồng rẽ nhánh (Ngoại lệ: Nhà cung cấp đang được sử dụng)**
+
+- Tại bước 4, nếu Hệ thống phát hiện nhà cung cấp đang được sử dụng bởi ít nhất một sản phẩm, Hệ thống sẽ hiển thị thông báo lỗi "Không thể xóa nhà cung cấp này vì đang có sản phẩm thuộc nhà cung cấp này" và không thực hiện xóa.
 
 ### 3.Sơ đồ lớp tổng quát
 
