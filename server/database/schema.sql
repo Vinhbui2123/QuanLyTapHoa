@@ -84,7 +84,7 @@ CREATE TABLE suppliers (
 -- ============================================
 CREATE TABLE invoices (
     id INT PRIMARY KEY AUTO_INCREMENT,
-customer_id INT NOT NULL,
+    customer_id INT NOT NULL,
     user_id INT,
     total_amount DECIMAL(12,2) NOT NULL,
     amount_paid DECIMAL(12,2) DEFAULT 0,
