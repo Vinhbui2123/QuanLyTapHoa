@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise');
 
+// Tạo connection pool để quản lý kết nối hiệu quả
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 3306,
@@ -11,6 +12,7 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+// Test connection
 const testConnection = async () => {
     try {
         const connection = await pool.getConnection();
@@ -23,7 +25,18 @@ const testConnection = async () => {
     }
 };
 
+// Helper function để execute query
+const query = async (sql, params = []) => {
+    try {
+        const [results] = await pool.execute(sql, params);
+        return results;
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports = {
     pool,
+    query,
     testConnection
 };
