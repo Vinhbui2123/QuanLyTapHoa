@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa đơn | Quản Lý Tạp Hóa</title>
+    <link rel="stylesheet" href="../css/invoices.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Sidebar - giống dashboard.html -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-logo"></span>
+                <span class="sidebar-title">Quản Lý Tạp Hóa</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Menu chính</div>
+                <a href="dashboard.html" class="nav-item"><span
+                        class="nav-item-icon"></span><span>Dashboard</span></a>
+                <a href="sales.html" class="nav-item"><span class="nav-item-icon"></span><span>Bán hàng</span></a>
+                <a href="products.html" class="nav-item"><span class="nav-item-icon"></span><span>Sản phẩm</span></a>
+                <a href="invoices.html" class="nav-item active"><span class="nav-item-icon"></span><span>Hóa
+                        đơn</span></a>
+                <div class="nav-section-title">Quản lý</div>
+                <a href="inventory.html" class="nav-item"><span class="nav-item-icon"></span><span>Kho hàng</span></a>
+                <a href="customers.html" class="nav-item"><span class="nav-item-icon"></span><span>Khách
+                        hàng</span></a>
+                <a href="suppliers.html" class="nav-item"><span class="nav-item-icon"></span><span>Nhà cung
+                        cấp</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item" id="logoutBtn"><span class="nav-item-icon"></span><span>Đăng
+                        xuất</span></a>
+            </div>
+        </aside>
+
+        <main class="main-content">9:41 PM 2/1/2026
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <h1 class="header-title">Lịch sử hóa đơn</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-user">
+                        <div class="header-user-avatar">A</div>
+                        <span class="header-user-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Filters -->
+                <div class="card mb-4">
+                    <div class="flex gap-4 flex-wrap">
+                        <div class="form-group" style="margin:0">
+                            <label>Từ ngày</label>
+                            <input type="date" class="form-input" id="startDate">
+                        </div>
+                        <div class="form-group" style="margin:0">
+                            <label>Đến ngày</label>
+                            <input type="date" class="form-input" id="endDate">
+                        </div>
+                        <div class="form-group" style="margin:0; align-self:flex-end">
+                            <button class="btn btn-primary" id="filterBtn">Lọc</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="card">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã HĐ</th>
+                                    <th>Thời gian</th>
+                                    <th>Nhân viên</th>
+                                    <th>Khách hàng</th>
+                                    <th>Thanh toán</th>
+                                    <th class="text-right">Tổng tiền</th>
+                                    <th class="text-center">Trạng thái</th>
+                                    <th class="text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoicesTableBody">
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted p-6">Đang tải...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>
