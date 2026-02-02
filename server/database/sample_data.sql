@@ -23,7 +23,7 @@ VALUES
 (10, 'Khác', 'Các sản phẩm khác');
 
 -- sản phẩm ( products )
-INSERT INTO products (id,name,barcode,category_id,cost_price,sale_price,stock_quantity,min_stock,unit) 
+INSERT INTO products (name,barcode,category_id,cost_price,sale_price,stock_quantity,min_stock,unit) 
 VALUES 
 ('Coca Cola 330ml', '8935049500018', 1, 7000, 10000, 200, 20, 'lon'),
 ('Pepsi 330ml', '8934588063015', 1, 7000, 10000, 180, 20, 'lon'),
