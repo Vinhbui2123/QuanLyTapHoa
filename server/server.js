@@ -1,43 +1,19 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 
-// Import routes
-const routes = require('./routes');
 
-// Import middleware
-const errorHandler = require('./middlewares/errorHandler');
+const authRoutes = require('./routers/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ============================================
-// MIDDLEWARE
-// ============================================
 
-// CORS - cho phép frontend gọi API
-const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    credentials: true,
-    optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
-// Parse JSON body
+
 app.use(express.json());
 
-// Parse URL-encoded body
-app.use(express.urlencoded({ extended: true }));
-
-// Serve static files từ thư mục client
-app.use(express.static(path.join(__dirname, '../client')));
-
-// ============================================
-// ROUTES
-// ============================================
-
-// Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'ok',
@@ -46,32 +22,24 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// API routes
-app.use('/api', routes);
+app.use('/api/auth', authRoutes);
 
-// Serve frontend cho tất cả routes khác
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
+app.use((err, req, res, next) => {
+    console.error('Error:', err.message);
+    res.status(500).json({
+        status: 'error',
+        message: err.message || 'Internal Server Error'
+    });
 });
-
-// ============================================
-// ERROR HANDLING
-// ============================================
-app.use(errorHandler);
 
 // ============================================
 // START SERVER
 // ============================================
 app.listen(PORT, () => {
     console.log(`
-╔════════════════════════════════════════════╗
-║     QUẢN LÝ TẠP HÓA - SERVER STARTED       ║
-╠════════════════════════════════════════════╣
-║  🚀 Server:  http://localhost:${PORT}           ║
-║  📡 API:     http://localhost:${PORT}/api       ║
-║  🏠 Client:  http://localhost:${PORT}           ║
-╚════════════════════════════════════════════╝
-  `);
+🚀 Server:  http://localhost:${PORT}           
+📡 API:     http://localhost:${PORT}/api
+    `);
 });
 
 module.exports = app;
