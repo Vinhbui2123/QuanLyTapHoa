@@ -4,6 +4,7 @@ const cors = require('cors');
 
 
 const authRoutes = require('./routers/auth');
+const inventoryRoutes = require('./routers/inventory');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 app.use((err, req, res, next) => {
     console.error('Error:', err.message);
