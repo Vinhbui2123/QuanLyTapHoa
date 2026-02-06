@@ -4,13 +4,13 @@ const cors = require('cors');
 
 
 const authRoutes = require('./routers/auth');
+const categoriesRoutes = require('./routers/categories');
+const customerRoutes = require('./routers/customers');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 app.use(cors());
-
 
 app.use(express.json());
 
@@ -22,7 +22,9 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+app.use('/api/categories', categoriesRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/customers', customerRoutes);
 
 app.use((err, req, res, next) => {
     console.error('Error:', err.message);

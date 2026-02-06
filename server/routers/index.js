@@ -11,4 +11,8 @@ const authRoutes = require('./auth');
 router.use('/auth', authRoutes);
 // router.use('/categories', categoryRoutes); // Uncomment khi có
 
+// customer routes
+const customerRouters = require('./customers');
+router.use('/customers', customerRouters);
+
 module.exports = router;

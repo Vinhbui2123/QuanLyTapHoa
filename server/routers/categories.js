@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const categoryController = require('../controllers/categoryController');
+const { verifyToken } = require('../middlewares/auth');
+
 
 // GET Lấy danh sách danh mục
-router.get('/', categoryController.getAll);
+router.get('/', verifyToken, categoryController.getAll);
 
 // GET Lấy chi tiết danh mục
 router.get('/:id', categoryController.getById);
