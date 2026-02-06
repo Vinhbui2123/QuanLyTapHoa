@@ -1,16 +1,13 @@
--- ============================================
--- DATABASE SCHEMA - QUẢN LÝ TẠP HÓA
--- ============================================
 
+-- DATABASE SCHEMA - QUẢN LÝ TẠP HÓA
 CREATE DATABASE IF NOT EXISTS quanlytaphoa 
 CHARACTER SET utf8mb4 
 COLLATE utf8mb4_unicode_ci;
 
 USE quanlytaphoa;
 
--- ============================================
+
 -- BẢNG USERS - Người dùng hệ thống
--- ============================================
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -22,9 +19,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- ============================================
 -- BẢNG CATEGORIES - Danh mục sản phẩm
--- ============================================
 CREATE TABLE categories (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -33,9 +28,7 @@ CREATE TABLE categories (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- ============================================
 -- BẢNG PRODUCTS - Sản phẩm
--- ============================================
 CREATE TABLE products (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(200) NOT NULL,
@@ -52,9 +45,7 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
--- ============================================
 -- BẢNG CUSTOMERS - Khách hàng
--- ============================================
 CREATE TABLE customers (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -65,9 +56,7 @@ CREATE TABLE customers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- ============================================
 -- BẢNG SUPPLIERS - Nhà cung cấp (phải tạo trước inventory_logs và purchase_orders)
--- ============================================
 CREATE TABLE suppliers (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(200) NOT NULL,
@@ -79,9 +68,7 @@ CREATE TABLE suppliers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- ============================================
 -- BẢNG INVOICES - Hóa đơn bán hàng
--- ============================================
 CREATE TABLE invoices (
     id INT PRIMARY KEY AUTO_INCREMENT,
     customer_id INT NOT NULL,
@@ -96,9 +83,7 @@ CREATE TABLE invoices (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- ============================================
 -- BẢNG INVOICE_ITEMS - Chi tiết hóa đơn
--- ============================================
 CREATE TABLE invoice_items (
     id INT PRIMARY KEY AUTO_INCREMENT,
     invoice_id INT NOT NULL,
@@ -110,9 +95,7 @@ CREATE TABLE invoice_items (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
--- ============================================
 -- BẢNG INVENTORY_LOGS - Lịch sử xuất nhập kho
--- ============================================
 CREATE TABLE inventory_logs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     product_id INT NOT NULL,
@@ -129,9 +112,7 @@ CREATE TABLE inventory_logs (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- ============================================
 -- BẢNG PURCHASE_ORDERS - Phiếu nhập hàng
--- ============================================
 CREATE TABLE purchase_orders (
     id INT PRIMARY KEY AUTO_INCREMENT,
     supplier_id INT NOT NULL,
