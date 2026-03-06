@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bán hàng POS - Quản Lý Tạp Hóa">
+    <title>Bán hàng | Quản Lý Tạp Hóa</title>
+
+    <link rel="stylesheet" href="../css/sales.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-logo">🏪</span>
+                <span class="sidebar-title">Quản Lý Tạp Hóa</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Menu chính</div>
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-item-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="sales.html" class="nav-item active">
+                    <span class="nav-item-icon">🛒</span>
+                    <span>Bán hàng</span>
+                </a>
+                <a href="products.html" class="nav-item">
+                    <span class="nav-item-icon">📦</span>
+                    <span>Sản phẩm</span>
+                </a>
+                <a href="invoices.html" class="nav-item">
+                    <span class="nav-item-icon">🧾</span>
+                    <span>Hóa đơn</span>
+                </a>
+
+                <div class="nav-section-title">Quản lý</div>
+                <a href="inventory.html" class="nav-item">
+                    <span class="nav-item-icon">🏭</span>
+                    <span>Kho hàng</span>
+                </a>
+                <a href="customers.html" class="nav-item">
+                    <span class="nav-item-icon">👥</span>
+                    <span>Khách hàng</span>
+                </a>
+                <a href="suppliers.html" class="nav-item">
+                    <span class="nav-item-icon">🚚</span>
+                    <span>Nhà cung cấp</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item" >
+                    <span class="nav-item-icon"></span>
+                    <span>Đăng xuất</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <h1 class="header-title">Bán hàng</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-user">
+                        <div class="header-user-avatar">A</div>
+                        <span class="header-user-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="pos-layout">
+                    <div class="pos-products">
+                        <div class="search-box mb-4">
+                            <span class="search-box-icon"></span>
+                            <input type="text" class="form-input" placeholder="Tìm sản phẩm hoặc quét mã vạch..." autofocus>
+                        </div>
+
+                        <div class="pos-products-grid" >
+                            <div class="text-center text-muted p-6">
+                                Đang tải sản phẩm...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pos-cart">
+                        <div class="pos-cart-header">
+                            <span>🛒 Giỏ hàng</span>
+                            <button class="btn btn-sm btn-outline" >Xóa tất cả</button>
+                        </div>
+
+                        <div class="pos-cart-items" >
+                            <div class="empty-state">
+                                <div class="empty-state-icon">🛒</div>
+                                <div class="empty-state-title">Giỏ hàng trống</div>
+                                <p class="text-muted text-sm">Chọn sản phẩm để thêm vào giỏ</p>
+                            </div>
+                        </div>
+
+                        <div class="pos-cart-summary">
+                            <div class="pos-cart-total">
+                                <span>Tổng tiền:</span>
+                                <span >0 ₫</span>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label>Khách trả</label>
+                                <input type="number" class="form-input" 
+                                    placeholder="Nhập số tiền khách trả">
+                            </div>
+
+                            <div class="flex justify-between mb-4">
+                                <span>Tiền thừa:</span>
+                                <span class="font-bold text-success" >0 ₫</span>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button class="btn btn-secondary" style="flex:1" >
+                                     Chuyển khoản
+                                </button>
+                                <button class="btn btn-primary" style="flex:1" >
+                                     Tiền mặt
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" >
+        <div class="modal" style="max-width: 400px; text-align: center;">
+            <div class="modal-header">
+                <h3 class="modal-title">📱 Quét mã để thanh toán</h3>
+                <button class="modal-close" onclick="closeQrModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="margin-top:20px;">
+                    <p style="font-size:24px;font-weight:bold;color:#10b981;margin:0;">0 ₫</p>
+                    <p class="text-muted" style="margin-top:8px;">Số tiền cần thanh toán</p>
+                </div>
+                <div style="background:#f0f9ff;padding:12px;border-radius:8px;margin-top:16px;">
+                    <p style="margin:0;font-size:14px;color:#0369a1;">
+                        <strong> Hướng dẫn:</strong><br>
+                        Mở app ngân hàng → Quét mã QR → Xác nhận thanh toán
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer" style="flex-direction:column;gap:12px;">
+                <button class="btn btn-primary" style="width:100%;" onclick="confirmQrPayment()">
+                     Xác nhận đã thanh toán
+                </button>
+                <button class="btn btn-secondary" style="width:100%;" onclick="closeQrModal()">
+                    Hủy
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
