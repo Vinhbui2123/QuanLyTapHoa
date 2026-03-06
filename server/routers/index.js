@@ -6,11 +6,13 @@ router.use('/categories', categoryRoutes);
 // Import route modules
 const authRoutes = require('./auth');
 const inventoryRoutes = require('./inventory');
+const productRoutes = require('./products');
 // const categoryRoutes = require('./categories'); // Uncomment khi có
 
 // Register routes
 router.use('/auth', authRoutes);
 router.use('/inventory', inventoryRoutes);
+router.use('/products', productRoutes);
 // router.use('/categories', categoryRoutes); // Uncomment khi có
 
 // customer routes
