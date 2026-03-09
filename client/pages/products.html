@@ -13,7 +13,6 @@
 
 <body>
     <div class="app-layout">
-        <!-- Sidebar - Copy từ dashboard.html -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <span class="sidebar-logo">🏪</span>
@@ -59,7 +58,6 @@
                     <span>Báo cáo</span>
                 </a>
             </nav>
-
             <div class="sidebar-footer">
                 <a href="#" class="nav-item" id="logoutBtn">
                     <span class="nav-item-icon">🚪</span>
@@ -68,8 +66,6 @@
             </div>
         </aside>
 
-
-        <!-- Main Content -->
         <main class="main-content">
             <header class="main-header">
                 <div class="header-left">
@@ -85,7 +81,6 @@
             </header>
 
             <div class="page-content">
-                <!-- Toolbar -->
                 <div class="products-toolbar">
                     <div class="products-filters">
                         <div class="search-box">
@@ -94,15 +89,12 @@
                         </div>
                         <select class="form-select" id="categoryFilter" style="width: 200px;">
                             <option value="">Tất cả danh mục</option>
-                            <!-- Dynamic categories -->
                         </select>
                     </div>
                     <button class="btn btn-primary" id="addProductBtn">
                         + Thêm sản phẩm
                     </button>
                 </div>
-
-                <!-- Products Table -->
                 <div class="card">
                     <div class="table-container">
                         <table class="table" id="productsTable">
@@ -117,7 +109,6 @@
                                 </tr>
                             </thead>
                             <tbody id="productsTableBody">
-                                <!-- Dynamic content -->
                                 <tr>
                                     <td colspan="6" class="text-center text-muted p-6">
                                         Đang tải dữ liệu...
@@ -127,16 +118,13 @@
                         </table>
                     </div>
 
-                    <!-- Pagination -->
                     <div class="pagination" id="pagination">
-                        <!-- Dynamic pagination -->
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Modal Thêm/Sửa sản phẩm -->
     <div class="modal-overlay" id="productModal">
         <div class="modal">
             <div class="modal-header">

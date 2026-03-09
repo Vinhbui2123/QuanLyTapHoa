@@ -1,1 +1,52 @@
-heloe
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hệ thống Quản lý Tạp hóa - Đăng nhập">
+    <title>Đăng nhập | Quản Lý Tạp Hóa</title>
+    <link rel="stylesheet" href="../client/css/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Quản Lý Tạp Hóa</h1>
+                <p class="subtitle"><b>Đăng nhập để tiếp tục</b></p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" class="form-input" placeholder="Nhập tên đăng nhập"
+                        required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Nhập mật khẩu"
+                        required autocomplete="current-password">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span>Ghi nhớ đăng nhập</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                    <span class="btn-text">Đăng nhập</span>
+                    <span class="btn-loading" style="display: none;">Đang xử lý...</span>
+                </button>
+                <div id="loginError" class="alert alert-error" style="display: none;"></div>
+            </form>
+        </div>
+        <footer class="login-footer">
+            <p style="color: black;">© 2026 Quản Lý Tạp Hóa. Version 1.0</p>
+        </footer>
+    </div>
+</body>
+</html>
