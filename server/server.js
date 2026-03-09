@@ -9,7 +9,7 @@ const customerRoutes = require('./routers/customers');
 const inventoryRoutes = require('./routers/inventory');
 const invoiceRoutes = require('./routers/invoice');
 const productRoutes = require('./routers/products');
-
+const reportRoutes = require('./routers/report');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -31,6 +31,7 @@ app.use('/api/customers', customerRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/reports', reportRoutes);
 
 app.use((err, req, res, next) => {
     console.error('Error:', err.message);
