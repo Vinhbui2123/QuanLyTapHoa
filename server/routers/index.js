@@ -1,26 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
-const categoryRoutes = require('./categories');
-router.use('/categories', categoryRoutes); 
 // Import route modules
 const authRoutes = require('./auth');
-const inventoryRoutes = require('./inventory');
-const invoiceRoutes = require('./invoice');
 const productRoutes = require('./products');
-const reportRoutes = require('./report');
-// const categoryRoutes = require('./categories'); // Uncomment khi có
+const categoryRoutes = require('./categories');
+const invoiceRoutes = require('./invoices');
+const customerRoutes = require('./customers');
+const supplierRoutes = require('./suppliers');
+const inventoryRoutes = require('./inventory');
+const reportRoutes = require('./reports');
 
 // Register routes
 router.use('/auth', authRoutes);
-router.use('/inventory', inventoryRoutes);
-router.use('/invoices', invoiceRoutes);
 router.use('/products', productRoutes);
+router.use('/categories', categoryRoutes);
+router.use('/invoices', invoiceRoutes);
+router.use('/customers', customerRoutes);
+router.use('/suppliers', supplierRoutes);
+router.use('/inventory', inventoryRoutes);
 router.use('/reports', reportRoutes);
-// router.use('/categories', categoryRoutes); // Uncomment khi có
-
-// customer routes
-const customerRouters = require('./customers');
-router.use('/customers', customerRouters);
 
 module.exports = router;

@@ -2,12 +2,15 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { query } = require('../config/database');
 
-
+/**
+ * Đăng ký tài khoản mới
+ */
 exports.register = async (req, res, next) => {
     try {
-        const { username, password, fullName, role = 'cashier' } = req.body;
+        const { username, password, fullName } = req.body;
+        const role = 'cashier'; // Luôn tạo tài khoản cashier, không nhận role từ client
 
-       
+        // Validate input
         if (!username || !password || !fullName) {
             return res.status(400).json({
                 status: 'error',
@@ -15,6 +18,7 @@ exports.register = async (req, res, next) => {
             });
         }
 
+        // Check if username exists
         const existingUser = await query(
             'SELECT id FROM users WHERE username = ?',
             [username]
@@ -27,10 +31,10 @@ exports.register = async (req, res, next) => {
             });
         }
 
-        
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        
+        // Insert user
         const result = await query(
             'INSERT INTO users (username, password, full_name, role) VALUES (?, ?, ?, ?)',
             [username, hashedPassword, fullName, role]
@@ -46,10 +50,14 @@ exports.register = async (req, res, next) => {
     }
 };
 
+/**
+ * Đăng nhập
+ */
 exports.login = async (req, res, next) => {
     try {
         const { username, password } = req.body;
 
+        // Validate input
         if (!username || !password) {
             return res.status(400).json({
                 status: 'error',
@@ -57,6 +65,7 @@ exports.login = async (req, res, next) => {
             });
         }
 
+        // Find user
         const users = await query(
             'SELECT * FROM users WHERE username = ? AND is_active = TRUE',
             [username]
@@ -71,6 +80,7 @@ exports.login = async (req, res, next) => {
 
         const user = users[0];
 
+        // Check password
         const isValidPassword = await bcrypt.compare(password, user.password);
 
         if (!isValidPassword) {
@@ -80,6 +90,7 @@ exports.login = async (req, res, next) => {
             });
         }
 
+        // Generate JWT token
         const token = jwt.sign(
             {
                 userId: user.id,
@@ -108,6 +119,9 @@ exports.login = async (req, res, next) => {
     }
 };
 
+/**
+ * Lấy thông tin user hiện tại
+ */
 exports.getMe = async (req, res, next) => {
     try {
         const users = await query(
@@ -131,10 +145,14 @@ exports.getMe = async (req, res, next) => {
     }
 };
 
+/**
+ * Đổi mật khẩu
+ */
 exports.changePassword = async (req, res, next) => {
     try {
         const { currentPassword, newPassword } = req.body;
 
+        // Validate input
         if (!currentPassword || !newPassword) {
             return res.status(400).json({
                 status: 'error',
@@ -142,10 +160,13 @@ exports.changePassword = async (req, res, next) => {
             });
         }
 
+        // Get user
         const users = await query(
             'SELECT password FROM users WHERE id = ?',
             [req.user.userId]
         );
+
+        // Verify current password
         const isValidPassword = await bcrypt.compare(currentPassword, users[0].password);
 
         if (!isValidPassword) {
@@ -155,8 +176,10 @@ exports.changePassword = async (req, res, next) => {
             });
         }
 
+        // Hash new password
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
+        // Update password
         await query(
             'UPDATE users SET password = ? WHERE id = ?',
             [hashedPassword, req.user.userId]

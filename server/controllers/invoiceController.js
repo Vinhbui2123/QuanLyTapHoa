@@ -1,93 +1,80 @@
 const { query, pool } = require('../config/database');
 
-exports.getAll = async ( req, res, next ) => {
+exports.getAll = async (req, res, next) => {
     try {
         const { startDate, endDate, page = 1, limit = 20 } = req.query;
         const offset = (page - 1) * limit;
-        
-        let sql = `
-            SELECT i.*, u.full_name as cashier_name, c.name as customer_name
-            FROM invoices i
-            LEFT JOIN users u ON i.user_id = u.id
-            LEFT JOIN customers c ON i.customer_id = c.id
-            WHERE 1=1
-        `;
 
+        let sql = `
+      SELECT i.*, u.full_name as cashier_name, c.name as customer_name
+      FROM invoices i
+      LEFT JOIN users u ON i.user_id = u.id
+      LEFT JOIN customers c ON i.customer_id = c.id
+      WHERE 1=1
+    `;
         const params = [];
+
         if (startDate) {
-            sql += `AND DATE(i.created_at) >= ?`;
+            sql += ' AND DATE(i.created_at) >= ?';
             params.push(startDate);
         }
-
         if (endDate) {
-            sql += `AND DATE(i.created_at) <= ?`;
+            sql += ' AND DATE(i.created_at) <= ?';
             params.push(endDate);
         }
 
-        sql += `ORDER BY i.created_at DESC LIMIT ? OFFSET ?`;
+        sql += ' ORDER BY i.created_at DESC LIMIT ? OFFSET ?';
         params.push(parseInt(limit), parseInt(offset));
 
         const invoices = await query(sql, params);
+        res.json({ status: 'success', data: invoices });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getById = async (req, res, next) => {
+    try {
+        const invoices = await query(`
+      SELECT i.*, u.full_name as cashier_name
+      FROM invoices i
+      LEFT JOIN users u ON i.user_id = u.id
+      WHERE i.id = ?
+    `, [req.params.id]);
+
+        if (invoices.length === 0) {
+            return res.status(404).json({ status: 'error', message: 'Không tìm thấy hóa đơn' });
+        }
+
+        // Lấy chi tiết sản phẩm trong hóa đơn
+        const items = await query(`
+      SELECT ii.*, p.name as product_name
+      FROM invoice_items ii
+      JOIN products p ON ii.product_id = p.id
+      WHERE ii.invoice_id = ?
+    `, [req.params.id]);
+
         res.json({
             status: 'success',
-            data: invoices
+            data: { ...invoices[0], items }
         });
     } catch (error) {
         next(error);
     }
 };
 
-exports.getById = async ( req, res, next ) => {
-    try {
-        const invoices = await query(`
-            SELECT i.*, u.full_name as cashier_name
-            FROM invoices i
-            LEFT JOIN users u ON i.user_id = u.id
-            WHERE i.id = ?   
-        `, [req.params.id]);
-
-        if ( invoices.length  === 0 ) {
-            return res.status(404).json({
-                status: 'error',
-                message: 'Không tìm thấy hóa đơn'
-            });
-        }
-
-        const items = await query(`
-            SELECT ii.*, p.name as product_name
-            FROM invoice_items ii 
-            JOIN products p ON ii.product_id = p.id
-            WHERE ii.invoice_id = ?
-        `, [req.params.id]);
-
-        res.json({
-            status: 'success',
-            data: {
-                ...invoices[0],
-                items
-            }
-        })
-    } catch (error) {
-        next(error);
-    }
-};
-
-exports.create = async ( req, res, next ) => {
+exports.create = async (req, res, next) => {
     const connection = await pool.getConnection();
-
     try {
         await connection.beginTransaction();
 
         const { customerId, items, paymentMethod = 'cash', amountPaid = 0, note } = req.body;
 
-        if (!items || items.length === 0 ) {
-            return res.status(400).json({
-                status: 'error',
-                message:'Vui lòng thêm sản phẩm vào hoá đơn' 
-            });
+        if (!items || items.length === 0) {
+            return res.status(400).json({ status: 'error', message: 'Vui lòng thêm sản phẩm vào hóa đơn' });
         }
-        
-        // tính tổng tiền:
+
+        // Tính tổng tiền
         let totalAmount = 0;
         for (const item of items) {
             totalAmount += item.quantity * item.price;
@@ -102,7 +89,7 @@ exports.create = async ( req, res, next ) => {
 
         const invoiceId = invoiceResult.insertId;
 
-        // Thêm chi tiết hóa đơn và trừ tồn kho
+        // Thêm chi tiết hóa đơn và trừ tồn kho theo FIFO
         for (const item of items) {
             await connection.execute(
                 `INSERT INTO invoice_items (invoice_id, product_id, quantity, price, subtotal)
@@ -110,10 +97,17 @@ exports.create = async ( req, res, next ) => {
                 [invoiceId, item.productId, item.quantity, item.price, item.quantity * item.price]
             );
 
-            // Trừ tồn kho 
+            // Trừ tồn kho
             await connection.execute(
                 'UPDATE products SET stock_quantity = stock_quantity - ? WHERE id = ?',
                 [item.quantity, item.productId]
+            );
+
+            // Ghi log xuất kho (FIFO tracking)
+            await connection.execute(
+                `INSERT INTO inventory_logs (product_id, type, quantity, note, user_id)
+                 VALUES (?, 'export', ?, ?, ?)`,
+                [item.productId, item.quantity, `Bán hàng - HĐ #${invoiceId}`, req.user.userId]
             );
         }
 
@@ -133,19 +127,111 @@ exports.create = async ( req, res, next ) => {
 };
 
 exports.cancel = async (req, res, next) => {
+    const connection = await pool.getConnection();
     try {
-        // TODO: Implement cancel logic with inventory rollback
-        await query('UPDATE invoices SET status = "cancelled" WHERE id = ?', [req.params.id]);
-        res.json({ status: 'success', message: 'Hủy hóa đơn thành công' });
+        await connection.beginTransaction();
+
+        const invoiceId = req.params.id;
+
+        // Kiểm tra hóa đơn tồn tại và chưa bị hủy
+        const [invoice] = await connection.execute(
+            'SELECT * FROM invoices WHERE id = ?', [invoiceId]
+        );
+
+        if (invoice.length === 0) {
+            await connection.rollback();
+            return res.status(404).json({ status: 'error', message: 'Không tìm thấy hóa đơn' });
+        }
+
+        if (invoice[0].status === 'cancelled') {
+            await connection.rollback();
+            return res.status(400).json({ status: 'error', message: 'Hóa đơn đã được hủy trước đó' });
+        }
+
+        // Lấy chi tiết sản phẩm để hoàn trả tồn kho
+        const [items] = await connection.execute(
+            'SELECT product_id, quantity FROM invoice_items WHERE invoice_id = ?', [invoiceId]
+        );
+
+        // Hoàn trả tồn kho cho từng sản phẩm
+        for (const item of items) {
+            await connection.execute(
+                'UPDATE products SET stock_quantity = stock_quantity + ? WHERE id = ?',
+                [item.quantity, item.product_id]
+            );
+
+            // Ghi log điều chỉnh kho
+            await connection.execute(
+                `INSERT INTO inventory_logs (product_id, type, quantity, note, user_id)
+                 VALUES (?, 'adjust', ?, ?, ?)`,
+                [item.product_id, item.quantity, `Hủy HĐ #${invoiceId} - hoàn trả tồn kho`, req.user.userId]
+            );
+        }
+
+        // Cập nhật trạng thái hóa đơn
+        await connection.execute(
+            'UPDATE invoices SET status = "cancelled" WHERE id = ?', [invoiceId]
+        );
+
+        await connection.commit();
+        res.json({ status: 'success', message: 'Hủy hóa đơn thành công, đã hoàn trả tồn kho' });
     } catch (error) {
+        await connection.rollback();
         next(error);
+    } finally {
+        connection.release();
     }
 };
 
 exports.print = async (req, res, next) => {
     try {
-        // TODO: Generate printable invoice
-        res.json({ status: 'success', message: 'Print endpoint - implement later' });
+        // Lấy thông tin hóa đơn đầy đủ
+        const invoices = await query(`
+      SELECT i.*, u.full_name as cashier_name, c.name as customer_name, c.phone as customer_phone
+      FROM invoices i
+      LEFT JOIN users u ON i.user_id = u.id
+      LEFT JOIN customers c ON i.customer_id = c.id
+      WHERE i.id = ?
+    `, [req.params.id]);
+
+        if (invoices.length === 0) {
+            return res.status(404).json({ status: 'error', message: 'Không tìm thấy hóa đơn' });
+        }
+
+        // Lấy chi tiết sản phẩm
+        const items = await query(`
+      SELECT ii.*, p.name as product_name, p.unit
+      FROM invoice_items ii
+      JOIN products p ON ii.product_id = p.id
+      WHERE ii.invoice_id = ?
+    `, [req.params.id]);
+
+        const invoice = invoices[0];
+
+        res.json({
+            status: 'success',
+            data: {
+                id: invoice.id,
+                storeName: 'Cửa hàng Tạp Hóa',
+                date: invoice.created_at,
+                cashier: invoice.cashier_name,
+                customer: invoice.customer_name || 'Khách lẻ',
+                customerPhone: invoice.customer_phone || '',
+                paymentMethod: invoice.payment_method,
+                items: items.map(item => ({
+                    name: item.product_name,
+                    unit: item.unit,
+                    quantity: item.quantity,
+                    price: item.price,
+                    subtotal: item.subtotal
+                })),
+                totalAmount: invoice.total_amount,
+                amountPaid: invoice.amount_paid,
+                change: invoice.amount_paid - invoice.total_amount,
+                note: invoice.note,
+                status: invoice.status
+            }
+        });
     } catch (error) {
         next(error);
     }

@@ -118,7 +118,7 @@ exports.update = async (req, res, next) => {
         min_stock = COALESCE(?, min_stock),
         updated_at = NOW()
        WHERE id = ?`,
-            [name ?? null, barcode ?? null, categoryId ?? null, costPrice ?? null, salePrice ?? null, unit ?? null, minStock ?? null, req.params.id]
+            [name, barcode, categoryId, costPrice, salePrice, unit, minStock, req.params.id]
         );
 
         res.json({

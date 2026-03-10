@@ -18,6 +18,7 @@ exports.getAll = async (req, res, next) => {
         next(error);
     }
 };
+
 exports.getById = async (req, res, next) => {
     try {
         const suppliers = await query('SELECT * FROM suppliers WHERE id = ?', [req.params.id]);
@@ -32,13 +33,13 @@ exports.getById = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
     try {
-        const { name, phone, address, email, contact_person } = req.body;
+        const { name, phone, address, email, contactPerson } = req.body;
         if (!name) {
             return res.status(400).json({ status: 'error', message: 'Vui lòng nhập tên nhà cung cấp' });
         }
         const result = await query(
             'INSERT INTO suppliers (name, phone, address, email, contact_person) VALUES (?, ?, ?, ?, ?)',
-            [name, phone ?? null, address ?? null, email ?? null, contact_person ?? null]
+            [name, phone, address, email, contactPerson]
         );
         res.status(201).json({ status: 'success', message: 'Thêm nhà cung cấp thành công', data: { supplierId: result.insertId } });
     } catch (error) {
@@ -48,7 +49,7 @@ exports.create = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        const { name, phone, address, email, contact_person } = req.body;
+        const { name, phone, address, email, contactPerson } = req.body;
         await query(
             `UPDATE suppliers SET 
         name = COALESCE(?, name), 
@@ -57,7 +58,7 @@ exports.update = async (req, res, next) => {
         email = COALESCE(?, email),
         contact_person = COALESCE(?, contact_person)
        WHERE id = ?`,
-            [name ?? null, phone ?? null, address ?? null, email ?? null, contact_person ?? null, req.params.id]
+            [name, phone, address, email, contactPerson, req.params.id]
         );
         res.json({ status: 'success', message: 'Cập nhật nhà cung cấp thành công' });
     } catch (error) {

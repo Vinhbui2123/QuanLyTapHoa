@@ -1,117 +1,105 @@
-const  { query } = require("../config/database");
+const { query } = require('../config/database');
 
-exports.getRevenue = async ( req, res, next ) => {
+exports.getRevenue = async (req, res, next) => {
     try {
         const { startDate, endDate, groupBy = 'day' } = req.query;
 
         let dateFormat = '%Y-%m-%d';
-        if ( groupBy === 'month') dateFormat = '%Y-%m';
-        if ( groupBy === 'year') dateFormat = '%Y';
+        if (groupBy === 'month') dateFormat = '%Y-%m';
+        if (groupBy === 'year') dateFormat = '%Y';
 
         let sql = `
-            SELECT 
-                DATE_FORMAT(created_at, ? ) as period,
-                SUM(total_amount) as revenue,
-                COUNT(*) as invoices_count
-            FROM invoices
-            WHERE status = 'completed'
-        `;
-
+      SELECT DATE_FORMAT(created_at, ?) as period, 
+             SUM(total_amount) as revenue,
+             COUNT(*) as invoice_count
+      FROM invoices
+      WHERE status = 'completed'
+    `;
         const params = [dateFormat];
 
-        if ( startDate ) {
-            sql += ' AND created_at >= ?';
+        if (startDate) {
+            sql += ' AND DATE(created_at) >= ?';
             params.push(startDate);
         }
-
-        if ( endDate ) {
-            sql += ' AND created_at <= ?';
+        if (endDate) {
+            sql += ' AND DATE(created_at) <= ?';
             params.push(endDate);
         }
 
         sql += ' GROUP BY period ORDER BY period DESC';
-
         const revenue = await query(sql, params);
-        res.json({
-            status: 'success',
-            data: revenue
-        });
+        res.json({ status: 'success', data: revenue });
     } catch (error) {
         next(error);
     }
-}
+};
 
-exports.getProfit = async ( req, res, next ) => {
+exports.getProfit = async (req, res, next) => {
     try {
         const { startDate, endDate, groupBy = 'day' } = req.query;
 
         let dateFormat = '%Y-%m-%d';
-        if ( groupBy === 'month') dateFormat = '%Y-%m';
-        if ( groupBy === 'year') dateFormat = '%Y';
+        if (groupBy === 'month') dateFormat = '%Y-%m';
+        if (groupBy === 'year') dateFormat = '%Y';
 
         let sql = `
-            SELECT 
-                DATE_FORMAT(i.created_at, ?) as period,
-                SUM(ii.subtotal) as revenue,
-                SUM(ii.quantity * p.cost_price) as total_cost,
-                SUM(ii.subtotal) - SUM(ii.quantity * p.cost_price) as profit,
-                COUNT(DISTINCT i.id) as invoices_count
-            FROM invoices i
-            JOIN invoice_items ii ON i.id = ii.invoice_id
-            JOIN products p ON ii.product_id = p.id
-            WHERE i.status = 'completed'
-        `;
-
+      SELECT DATE_FORMAT(i.created_at, ?) as period,
+             SUM(ii.subtotal) as revenue,
+             SUM(ii.quantity * p.cost_price) as cost,
+             SUM(ii.subtotal) - SUM(ii.quantity * p.cost_price) as profit,
+             COUNT(DISTINCT i.id) as invoice_count
+      FROM invoice_items ii
+      JOIN invoices i ON ii.invoice_id = i.id
+      JOIN products p ON ii.product_id = p.id
+      WHERE i.status = 'completed'
+    `;
         const params = [dateFormat];
 
-        if ( startDate ) {
+        if (startDate) {
             sql += ' AND DATE(i.created_at) >= ?';
             params.push(startDate);
         }
-
-        if ( endDate ) {
+        if (endDate) {
             sql += ' AND DATE(i.created_at) <= ?';
             params.push(endDate);
         }
 
         sql += ' GROUP BY period ORDER BY period DESC';
-
         const profitData = await query(sql, params);
 
         // Tính tổng
-        const summary = profitData.reduce((acc, row) => {
-            acc.totalRevenue += Number(row.revenue) || 0;
-            acc.totalCost += Number(row.total_cost) || 0;
-            acc.totalProfit += Number(row.profit) || 0;
-            acc.totalInvoices += Number(row.invoices_count) || 0;
-            return acc;
-        }, { totalRevenue: 0, totalCost: 0, totalProfit: 0, totalInvoices: 0 });
+        const totals = profitData.reduce((acc, row) => ({
+            totalRevenue: acc.totalRevenue + (parseFloat(row.revenue) || 0),
+            totalCost: acc.totalCost + (parseFloat(row.cost) || 0),
+            totalProfit: acc.totalProfit + (parseFloat(row.profit) || 0)
+        }), { totalRevenue: 0, totalCost: 0, totalProfit: 0 });
 
         res.json({
             status: 'success',
             data: {
                 details: profitData,
-                summary
+                ...totals
             }
         });
     } catch (error) {
         next(error);
     }
-}
+};
 
 exports.getInventory = async (req, res, next) => {
     try {
         const inventory = await query(`
-            SELECT p.id, p.name, p.stock_quantity, p.min_stock, p.cost_price,
-                    (p.stock_quantity * p.cost_price) as stock_value,
-                    c.name as category_name
-            FROM products p
-            LEFT JOIN categories c ON p.category_id = c.id
-            WHERE p.is_active = TRUE
-            ORDER BY stock_value DESC
-        `);
+      SELECT p.id, p.name, p.stock_quantity, p.min_stock, p.cost_price,
+             (p.stock_quantity * p.cost_price) as stock_value,
+             c.name as category_name
+      FROM products p
+      LEFT JOIN categories c ON p.category_id = c.id
+      WHERE p.is_active = TRUE
+      ORDER BY stock_value DESC
+    `);
 
         const totalValue = inventory.reduce((sum, p) => sum + (p.stock_value || 0), 0);
+
         res.json({
             status: 'success',
             data: { products: inventory, totalValue }
@@ -236,4 +224,3 @@ exports.getDashboard = async (req, res, next) => {
         next(error);
     }
 };
-

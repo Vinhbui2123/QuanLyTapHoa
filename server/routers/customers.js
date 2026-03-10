@@ -3,14 +3,27 @@ const router = express.Router();
 const customerController = require('../controllers/customerController');
 const { verifyToken } = require('../middlewares/auth');
 
-router.get('/:id/history', verifyToken, customerController.getPurchaseHistory);
-router.get('/:id/debt', verifyToken, customerController.getDebt);
+router.use(verifyToken);
 
-router.get('/', verifyToken, customerController.getAll);
-router.get('/:id', verifyToken, customerController.getById);
+// GET /api/customers - Lấy danh sách khách hàng
+router.get('/', customerController.getAll);
 
-router.post('/', verifyToken, customerController.create);
-router.put('/:id', verifyToken, customerController.update);
-router.delete('/:id', verifyToken, customerController.delete);
+// GET /api/customers/:id - Lấy chi tiết khách hàng
+router.get('/:id', customerController.getById);
 
-module.exports = router; 
+// POST /api/customers - Thêm khách hàng mới
+router.post('/', customerController.create);
+
+// PUT /api/customers/:id - Cập nhật thông tin khách hàng
+router.put('/:id', customerController.update);
+
+// DELETE /api/customers/:id - Xóa khách hàng
+router.delete('/:id', customerController.delete);
+
+// GET /api/customers/:id/history - Lịch sử mua hàng
+router.get('/:id/history', customerController.getPurchaseHistory);
+
+// GET /api/customers/:id/debt - Công nợ khách hàng
+router.get('/:id/debt', customerController.getDebt);
+
+module.exports = router;

@@ -1,7 +1,11 @@
 const jwt = require('jsonwebtoken');
 
+/**
+ * Middleware xác thực JWT token
+ */
 const verifyToken = (req, res, next) => {
     try {
+        // Lấy token từ header
         const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -13,8 +17,10 @@ const verifyToken = (req, res, next) => {
 
         const token = authHeader.split(' ')[1];
 
+        // Verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+        // Gắn thông tin user vào request
         req.user = decoded;
 
         next();
@@ -33,6 +39,9 @@ const verifyToken = (req, res, next) => {
     }
 };
 
+/**
+ * Middleware kiểm tra quyền admin
+ */
 const requireAdmin = (req, res, next) => {
     if (req.user.role !== 'admin') {
         return res.status(403).json({
@@ -43,6 +52,9 @@ const requireAdmin = (req, res, next) => {
     next();
 };
 
+/**
+ * Middleware kiểm tra quyền quản lý
+ */
 const requireManager = (req, res, next) => {
     const allowedRoles = ['admin', 'manager'];
     if (!allowedRoles.includes(req.user.role)) {
