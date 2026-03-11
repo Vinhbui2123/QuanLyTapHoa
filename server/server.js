@@ -64,14 +64,10 @@ app.use(errorHandler);
 // ============================================
 app.listen(PORT, () => {
     console.log(`
-╔════════════════════════════════════════════╗
-║     QUẢN LÝ TẠP HÓA - SERVER STARTED       ║
-╠════════════════════════════════════════════╣
-║  🚀 Server:  http://localhost:${PORT}           ║
-║  📡 API:     http://localhost:${PORT}/api       ║
-║  🏠 Client:  http://localhost:${PORT}           ║
-╚════════════════════════════════════════════╝
-  `);
+Server: http://localhost:${PORT}
+API: http://localhost:${PORT}/api
+Client: http://localhost:${PORT}
+`);
 });
 
 module.exports = app;
