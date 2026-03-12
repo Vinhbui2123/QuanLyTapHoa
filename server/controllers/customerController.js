@@ -42,13 +42,14 @@ exports.getById = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
     try {
-        const { name, phone, address, customerType = 'regular' } = req.body;
+        const { name, phone, address, customer_type } = req.body;
+        const customerType = customer_type ?? 'regular';
         if (!name) {
             return res.status(400).json({ status: 'error', message: 'Vui lòng nhập tên khách hàng' });
         }
         const result = await query(
             'INSERT INTO customers (name, phone, address, customer_type) VALUES (?, ?, ?, ?)',
-            [name, phone, address, customerType]
+            [name, phone ?? null, address ?? null, customerType]
         );
         res.status(201).json({ status: 'success', message: 'Thêm khách hàng thành công', data: { customerId: result.insertId } });
     } catch (error) {
@@ -58,7 +59,8 @@ exports.create = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        const { name, phone, address, customerType } = req.body;
+        const { name, phone, address, customerType, customer_type } = req.body;
+        const type = customerType ?? customer_type ?? null;
         await query(
             `UPDATE customers SET 
         name = COALESCE(?, name), 
@@ -66,7 +68,7 @@ exports.update = async (req, res, next) => {
         address = COALESCE(?, address),
         customer_type = COALESCE(?, customer_type)
        WHERE id = ?`,
-            [name, phone, address, customerType, req.params.id]
+            [name ?? null, phone ?? null, address ?? null, type, req.params.id]
         );
         res.json({ status: 'success', message: 'Cập nhật khách hàng thành công' });
     } catch (error) {
