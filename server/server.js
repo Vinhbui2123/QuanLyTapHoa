@@ -12,9 +12,9 @@ const errorHandler = require('./middlewares/errorHandle');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ============================================
+
 // MIDDLEWARE
-// ============================================
+
 
 // CORS - cho phép frontend gọi API
 const corsOptions = {
@@ -33,9 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files từ thư mục client
 app.use(express.static(path.join(__dirname, '../client')));
 
-// ============================================
 // ROUTES
-// ============================================
+
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -54,19 +53,14 @@ app.get('{*path}', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-// ============================================
 // ERROR HANDLING
-// ============================================
+
 app.use(errorHandler);
 
-// ============================================
-// START SERVER
-// ============================================
+
 app.listen(PORT, () => {
     console.log(`
 Server: http://localhost:${PORT}
-API: http://localhost:${PORT}/api
-Client: http://localhost:${PORT}
 `);
 });
 
