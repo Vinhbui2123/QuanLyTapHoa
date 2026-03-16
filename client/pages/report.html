@@ -117,6 +117,96 @@
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/app.js"></script>
+     <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!Auth.requireAuth()) return;
+
+            await Promise.all([
+                loadRevenueStats(),
+                loadTopProducts(),
+                loadSlowProducts()
+            ]);
+        });
+
+        async function loadRevenueStats() {
+            try {
+                // Today
+                const todayRes = await API.reports.getDashboard();
+                if (todayRes.status === 'success') {
+                    document.getElementById('todayRevenue').textContent = Utils.formatCurrency(todayRes.data.todayRevenue || 0);
+                }
+
+                // Week & Month - using revenue endpoint
+                const today = new Date();
+                const weekStart = new Date(today);
+                weekStart.setDate(weekStart.getDate() - 7);
+                const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+
+                const weekRes = await API.reports.getRevenue({
+                    startDate: weekStart.toISOString().split('T')[0],
+                    endDate: today.toISOString().split('T')[0]
+                });
+                if (weekRes.status === 'success' && Array.isArray(weekRes.data)) {
+                    const weekTotal = weekRes.data.reduce((sum, r) => sum + (parseFloat(r.revenue) || 0), 0);
+                    document.getElementById('weekRevenue').textContent = Utils.formatCurrency(weekTotal);
+                }
+
+                const monthRes = await API.reports.getRevenue({
+                    startDate: monthStart.toISOString().split('T')[0],
+                    endDate: today.toISOString().split('T')[0]
+                });
+                if (monthRes.status === 'success' && Array.isArray(monthRes.data)) {
+                    const monthTotal = monthRes.data.reduce((sum, r) => sum + (parseFloat(r.revenue) || 0), 0);
+                    document.getElementById('monthRevenue').textContent = Utils.formatCurrency(monthTotal);
+                }
+            } catch (error) {
+                console.error('Failed to load revenue stats:', error);
+            }
+        }
+
+        async function loadTopProducts() {
+            try {
+                const response = await API.reports.getTopProducts({ limit: 10 });
+                const tbody = document.getElementById('topProductsBody');
+
+                if (response.status === 'success' && response.data.length > 0) {
+                    tbody.innerHTML = response.data.map((p, i) => `
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td>${p.name}</td>
+                            <td class="text-right">${p.total_sold || 0}</td>
+                            <td class="text-right">${Utils.formatCurrency(p.total_revenue || 0)}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">Chưa có dữ liệu</td></tr>';
+                }
+            } catch (error) {
+                console.error('Failed to load top products:', error);
+            }
+        }
+
+        async function loadSlowProducts() {
+            try {
+                const response = await API.reports.getSlowProducts({ limit: 10 });
+                const tbody = document.getElementById('slowProductsBody');
+
+                if (response.status === 'success' && response.data.length > 0) {
+                    tbody.innerHTML = response.data.map(p => `
+                        <tr>
+                            <td>${p.name}</td>
+                            <td class="text-right">${p.stock_quantity || 0}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="2" class="text-center text-muted">Chưa có dữ liệu</td></tr>';
+                }
+            } catch (error) {
+                console.error('Failed to load slow products:', error);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
