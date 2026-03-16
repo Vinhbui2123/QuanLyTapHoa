@@ -115,7 +115,9 @@ const API = {
         return this.request(endpoint, { method: 'DELETE' });
     },
 
+    // ============================================
     // AUTH ENDPOINTS
+    // ============================================
     auth: {
         login: (username, password) => API.post('/auth/login', { username, password }),
         register: (data) => API.post('/auth/register', data),
@@ -123,7 +125,9 @@ const API = {
         changePassword: (data) => API.put('/auth/change-password', data)
     },
 
+    // ============================================
     // PRODUCTS ENDPOINTS
+    // ============================================
     products: {
         getAll: (params) => API.get('/products', params),
         getById: (id) => API.get(`/products/${id}`),
@@ -134,7 +138,9 @@ const API = {
         getExpiring: (days) => API.get('/products/alerts/expiring', { days })
     },
 
+    // ============================================
     // CATEGORIES ENDPOINTS
+    // ============================================
     categories: {
         getAll: () => API.get('/categories'),
         create: (data) => API.post('/categories', data),
@@ -142,17 +148,20 @@ const API = {
         delete: (id) => API.delete(`/categories/${id}`)
     },
 
-   
+    // ============================================
     // INVOICES ENDPOINTS
+    // ============================================
     invoices: {
         getAll: (params) => API.get('/invoices', params),
         getById: (id) => API.get(`/invoices/${id}`),
+        print: (id) => API.get(`/invoices/${id}/print`),
         create: (data) => API.post('/invoices', data),
         cancel: (id) => API.put(`/invoices/${id}/cancel`)
     },
 
-  
+    // ============================================
     // CUSTOMERS ENDPOINTS
+    // ============================================
     customers: {
         getAll: (params) => API.get('/customers', params),
         getById: (id) => API.get(`/customers/${id}`),
@@ -163,8 +172,9 @@ const API = {
         getDebt: (id) => API.get(`/customers/${id}/debt`)
     },
 
-  
+    // ============================================
     // SUPPLIERS ENDPOINTS
+    // ============================================
     suppliers: {
         getAll: (params) => API.get('/suppliers', params),
         getById: (id) => API.get(`/suppliers/${id}`),
@@ -173,8 +183,9 @@ const API = {
         delete: (id) => API.delete(`/suppliers/${id}`)
     },
 
-  
+    // ============================================
     // INVENTORY ENDPOINTS
+    // ============================================
     inventory: {
         getAll: () => API.get('/inventory'),
         import: (data) => API.post('/inventory/import', data),
@@ -184,8 +195,9 @@ const API = {
         getExpiring: (days) => API.get('/inventory/expiring', { days })
     },
 
-   
+    // ============================================
     // REPORTS ENDPOINTS
+    // ============================================
     reports: {
         getDashboard: () => API.get('/reports/dashboard'),
         getRevenue: (params) => API.get('/reports/revenue', params),

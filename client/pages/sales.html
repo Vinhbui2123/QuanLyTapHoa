@@ -8,53 +8,56 @@
     <title>Bán hàng | Quản Lý Tạp Hóa</title>
 
     <link rel="stylesheet" href="../css/sales.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="app-layout">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <span class="sidebar-logo">🏪</span>
-                <span class="sidebar-title">Quản Lý Tạp Hóa</span>
+                <span class="sidebar-logo icon icon-store" aria-hidden="true"></span>
+                <div>
+                    <span class="sidebar-title">Quản Lý Tạp Hóa</span>
+                </div>
             </div>
 
             <nav class="sidebar-nav">
                 <div class="nav-section-title">Menu chính</div>
                 <a href="dashboard.html" class="nav-item">
-                    <span class="nav-item-icon">📊</span>
+                    <span class="nav-item-icon icon icon-dashboard" aria-hidden="true"></span>
                     <span>Dashboard</span>
                 </a>
                 <a href="sales.html" class="nav-item active">
-                    <span class="nav-item-icon">🛒</span>
+                    <span class="nav-item-icon icon icon-sales" aria-hidden="true"></span>
                     <span>Bán hàng</span>
                 </a>
                 <a href="products.html" class="nav-item">
-                    <span class="nav-item-icon">📦</span>
+                    <span class="nav-item-icon icon icon-products" aria-hidden="true"></span>
                     <span>Sản phẩm</span>
                 </a>
                 <a href="invoices.html" class="nav-item">
-                    <span class="nav-item-icon">🧾</span>
+                    <span class="nav-item-icon icon icon-invoices" aria-hidden="true"></span>
                     <span>Hóa đơn</span>
                 </a>
 
                 <div class="nav-section-title">Quản lý</div>
                 <a href="inventory.html" class="nav-item">
-                    <span class="nav-item-icon">🏭</span>
+                    <span class="nav-item-icon icon icon-inventory" aria-hidden="true"></span>
                     <span>Kho hàng</span>
                 </a>
                 <a href="customers.html" class="nav-item">
-                    <span class="nav-item-icon">👥</span>
+                    <span class="nav-item-icon icon icon-customers" aria-hidden="true"></span>
                     <span>Khách hàng</span>
                 </a>
-                <a href="supplier.html" class="nav-item">
-                    <span class="nav-item-icon">🚚</span>
+                <a href="suppliers.html" class="nav-item">
+                    <span class="nav-item-icon icon icon-suppliers" aria-hidden="true"></span>
                     <span>Nhà cung cấp</span>
                 </a>
             </nav>
+
             <div class="sidebar-footer">
                 <a href="#" class="nav-item" id="logoutBtn">
-                    <span class="nav-item-icon"></span>
+                    <span class="nav-item-icon icon icon-logout" aria-hidden="true"></span>
                     <span>Đăng xuất</span>
                 </a>
             </div>
@@ -63,7 +66,8 @@
         <main class="main-content">
             <header class="main-header">
                 <div class="header-left">
-                    <button class="menu-toggle">☰</button>
+                    <button class="menu-toggle" aria-label="Mở menu"><span class="icon icon-menu"
+                            aria-hidden="true"></span></button>
                     <h1 class="header-title">Bán hàng</h1>
                 </div>
                 <div class="header-right">
@@ -78,83 +82,91 @@
                 <div class="pos-layout">
                     <div class="pos-products">
                         <div class="search-box mb-4">
-                            <span class="search-box-icon"></span>
-                            <input type="text" class="form-input" placeholder="Tìm sản phẩm hoặc quét mã vạch..." autofocus>
+                            <span class="search-box-icon icon icon-search" aria-hidden="true"></span>
+                            <input type="text" class="form-input" placeholder="Tìm sản phẩm hoặc quét mã vạch..."
+                                id="posSearch" autofocus>
                         </div>
 
-                        <div class="pos-products-grid" >
+                        <div class="pos-products-grid" id="posProductsGrid">
+                            <!-- Products will be loaded here -->
                             <div class="text-center text-muted p-6">
                                 Đang tải sản phẩm...
                             </div>
                         </div>
                     </div>
+
                     <div class="pos-cart">
                         <div class="pos-cart-header">
-                            <span>🛒 Giỏ hàng</span>
-                            <button class="btn btn-sm btn-outline" >Xóa tất cả</button>
+                            <span>Giỏ hàng</span>
+                            <button class="btn btn-sm btn-outline" id="clearCartBtn">Xóa tất cả</button>
                         </div>
 
-                        <div class="pos-cart-items" >
+                        <div class="pos-cart-items" id="cartItems">
                             <div class="empty-state">
-                                <div class="empty-state-icon">🛒</div>
+                                <div class="empty-state-icon"></div>
                                 <div class="empty-state-title">Giỏ hàng trống</div>
                                 <p class="text-muted text-sm">Chọn sản phẩm để thêm vào giỏ</p>
                             </div>
                         </div>
 
                         <div class="pos-cart-summary">
-                            <div class="pos-cart-total">
-                                <span>Tổng tiền:</span>
-                                <span >0 ₫</span>
+                            <div class="payment-overview">
+                                <div class="summary-chip">
+                                    <span>Tong tien</span>
+                                    <strong id="cartTotal">0 ₫</strong>
+                                </div>
+                                <div class="summary-chip">
+                                    <span>Tien thua</span>
+                                    <strong class="text-success" id="changeAmount">0 ₫</strong>
+                                </div>
                             </div>
 
-                            <div class="form-group mb-4">
-                                <label>Khách trả</label>
-                                <input type="number" class="form-input" 
-                                    placeholder="Nhập số tiền khách trả">
+                            <div class="form-group payment-field">
+                                <label>Khach tra</label>
+                                <input type="number" class="form-input" id="amountPaid"
+                                    placeholder="Nhap so tien khach tra">
                             </div>
 
-                            <div class="flex justify-between mb-4">
-                                <span>Tiền thừa:</span>
-                                <span class="font-bold text-success" >0 ₫</span>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <button class="btn btn-secondary" style="flex:1" >
-                                     Chuyển khoản
+                            <div class="payment-actions">
+                                <button class="btn btn-secondary" style="flex:1" id="payTransferBtn">
+                                    Chuyen khoan
                                 </button>
-                                <button class="btn btn-primary" style="flex:1" >
-                                     Tiền mặt
+                                <button class="btn btn-primary" style="flex:1" id="payCashBtn">
+                                    Tien mat
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
         </main>
     </div>
 
-    <div class="modal-overlay" >
+    <div class="modal-overlay" id="qrModal">
         <div class="modal" style="max-width: 400px; text-align: center;">
             <div class="modal-header">
-                <h3 class="modal-title">📱 Quét mã để thanh toán</h3>
+                <h3 class="modal-title">Quét mã để thanh toán</h3>
                 <button class="modal-close" onclick="closeQrModal()">&times;</button>
             </div>
             <div class="modal-body">
+                <div class="qr-container" style="background:#fff;padding:20px;border-radius:12px;">
+                    <img id="qrCodeImage" src="" alt="QR Code" style="width:100%;max-width:280px;border-radius:8px;">
+                </div>
                 <div style="margin-top:20px;">
-                    <p style="font-size:24px;font-weight:bold;color:#10b981;margin:0;">0 ₫</p>
+                    <p style="font-size:24px;font-weight:bold;color:#10b981;margin:0;" id="qrAmount">0 ₫</p>
                     <p class="text-muted" style="margin-top:8px;">Số tiền cần thanh toán</p>
                 </div>
-                <div style="background:#f0f9ff;padding:12px;border-radius:8px;margin-top:16px;">
+                <div class="qr-note">
                     <p style="margin:0;font-size:14px;color:#0369a1;">
-                        <strong> Hướng dẫn:</strong><br>
-                        Mở app ngân hàng → Quét mã QR → Xác nhận thanh toán
+                        <strong>Hướng dẫn:</strong><br>
+                        Mở app ngân hàng, quét mã QR rồi xác nhận thanh toán
                     </p>
                 </div>
             </div>
             <div class="modal-footer" style="flex-direction:column;gap:12px;">
                 <button class="btn btn-primary" style="width:100%;" onclick="confirmQrPayment()">
-                     Xác nhận đã thanh toán
+                    Xác nhận đã thanh toán
                 </button>
                 <button class="btn btn-secondary" style="width:100%;" onclick="closeQrModal()">
                     Hủy
@@ -162,19 +174,17 @@
             </div>
         </div>
     </div>
-    <script src="/js/api.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/app.js"></script>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/app.js"></script>
     <script>
-        // POS page logic
         let cart = [];
         let products = [];
-
-        // ⚙️ CẤU HÌNH SEPAY - Thay đổi thông tin ngân hàng của bạn tại đây
         const SEPAY_CONFIG = {
-            bankAccount: '0123456789',    // Số tài khoản ngân hàng
-            bankName: 'MB',               // Tên ngân hàng (MB, Vietcombank, Techcombank, etc.)
-            accountName: 'CUA HANG TAP HOA'  // Tên chủ tài khoản
+            bankAccount: '0123456789',
+            bankName: 'MB',
+            accountName: 'CUA HANG TAP HOA'
         };
 
         document.addEventListener('DOMContentLoaded', async () => {
@@ -208,7 +218,7 @@
             if (items.length === 0) {
                 grid.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-state-icon">📦</div>
+                        <div class="empty-state-icon"></div>
                         <div class="empty-state-title">Không tìm thấy sản phẩm</div>
                     </div>
                 `;
@@ -216,10 +226,12 @@
             }
 
             grid.innerHTML = items.map(p => `
-                <div class="pos-product-card" onclick="addToCart(${p.id})">
+                <div class="pos-product-card ${Number(p.stock_quantity) <= 0 ? 'is-disabled' : ''}" ${Number(p.stock_quantity) > 0 ? `onclick="addToCart(${p.id})"` : ''}>
                     <div class="pos-product-name">${p.name}</div>
                     <div class="pos-product-price">${Utils.formatCurrency(p.sale_price)}</div>
-                    <div class="text-xs text-muted">Còn ${p.stock_quantity}</div>
+                    <div class="text-xs ${Number(p.stock_quantity) <= 0 ? 'text-danger' : 'text-muted'}">
+                        ${Number(p.stock_quantity) <= 0 ? 'Hết hàng' : `Còn ${p.stock_quantity}`}
+                    </div>
                 </div>
             `).join('');
         }
@@ -236,6 +248,11 @@
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
+
+            if (Number(product.stock_quantity) <= 0) {
+                Utils.showToast('Sản phẩm đã hết hàng', 'warning');
+                return;
+            }
 
             const existingItem = cart.find(item => item.productId === productId);
 
@@ -282,7 +299,7 @@
             if (cart.length === 0) {
                 cartEl.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-state-icon">🛒</div>
+                        <div class="empty-state-icon"></div>
                         <div class="empty-state-title">Giỏ hàng trống</div>
                     </div>
                 `;
@@ -361,7 +378,7 @@
 
                 if (response.status === 'success') {
                     const change = amountPaid - total;
-                    Utils.showToast(`Thanh toán thành công! Tiền thừa: ${Utils.formatCurrency(Math.max(0, change))}`, 'success');
+                    Utils.showToast(`Thanh toán thành công. Tiền thừa: ${Utils.formatCurrency(Math.max(0, change))}`, 'success');
 
                     // Clear cart
                     cart = [];
@@ -377,7 +394,6 @@
             }
         }
 
-        // ========== QR PAYMENT FUNCTIONS ==========
         function generateQrUrl(amount) {
             const orderCode = 'DH' + Date.now().toString().slice(-8);
             const description = `Thanhtoan ${orderCode}`;
@@ -392,12 +408,10 @@
 
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-            // Generate QR URL
             const qrUrl = generateQrUrl(total);
             document.getElementById('qrCodeImage').src = qrUrl;
             document.getElementById('qrAmount').textContent = Utils.formatCurrency(total);
 
-            // Show modal
             document.getElementById('qrModal').classList.add('active');
         }
 
@@ -406,7 +420,6 @@
         }
 
         async function confirmQrPayment() {
-            // Xác nhận thanh toán chuyển khoản
             closeQrModal();
             await checkout('transfer');
         }
@@ -414,3 +427,4 @@
 </body>
 
 </html>
+

@@ -71,7 +71,39 @@ exports.create = async (req, res, next) => {
         const { customerId, items, paymentMethod = 'cash', amountPaid = 0, note } = req.body;
 
         if (!items || items.length === 0) {
+            await connection.rollback();
             return res.status(400).json({ status: 'error', message: 'Vui lòng thêm sản phẩm vào hóa đơn' });
+        }
+
+        const requestedByProduct = new Map();
+        for (const item of items) {
+            if (!item.productId || !item.quantity || item.quantity <= 0) {
+                await connection.rollback();
+                return res.status(400).json({ status: 'error', message: 'Số lượng sản phẩm không hợp lệ' });
+            }
+
+            const currentQty = requestedByProduct.get(item.productId) || 0;
+            requestedByProduct.set(item.productId, currentQty + Number(item.quantity));
+        }
+
+        for (const [productId, quantity] of requestedByProduct.entries()) {
+            const [rows] = await connection.execute(
+                'SELECT id, name, stock_quantity FROM products WHERE id = ? FOR UPDATE',
+                [productId]
+            );
+
+            if (rows.length === 0) {
+                await connection.rollback();
+                return res.status(404).json({ status: 'error', message: 'Không tìm thấy sản phẩm trong kho' });
+            }
+
+            if (Number(rows[0].stock_quantity) < quantity) {
+                await connection.rollback();
+                return res.status(400).json({
+                    status: 'error',
+                    message: `Sản phẩm "${rows[0].name}" không đủ tồn kho (còn ${rows[0].stock_quantity})`
+                });
+            }
         }
 
         // Tính tổng tiền

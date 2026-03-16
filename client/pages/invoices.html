@@ -1,249 +1,351 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hóa đơn | Quản Lý Tạp Hóa</title>
-    <link rel="stylesheet" href="../css/invoices.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="../css/invoices.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="app-layout">
-        <!-- Sidebar - giống dashboard.html -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <span class="sidebar-logo"></span>
-                <span class="sidebar-title">Quản Lý Tạp Hóa</span>
-            </div>
-            <nav class="sidebar-nav">
-                <div class="nav-section-title">Menu chính</div>
-                <a href="dashboard.html" class="nav-item"><span
-                        class="nav-item-icon"></span><span>Dashboard</span></a>
-                <a href="sales.html" class="nav-item"><span class="nav-item-icon"></span><span>Bán hàng</span></a>
-                <a href="products.html" class="nav-item"><span class="nav-item-icon"></span><span>Sản phẩm</span></a>
-                <a href="invoices.html" class="nav-item active"><span class="nav-item-icon"></span><span>Hóa
-                        đơn</span></a>
-                <div class="nav-section-title">Quản lý</div>
-                <a href="inventory.html" class="nav-item"><span class="nav-item-icon"></span><span>Kho hàng</span></a>
-                <a href="customers.html" class="nav-item"><span class="nav-item-icon"></span><span>Khách
-                        hàng</span></a>
-                <a href="supplier.html" class="nav-item"><span class="nav-item-icon"></span><span>Nhà cung
-                        cấp</span></a>
-            </nav>
-            <div class="sidebar-footer">
-                <a href="#" class="nav-item" id="logoutBtn"><span class="nav-item-icon"></span><span>Đăng
-                        xuất</span></a>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <header class="main-header">
-                <div class="header-left">
-                    <button class="menu-toggle">☰</button>
-                    <h1 class="header-title">Lịch sử hóa đơn</h1>
-                </div>
-                <div class="header-right">
-                    <div class="header-user">
-                        <div class="header-user-avatar">A</div>
-                        <span class="header-user-name">Admin</span>
-                    </div>
-                </div>
-            </header>
-
-            <div class="page-content">
-                <!-- Filters -->
-                <div class="card mb-4">
-                    <div class="flex gap-4 flex-wrap">
-                        <div class="form-group" style="margin:0">
-                            <label>Từ ngày</label>
-                            <input type="date" class="form-input" id="startDate">
-                        </div>
-                        <div class="form-group" style="margin:0">
-                            <label>Đến ngày</label>
-                            <input type="date" class="form-input" id="endDate">
-                        </div>
-                        <div class="form-group" style="margin:0; align-self:flex-end">
-                            <button class="btn btn-primary" id="filterBtn">Lọc</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Table -->
-                <div class="card">
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Mã HĐ</th>
-                                    <th>Thời gian</th>
-                                    <th>Nhân viên</th>
-                                    <th>Khách hàng</th>
-                                    <th>Thanh toán</th>
-                                    <th class="text-right">Tổng tiền</th>
-                                    <th class="text-center">Trạng thái</th>
-                                    <th class="text-center">Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="invoicesTableBody">
-                                <tr>
-                                    <td colspan="8" class="text-center text-muted p-6">Đang tải...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+      <aside class="sidebar">
+        <div class="sidebar-header">
+                <span class="sidebar-logo icon icon-store" aria-hidden="true"></span>
+                <div>
+                    <span class="sidebar-title">Quản Lý Tạp Hóa</span>
                 </div>
             </div>
-        </main>
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">Menu chính</div>
+          <a href="dashboard.html" class="nav-item"
+            ><span
+              class="nav-item-icon icon icon-dashboard"
+              aria-hidden="true"
+            ></span
+            ><span>Dashboard</span></a
+          >
+          <a href="sales.html" class="nav-item"
+            ><span
+              class="nav-item-icon icon icon-sales"
+              aria-hidden="true"
+            ></span
+            ><span>Bán hàng</span></a
+          >
+          <a href="products.html" class="nav-item"
+            ><span
+              class="nav-item-icon icon icon-products"
+              aria-hidden="true"
+            ></span
+            ><span>Sản phẩm</span></a
+          >
+          <a href="invoices.html" class="nav-item active"
+            ><span
+              class="nav-item-icon icon icon-invoices"
+              aria-hidden="true"
+            ></span
+            ><span>Hóa đơn</span></a
+          >
+          <div class="nav-section-title">Quản lý</div>
+          <a href="inventory.html" class="nav-item"
+            ><span
+              class="nav-item-icon icon icon-inventory"
+              aria-hidden="true"
+            ></span
+            ><span>Kho hàng</span></a
+          >
+          <a href="customers.html" class="nav-item"
+            ><span
+              class="nav-item-icon icon icon-customers"
+              aria-hidden="true"
+            ></span
+            ><span>Khách hàng</span></a
+          >
+          <a href="suppliers.html" class="nav-item"
+            ><span
+              class="nav-item-icon icon icon-suppliers"
+              aria-hidden="true"
+            ></span
+            ><span>Nhà cung cấp</span></a
+          >
+          <div class="nav-section-title">Báo cáo</div>
+          <a href="reports.html" class="nav-item"
+            ><span
+              class="nav-item-icon icon icon-reports"
+              aria-hidden="true"
+            ></span
+            ><span>Báo cáo</span></a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <a href="#" class="nav-item" id="logoutBtn"
+            ><span
+              class="nav-item-icon icon icon-logout"
+              aria-hidden="true"
+            ></span
+            ><span>Đăng xuất</span></a
+          >
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-left">
+            <button class="menu-toggle" aria-label="Mở menu">
+              <span class="icon icon-menu" aria-hidden="true"></span>
+            </button>
+            <h1 class="header-title">Lịch sử hóa đơn</h1>
+          </div>
+          <div class="header-right">
+            <div class="header-user">
+              <div class="header-user-avatar">A</div>
+              <span class="header-user-name">Admin</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <div class="card invoice-filters-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Bộ lọc hóa đơn</h2>
+              </div>
+            </div>
+
+            <div class="invoice-toolbar">
+              <div class="form-group">
+                <label for="startDate">Từ ngày</label>
+                <input type="date" class="form-input" id="startDate" />
+              </div>
+              <div class="form-group">
+                <label for="endDate">Đến ngày</label>
+                <input type="date" class="form-input" id="endDate" />
+              </div>
+              <div class="form-group">
+                <label for="invoiceSummary">Tổng quan</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="invoiceSummary"
+                  value="Đang tải..."
+                  readonly
+                />
+              </div>
+              <button class="btn btn-primary" id="filterBtn">
+                Lọc dữ liệu
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Danh sách hóa đơn</h2>
+            </div>
+
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Mã HĐ</th>
+                    <th>Thời gian</th>
+                    <th>Nhân viên</th>
+                    <th>Khách hàng</th>
+                    <th>Thanh toán</th>
+                    <th class="text-right">Tổng tiền</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th class="text-center">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="invoicesTableBody">
+                  <tr>
+                    <td colspan="8" class="text-center text-muted p-6">
+                      Đang tải dữ liệu...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-    <script src="/js/api.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/app.js"></script>
-     <script>
-        let invoices = [];
-a
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!Auth.requireAuth()) return;
 
-            // Set default dates (last 7 days)
-            const today = new Date();
-            const lastWeek = new Date(today);
-            lastWeek.setDate(lastWeek.getDate() - 7);
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/invoice-preview.js"></script>
+    <script>
+      let invoices = []
 
-            document.getElementById('endDate').value = today.toISOString().split('T')[0];
-            document.getElementById('startDate').value = lastWeek.toISOString().split('T')[0];
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!Auth.requireAuth()) return
 
-            loadInvoices();
-            document.getElementById('filterBtn').addEventListener('click', loadInvoices);
-        });
+        const today = new Date()
+        const lastWeek = new Date(today)
+        lastWeek.setDate(lastWeek.getDate() - 7)
 
-        async function loadInvoices() {
-            try {
-                const startDate = document.getElementById('startDate').value;
-                const endDate = document.getElementById('endDate').value;
+        document.getElementById("endDate").value = today
+          .toISOString()
+          .split("T")[0]
+        document.getElementById("startDate").value = lastWeek
+          .toISOString()
+          .split("T")[0]
 
-                const response = await API.invoices.getAll({ startDate, endDate });
-                if (response.status === 'success') {
-                    invoices = response.data;
-                    renderInvoices();
-                }
-            } catch (error) {
-                console.error('Failed to load invoices:', error);
-            }
+        document
+          .getElementById("filterBtn")
+          .addEventListener("click", loadInvoices)
+        loadInvoices()
+      })
+
+      async function loadInvoices() {
+        try {
+          const startDate = document.getElementById("startDate").value
+          const endDate = document.getElementById("endDate").value
+          const response = await API.invoices.getAll({ startDate, endDate })
+
+          if (response.status === "success") {
+            invoices = response.data
+            renderInvoices()
+            updateInvoiceSummary()
+          }
+        } catch (error) {
+          console.error("Failed to load invoices:", error)
+          Utils.showToast(
+            error.message || "Không thể tải danh sách hóa đơn",
+            "error",
+          )
+        }
+      }
+
+      function updateInvoiceSummary() {
+        const summaryInput = document.getElementById("invoiceSummary")
+        if (!summaryInput) return
+
+        if (invoices.length === 0) {
+          summaryInput.value = "Không có hóa đơn"
+          return
         }
 
-        function renderInvoices() {
-            const tbody = document.getElementById('invoicesTableBody');
-            if (invoices.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted p-6">Không có hóa đơn</td></tr>';
-                return;
-            }
+        const total = invoices.reduce(
+          (sum, invoice) => sum + Number(invoice.total_amount || 0),
+          0,
+        )
+        summaryInput.value = `${invoices.length} hóa đơn • ${Utils.formatCurrency(total)}`
+      }
 
-            tbody.innerHTML = invoices.map(inv => `
-              <tr>
-                    <td><strong>#${inv.id}</strong></td>
-                    <td>${formatDateTime(inv.created_at)}</td>
-                    <td>${inv.cashier_name || inv.user_name || '-'}</td>
-                    <td>${inv.customer_name || 'Khách lẻ'}</td>
-                    <td>${getPaymentMethodLabel(inv.payment_method)}</td>
-                    <td class="text-right font-semibold">${Utils.formatCurrency(inv.total_amount)}</td>
+      function renderInvoices() {
+        const tbody = document.getElementById("invoicesTableBody")
+
+        if (invoices.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="8" class="text-center text-muted p-6">Không có hóa đơn trong khoảng thời gian này</td></tr>'
+          return
+        }
+
+        tbody.innerHTML = invoices
+          .map(
+            (invoice) => `
+                <tr>
+                    <td><strong>#${invoice.id}</strong></td>
+                    <td>${formatDateTime(invoice.created_at)}</td>
+                    <td>${invoice.cashier_name || invoice.user_name || "-"}</td>
+                    <td>${invoice.customer_name || "Khách lẻ"}</td>
+                    <td>${InvoicePreview.getPaymentMethodLabel(invoice.payment_method)}</td>
+                    <td class="text-right font-semibold">${Utils.formatCurrency(invoice.total_amount)}</td>
                     <td class="text-center">
-                        <span class="badge badge-${inv.status === 'completed' ? 'success' : inv.status === 'cancelled' ? 'danger' : 'warning'}">
-                            ${getStatusLabel(inv.status)}
+                        <span class="badge badge-${invoice.status === "completed" ? "success" : invoice.status === "cancelled" ? "danger" : "warning"}">
+                            ${InvoicePreview.getStatusLabel(invoice.status)}
                         </span>
                     </td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-outline" onclick="viewInvoice(${inv.id})">Chi tiết</button>
-                        ${inv.status === 'completed' ? `<button class="btn btn-sm btn-danger" onclick="cancelInvoice(${inv.id})">Hủy</button>` : ''}
+                        <button class="btn btn-sm btn-outline" onclick="openInvoicePreview(${invoice.id})">Chi tiết</button>
+                        ${invoice.status === "completed" ? `<button class="btn btn-sm btn-danger" onclick="cancelInvoice(${invoice.id})">Hủy</button>` : ""}
                     </td>
                 </tr>
-            `).join('');
-        }
+            `,
+          )
+          .join("")
+      }
 
-        function formatDateTime(dateStr) {
-            const date = new Date(dateStr);
-            return date.toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-        }
+      function formatDateTime(dateValue) {
+        const date = new Date(dateValue)
+        return date.toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      }
 
-        function getPaymentMethodLabel(method) {
-            const labels = { cash: '💵 Tiền mặt', transfer: '💳 Chuyển khoản', momo: '📱 MoMo', zalopay: '📱 ZaloPay' };
-            return labels[method] || method;
-        }
+      async function openInvoicePreview(id) {
+        try {
+          const response = await API.invoices.print(id)
+          if (response.status !== "success") return
 
-        function getStatusLabel(status) {
-            const labels = { completed: 'Hoàn thành', cancelled: 'Đã hủy', pending: 'Chờ xử lý' };
-            return labels[status] || status;
-        }
+          const invoice = InvoicePreview.normalizeInvoicePreviewData(
+            response.data,
+          )
+          const previewHtml = InvoicePreview.buildInvoicePreviewHtml(invoice)
 
-        async function viewInvoice(id) {
-            try {
-                const response = await API.invoices.getById(id);
-                if (response.status === 'success') {
-                    const inv = response.data;
-                    const items = inv.items || [];
+          closeModal()
 
-                    const html = `
-                        <div class="modal-overlay active" id="invoiceModal">
-                            <div class="modal" style="max-width:500px">
-                                <div class="modal-header">
-                                    <h3 class="modal-title">🧾 Hóa đơn #${inv.id}</h3>
-                                    <button class="modal-close" onclick="closeModal()">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div style="margin-bottom:16px">
-                                        <p><strong>Thời gian:</strong> ${formatDateTime(inv.created_at)}</p>
-                                        <p><strong>Nhân viên:</strong> ${inv.cashier_name || inv.user_name || '-'}</p>
-                                        <p><strong>Thanh toán:</strong> ${getPaymentMethodLabel(inv.payment_method)}</p>
-                                    </div>
-                                    <table class="table">
-                                        <thead><tr><th>Sản phẩm</th><th class="text-center">SL</th><th class="text-right">Thành tiền</th></tr></thead>
-                                        <tbody>
-                                            ${items.map(item => `
-                                                <tr>
-                                                    <td>${item.product_name || 'SP #' + item.product_id}</td>
-                                                    <td class="text-center">${item.quantity}</td>
-                                                    <td class="text-right">${Utils.formatCurrency(item.subtotal)}</td>
-                                                </tr>
-                                            `).join('')}
-                                        </tbody>
-                                        <tfoot>
-                                            <tr><td colspan="2"><strong>Tổng cộng</strong></td><td class="text-right"><strong>${Utils.formatCurrency(inv.total_amount)}</strong></td></tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-secondary" onclick="closeModal()">Đóng</button>
-                                </div>
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `
+                    <div class="modal-overlay active" id="invoiceModal" onclick="handleInvoiceOverlayClick(event)">
+                        <div class="modal">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Chi tiet hoa don ${invoice.invoiceCode}</h3>
+                                <button class="modal-close" onclick="closeModal()">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                ${previewHtml}
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" onclick="closeModal()">Đóng</button>
                             </div>
                         </div>
-                    `;
-                    document.body.insertAdjacentHTML('beforeend', html);
-                }
-            } catch (error) {
-                Utils.showToast(error.message, 'error');
-            }
+                    </div>
+                `,
+          )
+        } catch (error) {
+          Utils.showToast(
+            error.message || "Khong the tai chi tiet hoa don",
+            "error",
+          )
+        }
+      }
+
+      function handleInvoiceOverlayClick(event) {
+        if (event.target && event.target.id === "invoiceModal") {
+          closeModal()
+        }
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("invoiceModal")
+        if (modal) modal.remove()
+      }
+
+      async function cancelInvoice(id) {
+        if (!confirm("Bạn có chắc muốn hủy hóa đơn này?")) {
+          return
         }
 
-        function closeModal() {
-            const modal = document.getElementById('invoiceModal');
-            if (modal) modal.remove();
+        try {
+          await API.invoices.cancel(id)
+          Utils.showToast("Hủy hóa đơn thành công", "success")
+          loadInvoices()
+        } catch (error) {
+          Utils.showToast(error.message || "Không thể hủy hóa đơn", "error")
         }
-
-        async function cancelInvoice(id) {
-            if (confirm('Bạn có chắc muốn hủy hóa đơn này?')) {
-                try {
-                    await API.invoices.cancel(id);
-                    Utils.showToast('Hủy hóa đơn thành công', 'success');
-                    loadInvoices();
-                } catch (error) {
-                    Utils.showToast(error.message, 'error');
-                }
-            }
-        }
+      }
     </script>
-
-
-</body>
-
+  </body>
 </html>
+

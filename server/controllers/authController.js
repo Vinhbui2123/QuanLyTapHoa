@@ -8,7 +8,8 @@ const { query } = require('../config/database');
 exports.register = async (req, res, next) => {
     try {
         const { username, password, fullName } = req.body;
-        const role = 'cashier'; 
+        const role = 'cashier'; // Luôn tạo tài khoản cashier, không nhận role từ client
+
         // Validate input
         if (!username || !password || !fullName) {
             return res.status(400).json({
