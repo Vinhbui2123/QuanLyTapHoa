@@ -26,7 +26,7 @@ exports.getAll = async (req, res, next) => {
             params.push(category);
         }
 
-        sql += ' ORDER BY p.name ASC LIMIT ? OFFSET ?';
+        sql += ' ORDER BY p.created_at DESC LIMIT ? OFFSET ?';
         params.push(parseInt(limit), parseInt(offset));
 
         const products = await query(sql, params);
@@ -75,7 +75,7 @@ exports.getById = async (req, res, next) => {
  */
 exports.create = async (req, res, next) => {
     try {
-        const { name, barcode, categoryId, costPrice, salePrice, unit, minStock = 10 } = req.body;
+        const { name, barcode, categoryId, costPrice, salePrice,unit, minStock = 10 } = req.body;
 
         if (!name || !salePrice) {
             return res.status(400).json({
