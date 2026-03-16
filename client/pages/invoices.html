@@ -100,6 +100,148 @@
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/app.js"></script>
+     <script>
+        let invoices = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!Auth.requireAuth()) return;
+
+            // Set default dates (last 7 days)
+            const today = new Date();
+            const lastWeek = new Date(today);
+            lastWeek.setDate(lastWeek.getDate() - 7);
+
+            document.getElementById('endDate').value = today.toISOString().split('T')[0];
+            document.getElementById('startDate').value = lastWeek.toISOString().split('T')[0];
+
+            loadInvoices();
+            document.getElementById('filterBtn').addEventListener('click', loadInvoices);
+        });
+
+        async function loadInvoices() {
+            try {
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+
+                const response = await API.invoices.getAll({ startDate, endDate });
+                if (response.status === 'success') {
+                    invoices = response.data;
+                    renderInvoices();
+                }
+            } catch (error) {
+                console.error('Failed to load invoices:', error);
+            }
+        }
+
+        function renderInvoices() {
+            const tbody = document.getElementById('invoicesTableBody');
+            if (invoices.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted p-6">Không có hóa đơn</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = invoices.map(inv => `
+              <tr>
+                    <td><strong>#${inv.id}</strong></td>
+                    <td>${formatDateTime(inv.created_at)}</td>
+                    <td>${inv.user_name || '-'}</td>
+                    <td>${inv.customer_name || 'Khách lẻ'}</td>
+                    <td>${getPaymentMethodLabel(inv.payment_method)}</td>
+                    <td class="text-right font-semibold">${Utils.formatCurrency(inv.total_amount)}</td>
+                    <td class="text-center">
+                        <span class="badge badge-${inv.status === 'completed' ? 'success' : inv.status === 'cancelled' ? 'danger' : 'warning'}">
+                            ${getStatusLabel(inv.status)}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline" onclick="viewInvoice(${inv.id})">Chi tiết</button>
+                        ${inv.status === 'completed' ? `<button class="btn btn-sm btn-danger" onclick="cancelInvoice(${inv.id})">Hủy</button>` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function formatDateTime(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getPaymentMethodLabel(method) {
+            const labels = { cash: '💵 Tiền mặt', transfer: '💳 Chuyển khoản', momo: '📱 MoMo', zalopay: '📱 ZaloPay' };
+            return labels[method] || method;
+        }
+
+        function getStatusLabel(status) {
+            const labels = { completed: 'Hoàn thành', cancelled: 'Đã hủy', pending: 'Chờ xử lý' };
+            return labels[status] || status;
+        }
+
+        async function viewInvoice(id) {
+            try {
+                const response = await API.invoices.getById(id);
+                if (response.status === 'success') {
+                    const inv = response.data;
+                    const items = inv.items || [];
+
+                    const html = `
+                        <div class="modal-overlay active" id="invoiceModal">
+                            <div class="modal" style="max-width:500px">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">🧾 Hóa đơn #${inv.id}</h3>
+                                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="margin-bottom:16px">
+                                        <p><strong>Thời gian:</strong> ${formatDateTime(inv.created_at)}</p>
+                                        <p><strong>Thanh toán:</strong> ${getPaymentMethodLabel(inv.payment_method)}</p>
+                                    </div>
+                                    <table class="table">
+                                        <thead><tr><th>Sản phẩm</th><th class="text-center">SL</th><th class="text-right">Thành tiền</th></tr></thead>
+                                        <tbody>
+                                            ${items.map(item => `
+                                                <tr>
+                                                    <td>${item.product_name || 'SP #' + item.product_id}</td>
+                                                    <td class="text-center">${item.quantity}</td>
+                                                    <td class="text-right">${Utils.formatCurrency(item.subtotal)}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr><td colspan="2"><strong>Tổng cộng</strong></td><td class="text-right"><strong>${Utils.formatCurrency(inv.total_amount)}</strong></td></tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" onclick="closeModal()">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    document.body.insertAdjacentHTML('beforeend', html);
+                }
+            } catch (error) {
+                Utils.showToast(error.message, 'error');
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('invoiceModal');
+            if (modal) modal.remove();
+        }
+
+        async function cancelInvoice(id) {
+            if (confirm('Bạn có chắc muốn hủy hóa đơn này?')) {
+                try {
+                    await API.invoices.cancel(id);
+                    Utils.showToast('Hủy hóa đơn thành công', 'success');
+                    loadInvoices();
+                } catch (error) {
+                    Utils.showToast(error.message, 'error');
+                }
+            }
+        }
+    </script>
+
 
 </body>
 

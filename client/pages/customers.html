@@ -82,6 +82,154 @@
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/app.js"></script>
+    <script>
+        let customers = [];
+        let editingId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!Auth.requireAuth()) return;
+            loadCustomers();
+
+            document.getElementById('addCustomerBtn').addEventListener('click', () => openModal());
+            document.getElementById('searchInput').addEventListener('input', debounce(loadCustomers, 300));
+        });
+
+        async function loadCustomers() {
+            try {
+                const search = document.getElementById('searchInput').value;
+                const response = await API.customers.getAll({ search });
+                if (response.status === 'success') {
+                    customers = response.data;
+                    renderCustomers();
+                }
+            } catch (error) {
+                console.error('Failed to load customers:', error);
+            }
+        }
+
+        function renderCustomers() {
+            const tbody = document.getElementById('customersTableBody');
+            if (customers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted p-6">Không có khách hàng</td></tr>';
+                return;
+            }
+            tbody.innerHTML = customers.map(c => `
+                <tr>
+                    <td><strong>${c.name}</strong></td>
+                    <td>${c.phone || '-'}</td>
+                    <td>${c.address || '-'}</td>
+                    <td><span class="badge badge-${c.customer_type === 'vip' ? 'success' : 'secondary'}">${getCustomerTypeLabel(c.customer_type)}</span></td>
+                    <td class="text-right">0 ₫</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline" onclick="editCustomer(${c.id})">Sửa</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCustomer(${c.id})">Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getCustomerTypeLabel(type) {
+            const labels = { regular: 'Thường', vip: 'VIP', wholesale: 'Sỉ', debt: 'Công nợ' };
+            return labels[type] || type;
+        }
+
+        function openModal(customer = null) {
+            editingId = customer ? customer.id : null;
+            const html = `
+                <div class="modal-overlay active" id="customerModal">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3 class="modal-title">${customer ? 'Sửa' : 'Thêm'} khách hàng</h3>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tên khách hàng *</label>
+                                <input type="text" class="form-input" id="customerName" value="${customer?.name || ''}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-input" id="customerPhone" value="${customer?.phone || ''}">
+                            </div>
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" class="form-input" id="customerAddress" value="${customer?.address || ''}">
+                            </div>
+                            <div class="form-group">
+                                <label>Loại khách hàng</label>
+                                <select class="form-select" id="customerType">
+                                    <option value="regular" ${customer?.customer_type === 'regular' ? 'selected' : ''}>Thường</option>
+                                    <option value="vip" ${customer?.customer_type === 'vip' ? 'selected' : ''}>VIP</option>
+                                    <option value="wholesale" ${customer?.customer_type === 'wholesale' ? 'selected' : ''}>Khách sỉ</option>
+                                    <option value="debt" ${customer?.customer_type === 'debt' ? 'selected' : ''}>Công nợ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+                            <button class="btn btn-primary" onclick="saveCustomer()">Lưu</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', html);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customerModal');
+            if (modal) modal.remove();
+            editingId = null;
+        }
+
+        async function saveCustomer() {
+            const data = {
+                name: document.getElementById('customerName').value,
+                phone: document.getElementById('customerPhone').value,
+                address: document.getElementById('customerAddress').value,
+                customerType: document.getElementById('customerType').value
+            };
+            if (!data.name) { Utils.showToast('Vui lòng nhập tên', 'warning'); return; }
+            try {
+                if (editingId) {
+                    await API.customers.update(editingId, data);
+                    Utils.showToast('Cập nhật thành công', 'success');
+                } else {
+                    await API.customers.create(data);
+                    Utils.showToast('Thêm thành công', 'success');
+                }
+                closeModal();
+                loadCustomers();
+            } catch (error) {
+                Utils.showToast(error.message, 'error');
+            }
+        }
+
+        async function editCustomer(id) {
+            const customer = customers.find(c => c.id === id);
+            if (customer) openModal(customer);
+        }
+
+        async function deleteCustomer(id) {
+            if (confirm('Bạn có chắc muốn xóa khách hàng này?')) {
+                try {
+                    await API.customers.delete(id);
+                    Utils.showToast('Xóa thành công', 'success');
+                    loadCustomers();
+                } catch (error) {
+                    Utils.showToast(error.message, 'error');
+                }
+            }
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+    </script>
 </body>
 
 </html>
