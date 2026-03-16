@@ -165,6 +165,252 @@
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/app.js"></script>
+    <script>
+        // POS page logic
+        let cart = [];
+        let products = [];
+
+        // ⚙️ CẤU HÌNH SEPAY - Thay đổi thông tin ngân hàng của bạn tại đây
+        const SEPAY_CONFIG = {
+            bankAccount: '0123456789',    // Số tài khoản ngân hàng
+            bankName: 'MB',               // Tên ngân hàng (MB, Vietcombank, Techcombank, etc.)
+            accountName: 'CUA HANG TAP HOA'  // Tên chủ tài khoản
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!Auth.requireAuth()) return;
+
+            await loadProducts();
+
+            // Event listeners
+            document.getElementById('posSearch').addEventListener('input', filterProducts);
+            document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+            document.getElementById('amountPaid').addEventListener('input', calculateChange);
+            document.getElementById('payCashBtn').addEventListener('click', () => checkout('cash'));
+            document.getElementById('payTransferBtn').addEventListener('click', openQrModal);
+        });
+
+        async function loadProducts() {
+            try {
+                const response = await API.products.getAll({ limit: 100 });
+                if (response.status === 'success') {
+                    products = response.data;
+                    renderProducts(products);
+                }
+            } catch (error) {
+                console.error('Failed to load products:', error);
+            }
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('posProductsGrid');
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <div class="empty-state-title">Không tìm thấy sản phẩm</div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = items.map(p => `
+                <div class="pos-product-card" onclick="addToCart(${p.id})">
+                    <div class="pos-product-name">${p.name}</div>
+                    <div class="pos-product-price">${Utils.formatCurrency(p.sale_price)}</div>
+                    <div class="text-xs text-muted">Còn ${p.stock_quantity}</div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            const search = document.getElementById('posSearch').value.toLowerCase();
+            const filtered = products.filter(p =>
+                p.name.toLowerCase().includes(search) ||
+                (p.barcode && p.barcode.includes(search))
+            );
+            renderProducts(filtered);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.productId === productId);
+
+            if (existingItem) {
+                if (existingItem.quantity < product.stock_quantity) {
+                    existingItem.quantity++;
+                } else {
+                    Utils.showToast('Không đủ hàng trong kho', 'warning');
+                    return;
+                }
+            } else {
+                cart.push({
+                    productId: product.id,
+                    name: product.name,
+                    price: product.sale_price,
+                    quantity: 1,
+                    maxQty: product.stock_quantity
+                });
+            }
+
+            renderCart();
+        }
+
+        function updateCartItemQty(productId, delta) {
+            const item = cart.find(i => i.productId === productId);
+            if (!item) return;
+
+            item.quantity += delta;
+
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.productId !== productId);
+            } else if (item.quantity > item.maxQty) {
+                item.quantity = item.maxQty;
+                Utils.showToast('Không đủ hàng trong kho', 'warning');
+            }
+
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartEl = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartEl.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🛒</div>
+                        <div class="empty-state-title">Giỏ hàng trống</div>
+                    </div>
+                `;
+                totalEl.textContent = '0 ₫';
+                return;
+            }
+
+            cartEl.innerHTML = cart.map(item => `
+                <div class="pos-cart-item">
+                    <div class="pos-cart-item-info">
+                        <div class="pos-cart-item-name">${item.name}</div>
+                        <div class="pos-cart-item-price">${Utils.formatCurrency(item.price)}</div>
+                    </div>
+                    <div class="pos-cart-item-qty">
+                        <button onclick="updateCartItemQty(${item.productId}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateCartItemQty(${item.productId}, 1)">+</button>
+                    </div>
+                    <div class="font-semibold">
+                        ${Utils.formatCurrency(item.price * item.quantity)}
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalEl.textContent = Utils.formatCurrency(total);
+
+            calculateChange();
+        }
+
+        function calculateChange() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const amountPaid = parseFloat(document.getElementById('amountPaid').value) || 0;
+            const change = amountPaid - total;
+
+            document.getElementById('changeAmount').textContent = Utils.formatCurrency(Math.max(0, change));
+        }
+
+        function clearCart() {
+            if (cart.length === 0) return;
+            if (Utils.confirmDialog('Xóa tất cả sản phẩm trong giỏ?')) {
+                cart = [];
+                renderCart();
+                document.getElementById('amountPaid').value = '';
+            }
+        }
+
+        async function checkout(paymentMethod) {
+            if (cart.length === 0) {
+                Utils.showToast('Giỏ hàng trống', 'warning');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const amountPaid = parseFloat(document.getElementById('amountPaid').value) || total;
+
+            if (paymentMethod === 'cash' && amountPaid < total) {
+                Utils.showToast('Số tiền khách trả chưa đủ', 'warning');
+                return;
+            }
+
+            try {
+                Utils.showLoading();
+
+                const response = await API.invoices.create({
+                    items: cart.map(item => ({
+                        productId: item.productId,
+                        quantity: item.quantity,
+                        price: item.price
+                    })),
+                    paymentMethod,
+                    amountPaid
+                });
+
+                Utils.hideLoading();
+
+                if (response.status === 'success') {
+                    const change = amountPaid - total;
+                    Utils.showToast(`Thanh toán thành công! Tiền thừa: ${Utils.formatCurrency(Math.max(0, change))}`, 'success');
+
+                    // Clear cart
+                    cart = [];
+                    renderCart();
+                    document.getElementById('amountPaid').value = '';
+
+                    // Reload products to update stock
+                    await loadProducts();
+                }
+            } catch (error) {
+                Utils.hideLoading();
+                Utils.showToast(error.message, 'error');
+            }
+        }
+
+        // ========== QR PAYMENT FUNCTIONS ==========
+        function generateQrUrl(amount) {
+            const orderCode = 'DH' + Date.now().toString().slice(-8);
+            const description = `Thanhtoan ${orderCode}`;
+            return `https://qr.sepay.vn/img?acc=${SEPAY_CONFIG.bankAccount}&bank=${SEPAY_CONFIG.bankName}&amount=${amount}&des=${encodeURIComponent(description)}`;
+        }
+
+        function openQrModal() {
+            if (cart.length === 0) {
+                Utils.showToast('Giỏ hàng trống', 'warning');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            // Generate QR URL
+            const qrUrl = generateQrUrl(total);
+            document.getElementById('qrCodeImage').src = qrUrl;
+            document.getElementById('qrAmount').textContent = Utils.formatCurrency(total);
+
+            // Show modal
+            document.getElementById('qrModal').classList.add('active');
+        }
+
+        function closeQrModal() {
+            document.getElementById('qrModal').classList.remove('active');
+        }
+
+        async function confirmQrPayment() {
+            // Xác nhận thanh toán chuyển khoản
+            closeQrModal();
+            await checkout('transfer');
+        }
+    </script>
 </body>
 
 </html>

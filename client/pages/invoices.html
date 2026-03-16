@@ -144,7 +144,7 @@
               <tr>
                     <td><strong>#${inv.id}</strong></td>
                     <td>${formatDateTime(inv.created_at)}</td>
-                    <td>${inv.user_name || '-'}</td>
+                    <td>${inv.cashier_name || inv.user_name || '-'}</td>
                     <td>${inv.customer_name || 'Khách lẻ'}</td>
                     <td>${getPaymentMethodLabel(inv.payment_method)}</td>
                     <td class="text-right font-semibold">${Utils.formatCurrency(inv.total_amount)}</td>
@@ -193,6 +193,7 @@
                                 <div class="modal-body">
                                     <div style="margin-bottom:16px">
                                         <p><strong>Thời gian:</strong> ${formatDateTime(inv.created_at)}</p>
+                                        <p><strong>Nhân viên:</strong> ${inv.cashier_name || inv.user_name || '-'}</p>
                                         <p><strong>Thanh toán:</strong> ${getPaymentMethodLabel(inv.payment_method)}</p>
                                     </div>
                                     <table class="table">
