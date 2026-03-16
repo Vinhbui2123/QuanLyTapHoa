@@ -33,7 +33,7 @@
                         cấp</span></a>
             </nav>
             <div class="sidebar-footer">
-                <a href="#" class="nav-item" ><span class="nav-item-icon"></span><span>Đăng xuất</span></a>
+                <a href="#" class="nav-item" id="logoutBtn" ><span class="nav-item-icon" ></span><span>Đăng xuất</span></a>
             </div>
         </aside>
 
@@ -44,7 +44,7 @@
                     <h1 class="header-title">Quản lý kho hàng</h1>
                 </div>
                 <div class="header-right">
-                    <button class="btn btn-primary" >+ Nhập kho</button>
+                    <button class="btn btn-primary" id="importBtn" >+ Nhập kho</button>
                 </div>
             </header>
 
@@ -56,14 +56,14 @@
                             <span class="stat-card-label">Hàng sắp hết</span>
                             <div class="stat-card-icon" style="background: rgba(245,158,11,0.1);"></div>
                         </div>
-                        <div class="stat-card-value">0</div>
+                        <div class="stat-card-value" id="lowStockCount" >0</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-card-header">
                             <span class="stat-card-label">Hàng sắp hết hạn (30 ngày)</span>
                             <div class="stat-card-icon" style="background: rgba(239,68,68,0.1);"></div>
                         </div>
-                        <div class="stat-card-value">0</div>
+                        <div class="stat-card-value" id="expiringCount">0</div>
                     </div>
                 </div>
 
@@ -96,6 +96,166 @@
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/app.js"></script>
+    <script>
+         let inventory = [];
+        let products = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!Auth.requireAuth()) return;
+            loadInventory();
+            loadProducts();
+            document.getElementById('importBtn').addEventListener('click', openImportModal);
+        });
+
+        async function loadInventory() {
+            try {
+                const response = await API.inventory.getAll();
+                if (response.status === 'success') {
+                    inventory = response.data;
+                    renderInventory();
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Failed to load inventory:', error);
+            }
+        }
+
+        async function loadProducts() {
+            try {
+                const response = await API.products.getAll();
+                if (response.status === 'success') {
+                    products = response.data;
+                }
+            } catch (error) {
+                console.error('Failed to load products:', error);
+            }
+        }
+
+        function renderInventory() {
+            const tbody = document.getElementById('inventoryTableBody');
+            if (inventory.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted p-6">Không có sản phẩm</td></tr>';
+                return;
+            }
+            tbody.innerHTML = inventory.map(i => `
+                <tr>
+                    <td><strong>${i.name}</strong>${i.barcode ? `<br><small class="text-muted">${i.barcode}</small>` : ''}</td>
+                    <td class="text-center">${i.stock_quantity} ${i.unit || ''}</td>
+                    <td class="text-center">${i.min_stock}</td>
+                    <td class="text-center">
+                        ${i.stock_quantity <= i.min_stock
+                    ? '<span class="badge badge-warning">⚠️ Sắp hết</span>'
+                    : '<span class="badge badge-success">✓ Còn hàng</span>'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateStats() {
+            const lowStock = inventory.filter(i => i.stock_quantity <= i.min_stock).length;
+            document.getElementById('lowStockCount').textContent = lowStock;
+            try {
+                const res = await API.reports.getDashboard();
+                if (res.status === 'success') {
+                    document.getElementById('expiringCount').textContent = res.data.expiringCount || 0;
+                }
+            } catch (e) {
+                document.getElementById('expiringCount').textContent = '0';
+            }
+        }
+
+        function openImportModal() {
+            const productOptions = products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+            const html = `
+                <div class="modal-overlay active" id="importModal">
+                    <div class="modal" style="max-width: 600px;">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Nhập kho</h3>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="importItems">
+                                <div class="import-item mb-3" style="display:flex;gap:12px;align-items:end;">
+                                    <div class="form-group" style="flex:2;margin:0">
+                                        <label>Sản phẩm</label>
+                                        <select class="form-select import-product">${productOptions}</select>
+                                    </div>
+                                    <div class="form-group" style="flex:1;margin:0">
+                                        <label>Số lượng</label>
+                                        <input type="number" class="form-input import-qty" min="1" value="1">
+                                    </div>
+                                    <button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">Xóa</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline btn-sm" onclick="addImportRow()">+ Thêm sản phẩm</button>
+                            <div class="form-group mt-4">
+                                <label>Ghi chú</label>
+                                <input type="text" class="form-input" id="importNote" placeholder="Ghi chú nhập kho">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+                            <button class="btn btn-primary" onclick="submitImport()">Nhập kho</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', html);
+        }
+
+        function addImportRow() {
+            const productOptions = products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+            const row = `
+                <div class="import-item mb-3" style="display:flex;gap:12px;align-items:end;">
+                    <div class="form-group" style="flex:2;margin:0">
+                        <label>Sản phẩm</label>
+                        <select class="form-select import-product">${productOptions}</select>
+                    </div>
+                    <div class="form-group" style="flex:1;margin:0">
+                        <label>Số lượng</label>
+                        <input type="number" class="form-input import-qty" min="1" value="1">
+                    </div>
+                    <button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">Xóa</button>
+                </div>
+            `;
+            document.getElementById('importItems').insertAdjacentHTML('beforeend', row);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('importModal');
+            if (modal) modal.remove();
+        }
+
+        async function submitImport() {
+            const items = [];
+            document.querySelectorAll('.import-item').forEach(el => {
+                const productId = parseInt(el.querySelector('.import-product').value);
+                const quantity = parseInt(el.querySelector('.import-qty').value);
+                if (productId && quantity > 0) {
+                    items.push({ productId, quantity });
+                }
+            });
+
+            if (items.length === 0) {
+                Utils.showToast('Vui lòng thêm sản phẩm', 'warning');
+                return;
+            }
+
+            try {
+                const response = await API.inventory.import({
+                    items,
+                    note: document.getElementById('importNote').value
+                });
+                if (response.status === 'success') {
+                    Utils.showToast('Nhập kho thành công', 'success');
+                    closeModal();
+                    loadInventory();
+                }
+            } catch (error) {
+                Utils.showToast(error.message, 'error');
+            }
+        }
+    </script>
 </body>
 
 </html>
