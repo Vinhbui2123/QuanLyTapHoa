@@ -332,10 +332,13 @@
 
         function calculateChange() {
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const amountPaid = parseFloat(document.getElementById('amountPaid').value) || 0;
+            const rawAmountPaid = document.getElementById('amountPaid').value.trim();
+            const amountPaid = rawAmountPaid === '' ? 0 : Number(rawAmountPaid);
             const change = amountPaid - total;
 
-            document.getElementById('changeAmount').textContent = Utils.formatCurrency(Math.max(0, change));
+            document.getElementById('changeAmount').textContent = Utils.formatCurrency(
+                Number.isFinite(change) ? Math.max(0, change) : 0
+            );
         }
 
         function clearCart() {
@@ -354,7 +357,23 @@
             }
 
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const amountPaid = parseFloat(document.getElementById('amountPaid').value) || total;
+            let amountPaid = total;
+
+            if (paymentMethod === 'cash') {
+                const rawAmountPaid = document.getElementById('amountPaid').value.trim();
+
+                if (rawAmountPaid === '') {
+                    Utils.showToast('Vui long nhap so tien khach tra', 'warning');
+                    return;
+                }
+
+                amountPaid = Number(rawAmountPaid);
+
+                if (!Number.isFinite(amountPaid) || amountPaid <= 0) {
+                    Utils.showToast('So tien khach tra phai lon hon 0', 'warning');
+                    return;
+                }
+            }
 
             if (paymentMethod === 'cash' && amountPaid < total) {
                 Utils.showToast('Số tiền khách trả chưa đủ', 'warning');

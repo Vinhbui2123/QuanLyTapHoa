@@ -1,5 +1,7 @@
 const { query, pool } = require('../config/database');
 
+const VALID_PAYMENT_METHODS = new Set(['cash', 'transfer', 'momo', 'zalopay']);
+
 exports.getAll = async (req, res, next) => {
     try {
         const { startDate, endDate, page = 1, limit = 20 } = req.query;
@@ -75,15 +77,35 @@ exports.create = async (req, res, next) => {
             return res.status(400).json({ status: 'error', message: 'Vui lòng thêm sản phẩm vào hóa đơn' });
         }
 
+        if (!VALID_PAYMENT_METHODS.has(paymentMethod)) {
+            await connection.rollback();
+            return res.status(400).json({ status: 'error', message: 'Phuong thuc thanh toan khong hop le' });
+        }
+
+        const normalizedItems = [];
         const requestedByProduct = new Map();
         for (const item of items) {
-            if (!item.productId || !item.quantity || item.quantity <= 0) {
+            const quantity = Number(item.quantity);
+            const price = Number(item.price);
+
+            if (!item.productId || !Number.isFinite(quantity) || quantity <= 0) {
                 await connection.rollback();
                 return res.status(400).json({ status: 'error', message: 'Số lượng sản phẩm không hợp lệ' });
             }
 
+            if (!Number.isFinite(price) || price < 0) {
+                await connection.rollback();
+                return res.status(400).json({ status: 'error', message: 'Gia san pham khong hop le' });
+            }
+
+            normalizedItems.push({
+                productId: item.productId,
+                quantity,
+                price
+            });
+
             const currentQty = requestedByProduct.get(item.productId) || 0;
-            requestedByProduct.set(item.productId, currentQty + Number(item.quantity));
+            requestedByProduct.set(item.productId, currentQty + quantity);
         }
 
         for (const [productId, quantity] of requestedByProduct.entries()) {
@@ -108,21 +130,36 @@ exports.create = async (req, res, next) => {
 
         // Tính tổng tiền
         let totalAmount = 0;
-        for (const item of items) {
+        for (const item of normalizedItems) {
             totalAmount += item.quantity * item.price;
         }
 
         // Tạo hóa đơn
+        let normalizedAmountPaid = totalAmount;
+        if (paymentMethod === 'cash') {
+            normalizedAmountPaid = Number(amountPaid);
+
+            if (!Number.isFinite(normalizedAmountPaid) || normalizedAmountPaid <= 0) {
+                await connection.rollback();
+                return res.status(400).json({ status: 'error', message: 'So tien khach tra phai lon hon 0' });
+            }
+
+            if (normalizedAmountPaid < totalAmount) {
+                await connection.rollback();
+                return res.status(400).json({ status: 'error', message: 'So tien khach tra chua du' });
+            }
+        }
+
         const [invoiceResult] = await connection.execute(
             `INSERT INTO invoices (customer_id, user_id, total_amount, amount_paid, payment_method, note)
        VALUES (?, ?, ?, ?, ?, ?)`,
-            [customerId || null, req.user.userId, totalAmount, amountPaid, paymentMethod, note || null]
+            [customerId || null, req.user.userId, totalAmount, normalizedAmountPaid, paymentMethod, note || null]
         );
 
         const invoiceId = invoiceResult.insertId;
 
         // Thêm chi tiết hóa đơn và trừ tồn kho theo FIFO
-        for (const item of items) {
+        for (const item of normalizedItems) {
             await connection.execute(
                 `INSERT INTO invoice_items (invoice_id, product_id, quantity, price, subtotal)
          VALUES (?, ?, ?, ?, ?)`,
@@ -148,7 +185,7 @@ exports.create = async (req, res, next) => {
         res.status(201).json({
             status: 'success',
             message: 'Tạo hóa đơn thành công',
-            data: { invoiceId, totalAmount, change: amountPaid - totalAmount }
+            data: { invoiceId, totalAmount, change: normalizedAmountPaid - totalAmount }
         });
     } catch (error) {
         await connection.rollback();
