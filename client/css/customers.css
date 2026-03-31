@@ -19,7 +19,7 @@
     --radius-sm: 12px;
     --radius-md: 18px;
     --radius-lg: 24px;
-    --sidebar-width: 272px;
+    --sidebar-width: 245px;
 }
 
 *,
@@ -29,7 +29,7 @@
 }
 
 html {
-    font-size: 16px;
+    font-size: 90%;
 }
 
 body {
@@ -40,6 +40,7 @@ body {
     background:
         radial-gradient(circle at top left, rgba(31, 76, 122, 0.08), transparent 24%),
         linear-gradient(180deg, #f8fafd 0%, var(--bg) 100%);
+    overflow-x: hidden;
 }
 
 a {
@@ -160,8 +161,8 @@ table {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    padding: 20px 28px;
+    gap: 14px;
+    padding: 14px 24px;
     background: rgba(248, 250, 253, 0.88);
     border-bottom: 1px solid rgba(18, 32, 51, 0.06);
     backdrop-filter: blur(10px);
@@ -177,13 +178,13 @@ table {
 
 .header-title {
     margin: 0;
-    font-size: 1.55rem;
+    font-size: 1.3rem;
     font-weight: 800;
     letter-spacing: -0.03em;
 }
 
 .header-user {
-    padding: 5px 6px 5px 5px;
+    padding: 4px 6px 4px 4px;
     border: 1px solid var(--border);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.7);
@@ -193,8 +194,8 @@ table {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--primary), var(--primary-strong));
     color: #fff;
@@ -203,7 +204,7 @@ table {
 
 .header-user-name {
     padding-right: 6px;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 700;
 }
 
@@ -211,8 +212,8 @@ table {
     display: none;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
     border: 1px solid var(--border);
     border-radius: 12px;
     background: #fff;

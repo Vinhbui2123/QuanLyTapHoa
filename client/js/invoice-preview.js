@@ -24,8 +24,8 @@
 
   function getPaymentMethodLabel(paymentMethod) {
     const labels = {
-      cash: "Tien mat",
-      transfer: "Chuyen khoan",
+      cash: "Tiền mặt",
+      transfer: "Chuyển khoản",
       momo: "MoMo",
       zalopay: "ZaloPay",
     }
@@ -35,9 +35,9 @@
 
   function getStatusLabel(status) {
     const labels = {
-      completed: "Hoan thanh",
-      cancelled: "Da huy",
-      pending: "Cho xu ly",
+      completed: "Hoàn thành",
+      cancelled: "Đã hủy",
+      pending: "Chờ xử lý",
     }
 
     return labels[status] || status || "-"
@@ -116,57 +116,40 @@
 
     return `
             <div class="invoice-preview-shell">
-                <div class="invoice-preview-hero">
-                    <div>
-                        <div class="preview-eyebrow">Chi tiet hoa don</div>
-                        <h3>${escapeHtml(invoice.storeName)}</h3>
-                        <p>Theo doi hoa don ban hang tren man hinh</p>
-                    </div>
-                    <div class="preview-status ${escapeHtml(invoice.status)}">${escapeHtml(invoice.statusLabel)}</div>
-                </div>
                 <div class="invoice-preview-meta">
                     <div class="preview-meta-card">
-                        <span class="preview-section-label">Ma hoa don</span>
+                        <span class="preview-section-label">Mã hóa đơn</span><br>
                         <strong>${escapeHtml(invoice.invoiceCode)}</strong>
                     </div>
                     <div class="preview-meta-card">
-                        <span class="preview-section-label">Thời gian</span>
+                        <span class="preview-section-label">Thời gian</span><br>
                         <strong>${escapeHtml(invoice.dateText)}</strong>
                     </div>
                     <div class="preview-meta-card">
-                        <span class="preview-section-label">Nhan vien</span>
+                        <span class="preview-section-label">Nhân viên</span><br>
                         <strong>${escapeHtml(invoice.cashier)}</strong>
                     </div>
                     <div class="preview-meta-card">
-                        <span class="preview-section-label">Thanh toan</span>
+                        <span class="preview-section-label">Thanh toán</span><br>
                         <strong>${escapeHtml(invoice.paymentMethodLabel)}</strong>
                     </div>
                 </div>
-                <div class="invoice-preview-grid">
+                <div class="">
                     <div class="preview-panel">
                         <div class="preview-panel-header">
-                            <span class="preview-section-label">Khach hang</span>
+                            <span class="preview-section-label">Khách hàng</span>
                         </div>
                         <div class="preview-contact-name">${escapeHtml(invoice.customer)}</div>
-                        <div class="preview-contact-meta">${escapeHtml(invoice.customerPhone || "Khong co so dien thoai")}</div>
                     </div>
-                    <div class="preview-panel">
-                        <div class="preview-panel-header">
-                            <span class="preview-section-label">Tong ket thanh toan</span>
-                        </div>
-                        <div class="preview-summary-row"><span>Tong tien</span><strong>${escapeHtml(invoice.totalAmountText)}</strong></div>
-                        <div class="preview-summary-row"><span>Khach dua</span><strong>${escapeHtml(invoice.amountPaidText)}</strong></div>
-                        <div class="preview-summary-row accent"><span>Tien thua</span><strong>${escapeHtml(invoice.changeText)}</strong></div>
-                    </div>
-                </div>
+                 </div>
                 <div class="preview-table-wrap">
                     <table class="table preview-table">
                         <thead>
                             <tr>
-                                <th>San pham</th>
+                                <th>Sản phẩm</th>
                                 <th class="text-center">SL</th>
-                                <th class="text-right">Don gia</th>
-                                <th class="text-right">Thanh tien</th>
+                                <th class="text-right">Đơn giá</th>
+                                <th class="text-right">Thành tiền</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -174,6 +157,14 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="preview-panel">
+                        <div class="preview-panel-header">
+                            <span class="preview-section-label">Tổng kết thanh toán</span>
+                        </div>
+                        <div class="preview-summary-row"><span>Tổng tiền </span><strong>${escapeHtml(invoice.totalAmountText)}</strong></div>
+                        <div class="preview-summary-row"><span>Khách đưa </span><strong>${escapeHtml(invoice.amountPaidText)}</strong></div>
+                        <div class="preview-summary-row accent"><span>Tiền thừa </span><strong>${escapeHtml(invoice.changeText)}</strong></div>
+                    </div>
                 ${noteBlock}
             </div>
         `
