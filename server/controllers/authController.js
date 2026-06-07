@@ -56,9 +56,11 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
     try {
         const { username, password } = req.body;
+        console.log(`[LOGIN TRY] Username: "${username}"`);
 
         // Validate input
         if (!username || !password) {
+            console.log(`[LOGIN FAILED] Missing username or password`);
             return res.status(400).json({
                 status: 'error',
                 message: 'Vui lòng nhập tên đăng nhập và mật khẩu'
@@ -70,8 +72,10 @@ exports.login = async (req, res, next) => {
             'SELECT * FROM users WHERE username = ? AND is_active = TRUE',
             [username]
         );
+        console.log(`[LOGIN DB Check] Users found: ${users.length}`);
 
         if (users.length === 0) {
+            console.log(`[LOGIN FAILED] User not found or inactive`);
             return res.status(401).json({
                 status: 'error',
                 message: 'Tên đăng nhập hoặc mật khẩu không đúng'
@@ -82,8 +86,10 @@ exports.login = async (req, res, next) => {
 
         // Check password
         const isValidPassword = await bcrypt.compare(password, user.password);
+        console.log(`[LOGIN PASSWORD Check] Is password valid: ${isValidPassword}`);
 
         if (!isValidPassword) {
+            console.log(`[LOGIN FAILED] Password mismatch`);
             return res.status(401).json({
                 status: 'error',
                 message: 'Tên đăng nhập hoặc mật khẩu không đúng'
@@ -101,6 +107,8 @@ exports.login = async (req, res, next) => {
             { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
         );
 
+        console.log(`[LOGIN SUCCESS] User: "${username}" logged in successfully`);
+
         res.json({
             status: 'success',
             message: 'Đăng nhập thành công',
@@ -115,6 +123,7 @@ exports.login = async (req, res, next) => {
             }
         });
     } catch (error) {
+        console.error('[LOGIN ERROR] Exception occurred:', error);
         next(error);
     }
 };
