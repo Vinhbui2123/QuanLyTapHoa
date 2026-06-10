@@ -16,13 +16,13 @@ async function reset() {
 
     const [result] = await connection.execute(
       'UPDATE users SET password = ? WHERE username = ?',
-      [hashedPassword, 'quang123']
+      [hashedPassword, 'admin']
     );
 
     if (result.affectedRows > 0) {
-      console.log(`\n>>> SUCCESS! Password for user "quang123" has been reset to "123456" <<<\n`);
+      console.log(`\n>>> SUCCESS! Password for user "admin" has been reset to "123456" <<<\n`);
     } else {
-      console.log('\nCould not find user "quang123" to reset password.\n');
+      console.log('\nCould not find user "admin" to reset password.\n');
     }
 
     await connection.end();
